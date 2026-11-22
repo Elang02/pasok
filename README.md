@@ -6,9 +6,11 @@ It was built for Agentic AI (SAP) 2026, Track A, intelligence supply chain. Team
 
 **Status:** finalist top-40. Demo Day 31 October 2026, 15 minutes, English.
 
-[![Demo Pasok: the console answering "what runs out this week?"](media/demo-preview.gif)](media/demo-day-2026.mp4)
+[![Demo Pasok: the console answering "what runs out this week?"](media/demo-preview.gif)](https://github.com/Elang02/pasok/blob/main/media/demo-day-2026.mp4)
 
-The clip above is the console answering "what runs out this week?" with 11 SKUs and IDR 193,071,250 in orders already placed. Click it for the full Demo Day recording (3 minutes 52 seconds, 28 MB, [media/demo-day-2026.mp4](media/demo-day-2026.mp4)).
+**▶ [Watch the full recording](https://github.com/Elang02/pasok/blob/main/media/demo-day-2026.mp4)** (3 minutes 52 seconds, 28 MB, opens the player on GitHub)
+
+The clip above is the console answering "what runs out this week?": 11 SKUs, IDR 193,071,250 already on order, none waiting for a person. Click it, or the link, for the whole Demo Day recording.
 
 ## The problem
 
