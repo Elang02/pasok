@@ -1,8 +1,8 @@
 # Pasok
 
 Autonomous reorder agent for Indonesian FMCG distributors. Four agents run one loop:
-perceive, forecast, decide, issue, learn. Orders are issued under guardrails that keep
-order variance close to demand variance, so the agent can plan for an event peak without
+perceive, forecast, decide, issue, learn. Orders go out under guardrails that keep order
+variance close to demand variance, so the agent can plan for an event peak without
 triggering the bullwhip effect.
 
 Agentic AI Hackathon 2026, Track A (Intelligence Supply Chain), SOKRATES / BINUS Alam
@@ -26,9 +26,9 @@ Click the poster for the Demo Day recording (3 minutes 52 seconds, 28 MB).
 Guardrails: forecasts smoothed before sizing, quantities dampened against the previous
 order, per-order cap. Event uplifts sit outside the damping but inside the shelf-life cap.
 
-## The Indonesian calendar, and what is deliberately not in it
+## The Indonesian calendar
 
-The Demand Agent plans against a real calendar, not an arithmetic guess. Ramadan,
+The Demand Agent plans against a real calendar instead of an arithmetic guess. Ramadan,
 Lebaran and Nyepi come from the national holiday decrees (SKB 3 Menteri); Imlek from
 the published lunar new year dates; THR is anchored to Lebaran because Permenaker 6/2016
 requires the bonus to be paid at least 7 days before it.
@@ -39,12 +39,11 @@ against the real 2024-02-10), and Ramadan missed 2025 by a day. A registry whose
 are wrong cannot claim the "dates drift yearly" property the proposal sells, so the drift
 is now a lookup against the official calendar.
 
-Western observances are excluded on purpose. Valentine's Day and St Patrick's Day do not
-move Indonesian general-trade volume, so modelling them would add registry rows that
-predict nothing. `src/demand/registry_catalog.py` records that exclusion next to the
-inclusions, so it reads as a decision rather than an oversight.
+Valentine's Day and St Patrick's Day are left out on purpose. They do not move Indonesian
+general-trade volume, so modelling them would add registry rows that predict nothing.
+`src/demand/registry_catalog.py` records that exclusion next to the inclusions.
 
-Verified from the generated data, not from the source:
+Checked against the generated data rather than the registry source:
 
 ```
 Ramadan  2023-03-23  2024-03-11  2025-03-01  2026-02-18
@@ -63,10 +62,10 @@ python -m venv .venv
 bash run_chain.sh                          # eleven programs, ends CHAIN OK
 ```
 
-`src/catalog/generate.py` writes `data/catalog/sales.csv` (~240 MB), which is why it is not in the
-repo; everything else the chain reads ships with it. The chain is deterministic and needs no accounts.
-It ends `CHAIN OK`, after the `VERIFICATION PASS` line each agent prints when its own arithmetic
-reconciles. Measured here: generation 1m29s, chain 49s.
+`src/catalog/generate.py` writes `data/catalog/sales.csv` (about 240 MB), so that file is
+not in the repo; everything else the chain reads ships with it. The chain is deterministic
+and needs no accounts. Each agent prints `VERIFICATION PASS` when its own arithmetic
+reconciles, and the run ends `CHAIN OK`. Measured here: generation 1m29s, chain 49s.
 
 Audit the build:
 
@@ -78,19 +77,20 @@ Audit the build:
 .venv/bin/python demo/deck/check_deck_numbers.py  # every figure the deck quotes, read back from the PPTX
 ```
 
-Two checks need artefacts this repo does not ship: `tools/figures_gate.py` reads the SAP scoring
-output (`data/sap/rpt_summary.json`) and `tools/target_measure.py` reads a replay set
-(`data/sim/replay2026_m/world/stock_daily.csv`). The hand-off audit, the test cases and the deck check run
-on what is here.
+Two checks need artefacts this repo does not ship: `tools/figures_gate.py` reads the SAP
+scoring output (`data/sap/rpt_summary.json`) and `tools/target_measure.py` reads a replay
+set (`data/sim/replay2026_m/world/stock_daily.csv`). The hand-off audit, the test cases and
+the deck check run on what is here.
 
-`check_deck_numbers.py` will report nine drifted claims, and that is expected: the deck was built for
-the 21 October Demo Day and quotes that snapshot (137 orders, IDR 7.71 bn), while `data/` here is the
-31 October snapshot produced by `bash run_chain.sh`. Re-running the chain does not reproduce the demo
-numbers because `src/catalog/generate.py` seeds history up to the day it runs.
+`check_deck_numbers.py` reports nine drifted claims. The deck was built for the 21 October
+Demo Day and quotes that snapshot (137 orders, IDR 7.71 bn), while `data/` here is the
+31 October snapshot that `bash run_chain.sh` produced. Re-running the chain will not
+reproduce the demo numbers, because `src/catalog/generate.py` seeds history up to the day
+it runs.
 
 ## Numbers
 
-The artefacts committed under `data/` are the 31 October 2026 snapshot, reproduced by the two commands
+The artefacts under `data/` are the 31 October 2026 snapshot, produced by the two commands
 above. Every figure below is read from the file named beside it.
 
 | Measure | Value | File |
@@ -107,8 +107,8 @@ above. Every figure below is read from the file named beside it.
 | Below reorder / expiry risk | 38 / 6 | `data/stock/position_summary.json` |
 | Lost sales over the replay | 880,472 units | `data/stock/position_summary.json` |
 
-The demo documents quote an earlier snapshot (11–21 October 2026); `docs/MODUL_PASOK.md` carries the
-21 October run, 139 order lines, IDR 13.42 bn auto-issued. Numbers move when the snapshot moves.
+The demo documents quote earlier snapshots from 11 to 21 October 2026. `docs/MODUL_PASOK.md`
+carries the 21 October run: 139 order lines, IDR 13.42 bn auto-issued.
 
 ## Run the console locally
 
@@ -117,9 +117,10 @@ The demo documents quote an earlier snapshot (11–21 October 2026); `docs/MODUL
 PASOK_WEB_PORT=8080 .venv/bin/python web/app.py
 ```
 
-Then open http://localhost:8080. It reads `data/` as `run_chain.sh` left it, so the pages show the
-snapshot that was just produced. Verified here: `/`, `/orders`, `/loop`, `/health`, `/suppliers`,
-`/transfers`, `/catalog` and `/panel` all return 200 on Python 3.8 with fastapi + uvicorn installed.
+Then open http://localhost:8080. The console reads `data/` as `run_chain.sh` left it, so
+the pages show the snapshot that was just produced. Checked here on Python 3.8 with fastapi
+and uvicorn installed: `/`, `/orders`, `/loop`, `/health`, `/suppliers`, `/transfers`,
+`/catalog` and `/panel` all return 200.
 
 ## Services
 
@@ -157,13 +158,14 @@ proposal_pasok_v2_canonical.txt   the submitted proposal, the source of truth
 
 ## What is not in this repo
 
-`.planning/` (the build diary), `sources/panitia_pdfs/` (organiser briefing PDFs), the raw video
-footage under `demo/video/` (the 3m52s demo edit ships as `media/demo-day-2026.mp4`),
-`data/catalog/sales.csv` and `data/stock/stock_daily.csv` (both regenerated by the two commands above).
+`.planning/` (the build diary), `sources/panitia_pdfs/` (organiser briefing PDFs), the raw
+video footage under `demo/video/` (the 3m52s demo edit ships as
+`media/demo-day-2026.mp4`), `data/catalog/sales.csv` and `data/stock/stock_daily.csv`
+(both regenerated by the two commands above).
 
 ## What is real and what is a stand-in
 
-Read `demo/evals.md` before quoting any number. In short:
+Read `demo/evals.md` before quoting any number.
 
 - Scoring and reasoning run on SAP AI Core: sap-rpt-1.6 batch predict for
   days-of-cover / stockout / expiry, gpt-5.4 for the rationales.
@@ -178,13 +180,12 @@ Read `demo/evals.md` before quoting any number. In short:
 
 ## Demo Day
 
-`demo/deck/Pasok_DemoDay_2026.pptx` is the 13-slide deck, built by
-the ppt-master project under `~/work/ppt-master/` and checked by
-`demo/deck/check_deck_numbers.py` (every figure against its artefact). `demo/script_en.md` is the timed
-15-minute script, every figure traced to `demo/figures.md`, which is rebuilt and checked
-row by row by `tools/figures_gate.py`. `demo/slides_outline.md` follows the deck slide for
-slide. `demo/one_pass.md` is the five-step trace for one rule-selected SKU, regenerated by
-`bash run_chain.sh`.
+`demo/deck/Pasok_DemoDay_2026.pptx` is the 13-slide deck. The ppt-master project under
+`~/work/ppt-master/` built it, and `demo/deck/check_deck_numbers.py` checks every figure
+against its artefact. `demo/script_en.md` is the timed 15-minute script, with every figure
+traced to `demo/figures.md`, which `tools/figures_gate.py` rebuilds and checks row by row.
+`demo/slides_outline.md` follows the deck slide for slide. `demo/one_pass.md` is the
+five-step trace for one rule-selected SKU, regenerated by `bash run_chain.sh`.
 
 ## Documents
 
