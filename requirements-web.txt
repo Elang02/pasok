@@ -1,0 +1,5 @@
+# The web console needs these on top of requirements.txt.
+fastapi
+uvicorn
+# The MCP and A2A servers use fastmcp, which needs Python 3.10 or newer.
+# fastmcp

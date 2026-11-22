@@ -74,6 +74,17 @@ Audit build:
 .venv/bin/python tools/target_measure.py         # lima target proposal, diukur per kelas ABC
 ```
 
+## Jalankan konsolnya
+
+```bash
+.venv/bin/pip install -r requirements-web.txt
+PASOK_WEB_PORT=8080 .venv/bin/python web/app.py
+```
+
+Buka http://localhost:8080. Konsol membaca `data/` apa adanya setelah `run_chain.sh`, jadi isinya
+snapshot yang baru dijalankan. Sudah dites di sini: `/`, `/orders`, `/loop`, `/health`, `/suppliers`,
+`/transfers`, `/catalog`, dan `/panel` semuanya 200 (Python 3.8, fastapi + uvicorn).
+
 ## Isi repo
 
 ```

@@ -111,6 +111,17 @@ above. Every figure below is read from the file named beside it.
 The demo documents quote an earlier snapshot (11–21 October 2026); `docs/MODUL_PASOK.md` carries the
 21 October run, 139 order lines, IDR 13.42 bn auto-issued. Numbers move when the snapshot moves.
 
+## Run the console locally
+
+```bash
+.venv/bin/pip install -r requirements-web.txt
+PASOK_WEB_PORT=8080 .venv/bin/python web/app.py
+```
+
+Then open http://localhost:8080. It reads `data/` as `run_chain.sh` left it, so the pages show the
+snapshot that was just produced. Verified here: `/`, `/orders`, `/loop`, `/health`, `/suppliers`,
+`/transfers`, `/catalog` and `/panel` all return 200 on Python 3.8 with fastapi + uvicorn installed.
+
 ## Services
 
 | Service | Unit | Port |
