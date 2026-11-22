@@ -6,7 +6,7 @@ The pages are checked by `ui_lang_gate.py`. This one checks what the agent SAYS,
 is a different surface: the six answers are built in `pasok_answers.py` and the panel's
 recommendations come from a model, so a page-level pass cannot see either.
 
-Contract: `docs/PLAIN_LANGUAGE.md`.
+Contract: no jargon in anything a buyer reads.
 
 Run
 ---

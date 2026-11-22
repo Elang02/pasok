@@ -22,7 +22,7 @@ shows the facts with that reason. It never invents an answer and never silently 
 to a template: the operator asked for the model's answer, so a template presented as one
 would be a lie.
 
-Contract for the wording: `docs/PLAIN_LANGUAGE.md`.
+Wording rule: no jargon in anything a buyer reads.
 
 Run
 ---

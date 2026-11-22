@@ -109,7 +109,7 @@ ENTITY = re.compile(r"&[a-zA-Z#0-9]+;")
 # what tells the two apart without having to parse JavaScript.
 SEMI_PROSE = re.compile(r";[ \t]+[A-Za-z]")
 
-# The buyer reads the page, not a developer. `docs/PLAIN_LANGUAGE.md` is the contract.
+# The buyer reads the page, not a developer. No jargon in anything a buyer reads:
 # These are the words a judge knows from the proposal and a buyer has to translate, so
 # they may appear as a figure label but never as the sentence.
 JARGON = {
@@ -163,7 +163,7 @@ def visible_text(path: Path) -> str:
         no_tags = re.sub(r"<!--.*?-->", " ", text, flags=re.S)
         # The provenance footer is a technical annotation, not buyer prose: it names the service
         # and the model behind a number, so it keeps exact field words (`escalated`,
-        # `auto-issued`) and the model id. `docs/PLAIN_LANGUAGE.md` governs the page, not the
+        # `auto-issued`) and the model id. The rule governs the page, not the
         # footnote that says which service answered.
         no_tags = re.sub(r"<footer[^>]*class=\"[^\"]*prov[^\"]*\"[^>]*>.*?</footer>", " ",
                          no_tags, flags=re.S)
@@ -260,7 +260,7 @@ def hits_in(body: str) -> dict[str, int]:
 
 
 def jargon_hits(body: str) -> dict:
-    """The words a buyer has to translate. `docs/PLAIN_LANGUAGE.md` says why."""
+    """The words a buyer has to translate, and why they are not allowed."""
     low = body.lower()
     for ok in JARGON_ALLOWED:
         low = low.replace(ok, " ")

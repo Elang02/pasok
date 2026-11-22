@@ -16,7 +16,7 @@
 | 9 | Deloitte "Resilient by design" (Mar 2026) | Agentic SC: eksekusi otonom end-to-end + ELEVATE human roles | Framing "supervised autonomy" kita sejalan dengan narasi industri global |
 | 10 | GEP/Accenture 2026 (early-warning procurement) | Risk sensing: sinyal eksternal (berita, cuaca, pasar) untuk deteksi dini | FUTURE WORK Supplier Reliability Agent v2 — keluar scope MVP, jangan dipromisakan |
 | 11 | ACM APIT 2026 (Thai SME) | LLM decision-support inventory SME; rekomendasi, bukan eksekusi | Pembeda utama kita: eksekusi + guardrail (sudah di proposal) |
-| 12 | InvAgent, Jannelli IJPR 2025, JD.com SCPA | Satu agen/node; protokol konsensus; agen pelapor | Sudah terpetakan di REVIEW_SUMMARY |
+| 12 | InvAgent, Jannelli IJPR 2025, JD.com SCPA | Satu agen/node; protokol konsensus; agen pelapor | Sudah terpetakan di proposal |
 
 ## Yang harus diantisipasi (checklist desain hasil bacaan)
 

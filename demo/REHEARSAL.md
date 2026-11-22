@@ -35,8 +35,7 @@ already show, and every number below is the number the page will show.
 - `demo/deck/Pasok_DemoDay_2026.pptx` (13 slides). Authored as SVG in the ppt-master
   project and exported to native PowerPoint; every page passed the ppt-master quality
   gate. `demo/deck/check_deck_numbers.py` reads the PPTX and compares each figure against
-  the artefacts, and `tools/figures_gate.py` guards the figures sheet it quotes. The
-  python-pptx scripts that built the previous design sit in `demo/deck/legacy/`.
+  the artefacts, and `tools/figures_gate.py` guards the figures sheet it quotes.
 - `demo/QA_BANK.md` (16 answers, each named to an artefact).
 - `shots/` (the offline fallback, re-taken against the v4 artefacts).
 

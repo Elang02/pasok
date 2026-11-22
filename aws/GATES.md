@@ -87,8 +87,7 @@ the only actor who can lift it is AWS. Same applies to `Endpoints per Agent`
 (`L-9B442722`, default 10) and `Versions per Agent` (`L-61A3A6D8`, default 1000).
 
 **Blocked, pending AWS.** It lifts with the same account authorization that Gate 1
-needs. The auto-retry loop (`agentcore/retry_deploy.sh`) is **stopped** on purpose, so
-it cannot create resources unattended. The AWS lane runs on Lambda instead.
+needs. No retry loop runs unattended on this account. The AWS lane runs on Lambda instead.
 
 ## Gate 3 - Bedrock Knowledge Base
 
@@ -108,7 +107,7 @@ Knowledge Base) is a wiring change, not a redesign.
 
 ## What the operator can do
 
-1. Open a support case from the console (draft at `aws/support_case.txt`) under
+1. Open a support case from the console under
    Account / Account Activation, Account Verification. This is the single input that
    clears Gates 1 and 2.
 2. Set a spend limit in the console (`settings.aws.com` -> Billing -> Upgrade -> Set
