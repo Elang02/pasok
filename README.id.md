@@ -113,6 +113,9 @@ Baca `demo/evals.md` sebelum mengutip angka. Ringkasnya:
   Dua berkas besar tidak ikut karena bisa dibangun ulang: `data/catalog/sales.csv` (240 MB) dan
   `data/stock/stock_daily.csv`, keduanya dihasilkan `src/catalog/generate.py` lalu `run_chain.sh`.
 - Rekaman video demo ada di `media/demo-day-2026.mp4`; berkas video mentah tidak ikut.
+- `demo/deck/check_deck_numbers.py` akan melaporkan sembilan angka bergeser, dan itu wajar: deck dibuat
+  untuk Demo Day 21 Oktober (137 order, Rp7,71 miliar), sedangkan `data/` di sini snapshot 31 Oktober.
+  `src/catalog/generate.py` menyemai riwayat sampai hari ia dijalankan, jadi angka demo tidak kembali.
 
 ## Dokumen
 

@@ -74,11 +74,20 @@ Audit the build:
 ```bash
 .venv/bin/python tools/integration_audit.py      # 11 hand-offs proven from artefacts
 .venv/bin/python tools/test_cases.py             # TC-1 stockout within a week, TC-2 spike within a month
-.venv/bin/python tools/proposal_conformance.py   # build vs REQUIREMENTS.md, live read from disk
-.venv/bin/python tools/figures_gate.py           # the 42 figures the demo quotes, vs the artefacts
-.venv/bin/python tools/target_measure.py         # the five proposal targets, measured per ABC class
+.venv/bin/python tools/proposal_conformance.py   # build vs the proposal, live read from disk
+.venv/bin/pip install python-pptx                # only for the deck check
 .venv/bin/python demo/deck/check_deck_numbers.py  # every figure the deck quotes, read back from the PPTX
 ```
+
+Two checks need artefacts this repo does not ship: `tools/figures_gate.py` reads the SAP scoring
+output (`data/sap/rpt_summary.json`) and `tools/target_measure.py` reads a replay set
+(`data/sim/replay2026_m/world/stock_daily.csv`). The hand-off audit, the test cases and the deck check run
+on what is here.
+
+`check_deck_numbers.py` will report nine drifted claims, and that is expected: the deck was built for
+the 21 October Demo Day and quotes that snapshot (137 orders, IDR 7.71 bn), while `data/` here is the
+31 October snapshot produced by `bash run_chain.sh`. Re-running the chain does not reproduce the demo
+numbers because `src/catalog/generate.py` seeds history up to the day it runs.
 
 ## Numbers
 
