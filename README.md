@@ -8,7 +8,7 @@ It was built for Agentic AI (SAP) 2026, Track A, intelligence supply chain. Team
 
 [![Demo Pasok: the console answering "what runs out this week?"](media/demo-poster.jpg)](media/demo-day-2026.mp4)
 
-Click the poster for the Demo Day recording (3 minutes 52 seconds, 28 MB).
+Click the poster for the Demo Day recording (3 minutes 52 seconds, 28 MB). The file itself is [media/demo-day-2026.mp4](media/demo-day-2026.mp4); GitHub opens it in a browser player.
 
 ## The problem
 
