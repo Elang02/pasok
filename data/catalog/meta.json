@@ -1,0 +1,21 @@
+{
+  "seed": 20261008,
+  "n_skus": 600,
+  "n_outlets": 120,
+  "n_days": 1379,
+  "sales_rows": 9898449,
+  "skus_per_outlet": 60,
+  "date_range": [
+    "2023-01-02",
+    "2026-10-11"
+  ],
+  "hashes": {
+    "catalog.csv": "866169c9237b8c1d",
+    "events.csv": "8d5c65436ecf26e3",
+    "outlets.csv": "22cbc42c277e6fe1",
+    "principals.csv": "d2c048acbfaa599b",
+    "receiving.csv": "afe7101522713314",
+    "sales.csv": "cf65b665d81c36b0",
+    "sku_city_demand.csv": "6a9db0b0cae18b68"
+  }
+}

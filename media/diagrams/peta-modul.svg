@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 400" width="680" height="400">
+<style>
+ .t{font-family:Georgia,serif;fill:#16211e}
+ .b{font-family:Lato,sans-serif;font-weight:700;fill:#16211e}
+ .lbl{font-family:Lato,sans-serif;font-weight:700;font-size:10.5px;letter-spacing:1.6px;fill:#b0742a}
+ .leaf{font-family:Georgia,serif;font-size:11.5px;fill:#1d2b27}
+ .cnt{font-family:Lato,sans-serif;font-size:10px;fill:#8a938e}
+</style>
+<rect x="0" y="0" width="680" height="400" fill="#fdfcf8"/>
+<line x1="163" y1="52" x2="163" y2="344" stroke="#dcd8cc" stroke-width="1"/>
+<line x1="517" y1="40" x2="517" y2="192" stroke="#dcd8cc" stroke-width="1"/>
+<line x1="517" y1="248" x2="517" y2="372" stroke="#dcd8cc" stroke-width="1"/>
+
+<text class="lbl" x="14" y="40">HITUNG</text><text class="cnt" x="86" y="40">6 fitur</text>
+<text class="lbl" x="528" y="26">PUTUSKAN</text><text class="cnt" x="606" y="26">3 fitur</text>
+<text class="lbl" x="528" y="236">TINDAK LANJUT</text><text class="cnt" x="636" y="236">3 fitur</text>
+
+<path d="M275 200 C220 200 205 69 155 69" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M275 200 C220 200 205 121 155 121" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M275 200 C220 200 205 173 155 173" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M275 200 C220 200 205 225 155 225" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M275 200 C220 200 205 277 155 277" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M275 200 C220 200 205 329 155 329" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M405 194 C460 194 470 57 523 57" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M405 198 C460 198 470 109 523 109" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M405 203 C460 203 470 161 523 161" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M405 210 C460 210 470 265 523 265" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M405 214 C460 214 470 317 523 317" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+<path d="M405 218 C460 218 470 369 523 369" fill="none" stroke="#9dc3b8" stroke-width="1.4"/>
+
+<rect x="10" y="52" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="18" y="73">Satu angka sellable</text>
+<rect x="10" y="104" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="18" y="125">Forecast dan ramp</text>
+<rect x="10" y="156" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="18" y="177">Kalender event</text>
+<rect x="10" y="208" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="18" y="229">Nilai supplier</text>
+<rect x="10" y="260" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="18" y="281">Jumlah order</text>
+<rect x="10" y="312" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="18" y="333">Tiga guardrail</text>
+
+<rect x="523" y="40" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="531" y="61">Action dan alasan</text>
+<rect x="523" y="92" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="531" y="113">Exception queue</text>
+<rect x="523" y="144" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="531" y="165">Kirim ke order</text>
+
+<rect x="523" y="248" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="531" y="269">Redirect cabang</text>
+<rect x="523" y="300" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="531" y="321">Learn dan one pass</text>
+<rect x="523" y="352" width="145" height="34" rx="6" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="leaf" x="531" y="373">Konsol tanya jawab</text>
+
+<rect x="275" y="172" width="130" height="56" rx="12" fill="#0e5f52"/>
+<text x="340" y="199" text-anchor="middle" style="font-family:Lato,sans-serif;font-weight:900;font-size:18px;fill:#fdfcf8;letter-spacing:1.2px">PASOK</text>
+<text x="340" y="216" text-anchor="middle" style="font-family:Georgia,serif;font-size:9.5px;fill:#c9e2da">12 fitur, 4 agent</text>
+</svg>

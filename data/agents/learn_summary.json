@@ -1,0 +1,52 @@
+{
+  "n_decisions": 137,
+  "score_distribution": {
+    "SUPPLY_SHORT": 78,
+    "ON_PLAN": 39,
+    "SUPPLY_AND_LEAD": 20
+  },
+  "share_on_plan": 0.2847,
+  "observed_fill_rate_mean": 0.9126,
+  "principals_below_fill_95": [
+    "P02",
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P09",
+    "P10",
+    "P11"
+  ],
+  "principals_with_lead_drift_gt_1d": [
+    "P10"
+  ],
+  "forecast_wape_best_median": 0.0852,
+  "forecast_wape_best_mean": 0.1038,
+  "demand_surprises_outside_2sd": 0,
+  "recent_window": "2026-10-11",
+  "note": "Order sizing is event-inflated by design, so accuracy is scored on realised supply and logistics plus the Demand Agent's held-out WAPE, never on a snapshot cover comparison.",
+  "learning_curve": {
+    "months": 46,
+    "readings": 823200,
+    "wape_min": 0.1237,
+    "wape_max": 0.7494,
+    "wape_mean": 0.3033,
+    "wape_first": 0.1237,
+    "wape_last": 0.4374,
+    "best_month": {
+      "month": "2023-01",
+      "skus": 600,
+      "readings": 13800,
+      "wape": 0.1237
+    },
+    "worst_month": {
+      "month": "2025-01",
+      "skus": 600,
+      "readings": 18600,
+      "wape": 0.7494
+    },
+    "artefact": "data/agents/learn_curve.csv",
+    "note": "Monthly WAPE of the loop's weekly seasonal-naive forecast read against realised sales, over the full 36-month walk. The spread is the seasonal discovery signal: the peak-demand months (Ramadan / Lebaran / year-end) carry the highest error, the quiet months the lowest."
+  }
+}

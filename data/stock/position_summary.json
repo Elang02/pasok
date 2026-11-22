@@ -1,0 +1,24 @@
+{
+  "n_skus": 600,
+  "n_days": 1379,
+  "snapshot_date": "2026-10-11",
+  "negative_on_hand_rows": 0,
+  "max_abs_recon_error": 2398.000000000029,
+  "below_reorder": 63,
+  "expiry_risk": 0,
+  "lost_sales_total": 10684437,
+  "sellable_composition": {
+    "on_hand_total": 5624563.0,
+    "in_transit_total": 731230.5,
+    "open_po_total": 4524558.5,
+    "sellable_total": 10880352.799999999,
+    "skus_with_open_po": 347,
+    "skus_with_in_transit": 104
+  },
+  "days_of_cover": {
+    "p10": 15.280000000000001,
+    "median": 30.95,
+    "p90": 42.5
+  },
+  "median_velocity": 408.945
+}

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 430" width="680" height="430">
+<style>
+ .bt{font-family:Lato,sans-serif;font-weight:700;font-size:12px;fill:#16211e}
+ .bs{font-family:Georgia,serif;font-size:9.8px;fill:#4d5a55}
+ .aw{stroke:#8fb3a8;stroke-width:1.4;fill:none}
+ .dash{stroke:#b0742a;stroke-width:1.2;fill:none;stroke-dasharray:4 3}
+</style>
+<rect width="680" height="430" fill="#fdfcf8"/>
+
+<rect x="150" y="34" width="170" height="74" rx="8" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="bt" x="164" y="56">Demand Agent</text>
+<text class="bs" x="164" y="74">forecast per SKU,</text>
+<text class="bs" x="164" y="88">rentang, deteksi anomali</text>
+
+<rect x="333" y="34" width="170" height="74" rx="8" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="bt" x="347" y="56">Stock Position</text>
+<text class="bs" x="347" y="74">sellable, days of cover,</text>
+<text class="bs" x="347" y="88">dua tanda bahaya</text>
+
+<rect x="516" y="34" width="154" height="74" rx="8" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="bt" x="528" y="56">Supplier</text>
+<text class="bs" x="528" y="74">lead p50 dan p90,</text>
+<text class="bs" x="528" y="88">fill rate, drift</text>
+
+<path class="aw" d="M235 108 C235 140 300 140 300 166" marker-end="url(#ar)"/>
+<path class="aw" d="M418 108 C418 140 380 140 380 166" marker-end="url(#ar)"/>
+<path class="aw" d="M593 108 C593 140 460 140 460 166" marker-end="url(#ar)"/>
+
+<rect x="250" y="168" width="180" height="66" rx="8" fill="#0e5f52"/>
+<text x="340" y="192" text-anchor="middle" style="font-family:Lato,sans-serif;font-weight:900;font-size:13px;fill:#fdfcf8">Decision Agent</text>
+<text x="340" y="209" text-anchor="middle" style="font-family:Georgia,serif;font-size:9.4px;fill:#c9e2da">action, jumlah, alasan</text>
+<text x="340" y="223" text-anchor="middle" style="font-family:Georgia,serif;font-size:9.4px;fill:#c9e2da">satu baris per SKU</text>
+
+<path class="aw" d="M340 234 L340 268" marker-end="url(#ar)"/>
+
+<rect x="238" y="270" width="204" height="56" rx="8" fill="#fbf4e8" stroke="#e2c9a4"/>
+<text x="340" y="291" text-anchor="middle" class="bt">Tiga guardrail</text>
+<text x="340" y="308" text-anchor="middle" class="bs">smoothing, damp, cap</text>
+
+<path class="aw" d="M300 326 C300 348 232 344 218 360" marker-end="url(#ar)"/>
+<path class="aw" d="M380 326 C380 348 448 344 462 360" marker-end="url(#ar)"/>
+
+<rect x="110" y="362" width="180" height="54" rx="8" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="bt" x="124" y="384">PO ke sistem order</text>
+<text class="bs" x="124" y="401">order yang lolos otomatis</text>
+
+<rect x="380" y="362" width="190" height="54" rx="8" fill="#f1f6f4" stroke="#cfe0da"/>
+<text class="bt" x="394" y="384">Antrean persetujuan</text>
+<text class="bs" x="394" y="401">18 baris menunggu manusia</text>
+
+<rect x="520" y="268" width="150" height="86" rx="8" fill="#fdfcf8" stroke="#b0742a" stroke-dasharray="4 3"/>
+<text class="bt" x="532" y="290">SAP AI Core</text>
+<text class="bs" x="532" y="308">RPT-1.6: score</text>
+<text class="bs" x="532" y="322">gpt-5.4: alasan</text>
+<text class="bs" x="532" y="336">dan jawaban konsol</text>
+
+<path class="dash" d="M430 201 C480 201 490 300 518 306"/>
+<path class="dash" d="M570 354 L570 360"/>
+
+<path class="dash" d="M110 389 C52 389 46 240 46 130 C46 90 96 72 148 72" marker-end="url(#ar2)"/>
+<text x="30" y="250" transform="rotate(-90 30 250)" style="font-family:Lato,sans-serif;font-size:9.5px;fill:#b0742a;letter-spacing:1.4px">LEARN</text>
+
+<defs>
+<marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#8fb3a8"/></marker>
+<marker id="ar2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#b0742a"/></marker>
+</defs>
+</svg>

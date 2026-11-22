@@ -1,0 +1,12 @@
+{
+  "excess_skus": 412,
+  "by_action": {
+    "TRANSFER": 412
+  },
+  "depots_used": 5,
+  "excess_value_at_risk_idr": 34607884420.0,
+  "value_protected_idr": 19085275501.0,
+  "transfers": 412,
+  "transfer_value_idr": 19085275501.0,
+  "min_excess_days_threshold": 5
+}

@@ -1,0 +1,56 @@
+{
+  "snapshot": "2026-10-11",
+  "skus_with_order": 137,
+  "auto_issued": 130,
+  "escalated": 7,
+  "auto_rate": 0.949,
+  "total_value_idr": 7707789750.0,
+  "auto_value_idr": 6009620150.0,
+  "escalated_value_idr": 1698169600.0,
+  "auto_limit_idr": 200000000,
+  "escalation_reason_breakdown": {
+    "above_limit": 5,
+    "over_credit": 0,
+    "below_moq": 2,
+    "supplier_switch": 0,
+    "candidate_event": 0,
+    "demand_shock": 0
+  },
+  "top_escalations": [
+    {
+      "po_id": "PO-0001",
+      "sku": "SKU0147",
+      "qty": 13132.1,
+      "value_idr": 499019800.0,
+      "reason": "value 499.0M > auto limit 200M"
+    },
+    {
+      "po_id": "PO-0002",
+      "sku": "SKU0157",
+      "qty": 12050.9,
+      "value_idr": 457934200.0,
+      "reason": "value 457.9M > auto limit 200M"
+    },
+    {
+      "po_id": "PO-0003",
+      "sku": "SKU0182",
+      "qty": 7495.0,
+      "value_idr": 284810000.0,
+      "reason": "value 284.8M > auto limit 200M"
+    },
+    {
+      "po_id": "PO-0004",
+      "sku": "SKU0181",
+      "qty": 6035.3,
+      "value_idr": 229341400.0,
+      "reason": "value 229.3M > auto limit 200M"
+    },
+    {
+      "po_id": "PO-0005",
+      "sku": "SKU0328",
+      "qty": 5832.8,
+      "value_idr": 221646400.0,
+      "reason": "value 221.6M > auto limit 200M"
+    }
+  ]
+}
