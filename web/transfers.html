@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pasok: depot transfers</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/pasok.css">
+<style>
+/* page-specific rules only. theme, masthead, controls: /pasok.css */
+/* container comes from pasok.css: one width, one gutter */
+.band { margin-top: var(--space-2xl); }
+
+.band h2 { margin: 0 0 var(--space-2xs); }
+
+.band .sub { max-width: var(--measure); color: var(--color-muted);
+             font: 400 var(--text-sm) / 1.6 var(--font-body); margin: 0 0 var(--space-md); }
+
+.lede { max-width: var(--measure); margin: var(--space-xl) 0 0;
+        font-size: var(--text-md); line-height: 1.55; color: var(--color-muted); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+         gap: var(--space-md) var(--space-lg); margin: 0; }
+
+.facts dt { font: 500 var(--text-xs) / 1.3 var(--font-ui); letter-spacing: 0.07em;
+            text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-2xs); }
+
+.facts dd { margin: 0; font: 500 var(--text-lg) / 1.2 var(--font-display);
+            font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+.facts dd small { display: block; font: 400 var(--text-sm) / 1.5 var(--font-body);
+                  color: var(--color-muted); letter-spacing: 0; margin-top: var(--space-2xs); }
+
+.tools { display: flex; flex-wrap: wrap; align-items: center;
+         gap: var(--space-xs) var(--space-sm); margin: 0 0 var(--space-md); }
+
+.tools .field { flex: 1 1 260px; }
+
+.scroller { overflow-x: auto; }
+
+.note { color: var(--color-muted); font: 400 var(--text-sm) / 1.6 var(--font-body);
+        margin: var(--space-sm) 0 0; }
+
+.share { display: block; height: 3px; margin-bottom: var(--space-2xs);
+         background: var(--color-rule-2); }
+
+.share i { display: block; height: 3px; background: var(--color-accent); }
+
+.why { color: var(--color-muted); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="issue"><!--SNAPSHOT--></p>
+  <h1 class="name">Pasok<i>.</i></h1>
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Console</a></li>
+      <li><a href="/orders">Orders</a></li>
+      <li><a href="/receiving">Receiving</a></li>
+      <li><a href="/health">Stock</a></li>
+      <li><a href="/transfers" aria-current="page">Transfers</a></li>
+      <li><a href="/suppliers">Suppliers</a></li>
+      <li><a href="/geography">Cities</a></li>
+      <li><a href="/catalog">Catalogue</a></li>
+      <li><a href="/loop">Loop</a></li>
+      <li><a href="/panel">Agent panel</a></li>
+    </ul>
+  </nav>
+  <hr class="double-rule">
+</header>
+
+<main class="sheet">
+
+  <!-- the reason this page exists, in the words a buyer uses -->
+  <p class="lede">Stock that has already been bought is the cheapest stock in the network. It only costs money where it sits and does not sell. A case that waits for demand in the central depot is a case a city depot sells in days. Moving it costs a truck. Buying the same goods again costs the full price and then waits for a delivery. So the loop moves the stock it already owns first, and places an order only when there is nothing left worth moving.</p>
+
+  <!-- ═══ what the move is worth ═══ -->
+  <section class="band">
+    <h2>What the move is worth</h2>
+    <p class="sub">Read from the transfer summary. The surplus is the stock the depots held above their target, and the value saved is the part of it that now has a buyer instead of a shelf.</p>
+    <dl class="facts" id="headline"></dl>
+    <p class="note" id="threshold"></p>
+  </section>
+
+  <!-- ═══ where the stock goes ═══ -->
+  <section class="band">
+    <h2>Where the stock goes</h2>
+    <p class="sub">One row per receiving depot, largest value first. The bar is that depot's share of the moved value.</p>
+    <div class="scroller"><table class="rec" id="destinations"></table></div>
+    <p class="note" id="destnote"></p>
+  </section>
+
+  <!-- ═══ every move ═══ -->
+  <section class="band">
+    <h2>Every move</h2>
+    <p class="sub">One row per transfer, largest value first, with the reason the loop moved it. Search a SKU or a depot and the page asks the network again.</p>
+    <div class="tools">
+      <input class="field" id="q" type="search" autocomplete="off" aria-label="Search the transfers"
+             placeholder="Search a SKU or a depot">
+    </div>
+    <div class="scroller"><table class="rec" id="ledger"></table></div>
+    <p class="note" id="ledgernote"></p>
+  </section>
+
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const get = async (url) => (await fetch(url)).json();
+
+const esc = (s) => String(s === null || s === undefined ? "" : s)
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const nf = (v) => Math.round(Number(v || 0)).toLocaleString("en-US");
+const idr = (v) => "IDR " + nf(v);
+const units = (v) => nf(v) + (Math.round(Number(v)) === 1 ? " unit" : " units");
+const things = (v, one, many) => nf(v) + " " + (Number(v) === 1 ? one : many);
+
+/* one decimal place, so 8.9 days stays 8.9 days */
+function dec(v) {
+  const n = Number(v);
+  return isFinite(n) ? (Math.round(n * 10) / 10).toFixed(1) : "";
+}
+
+function fact(k, v, n) {
+  return "<div><dt>" + esc(k) + "</dt><dd>" + v + "<small>" + esc(n || "") + "</small></dd></div>";
+}
+
+/* ---------- the reason the loop gives, in the buyer's words ---------- */
+/* The stored reason is a short code, for example
+   "excess 8.9d over target, Jakarta sells 1200.6 u/day, move 14541u to branch depot".
+   A reader never sees the shorthand, the dash it was written with, or a bare "u".
+   An unknown shape is still cleaned before it is shown. */
+function tidy(t) {
+  return String(t || "")
+    .replace(/[\u2014;]+/g, ",")
+    .replace(/\s*->\s*/g, " to ")
+    .replace(/([\d.]+)\s*u\/day/g, "$1 units a day")
+    .replace(/([\d.]+)\s*u\b/g, "$1 units")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function whyText(raw, qty) {
+  const parts = tidy(raw).split(",").map((t) => t.trim()).filter(Boolean);
+  const head = parts[0] || "";
+  const mid = parts[1] || "";
+  const tail = parts[2] || "";
+  const days = (head.match(/([\d.]+)\s*d(ays)?\b/) || [])[1];
+  const city = mid.split(" sells")[0].trim();
+  const per = (mid.match(/sells ([\d.]+)/) || [])[1];
+  const stored = (tail.match(/move ([\d.]+)/) || [])[1];
+  /* the stored reason rounds its own units, so the row's own count is the one
+     quoted here. Two numbers for one move would read as a mistake. */
+  const moved = (qty === undefined || qty === null || qty === "") ? stored : qty;
+  if (days && city && per && moved) {
+    return "This stock sat " + dec(days) + " days above the depot target. " + city +
+           " sells " + units(per) + " a day, and the loop moved " + units(moved) +
+           " to that depot.";
+  }
+  return parts.join(". ") + (parts.length ? "." : "The loop did not record a reason.");
+}
+
+/* ---------- the three headline figures ---------- */
+function headline(s) {
+  const out = [];
+  out.push(fact("Value saved by moving stock", idr(s.value_protected_idr),
+    "stock already bought that now has a buyer instead of a shelf"));
+  out.push(fact("Value of the surplus", idr(s.excess_value_at_risk_idr),
+    "stock held above the depot target, where it would not sell in time"));
+  out.push(fact("Moves made", nf(s.transfers),
+    "one truck each, and not one purchase order"));
+  $("headline").innerHTML = out.join("");
+
+  $("threshold").textContent = things(s.excess_skus, "SKU", "SKUs") +
+    " carried more stock than their depot target. The loop calls that surplus once the stock sits " +
+    things(s.min_excess_days_threshold, "day", "days") +
+    " or more above the target, and then it looks for a depot that sells the goods faster.";
+}
+
+/* ---------- where the stock goes, largest value first ---------- */
+function destinations(to) {
+  const rows = (to || []).slice().sort((a, b) => Number(b.value_idr) - Number(a.value_idr));
+  if (!rows.length) {
+    $("destinations").innerHTML = "";
+    $("destnote").textContent = "No transfer has been recorded yet.";
+    return;
+  }
+  const total = rows.reduce((sum, r) => sum + Number(r.value_idr), 0) || 1;
+  let h = "<thead><tr><th>City depot</th>" +
+          '<th class="num">Moves</th><th class="num">Value</th>' +
+          "<th>Share of the moved value</th></tr></thead><tbody>";
+  h += rows.map((r) => {
+    const share = (Number(r.value_idr) / total * 100).toFixed(1);
+    return "<tr>" +
+      "<td>" + esc(r.depot) + "</td>" +
+      '<td class="num">' + nf(r.moves) + "</td>" +
+      '<td class="num">' + idr(r.value_idr) + "</td>" +
+      '<td><span class="share"><i style="width:' + share + '%"></i></span>' +
+      '<span class="why">' + share + "% of everything moved arrives here.</span></td>" +
+      "</tr>";
+  }).join("");
+  h += "</tbody>";
+  $("destinations").innerHTML = h;
+
+  $("destnote").textContent = things(rows.length, "city depot received", "city depots received") +
+    " the stock, largest value first. Every move leaves the central depot.";
+}
+
+/* ---------- the ledger ---------- */
+const state = { q: "" };
+let totals = null;   /* the network totals, read once, so a search cannot move them */
+
+async function load() {
+  $("ledgernote").textContent = "Reading the transfers.";
+  const url = "/api/transfers?limit=60&q=" + encodeURIComponent(state.q);
+  const d = await get(url);
+  if (!totals) totals = await get("/api/transfers?limit=60&q=");
+  const s = totals.summary || {};
+  const rows = d.rows || [];
+
+  headline(s);
+  destinations(totals.to_depot);
+
+  let h = "<thead><tr><th>Transfer</th><th>SKU</th><th>From</th><th>To</th>" +
+          '<th class="num">Units</th><th class="num">Value</th><th>Why the loop moved it</th>' +
+          "</tr></thead><tbody>";
+  h += rows.map((r) => "<tr>" +
+    "<td>" + esc(r.transfer_id) + "</td>" +
+    "<td>" + esc(r.sku) + "</td>" +
+    "<td>" + esc(r.from_depot) + "</td>" +
+    "<td>" + esc(r.to_depot) + "</td>" +
+    '<td class="num">' + units(r.qty) + "</td>" +
+    '<td class="num">' + idr(r.value_idr) + "</td>" +
+    '<td class="why">' + esc(whyText(r.why, r.qty)) + "</td>" +
+    "</tr>").join("");
+  h += "</tbody>";
+  $("ledger").innerHTML = h;
+
+  let note;
+  if (!rows.length) {
+    note = state.q ? "No transfer matches that search." : "The transfer ledger is empty.";
+  } else {
+    note = "Largest value first. Showing " + nf(rows.length) + " of " +
+           things(d.count, "transfer", "transfers");
+    if (state.q) note += ' matching "' + state.q + '"';
+    note += ".";
+  }
+  $("ledgernote").textContent = note;
+}
+
+/* ---------- the search asks the network again ---------- */
+let typing = null;
+$("q").addEventListener("input", (e) => {
+  state.q = e.target.value.trim();
+  clearTimeout(typing);
+  typing = setTimeout(load, 250);
+});
+
+/* ---------- boot ---------- */
+load().catch(() => {
+  $("ledgernote").textContent = "The transfer ledger could not be read.";
+  $("destnote").textContent = "The receiving depots could not be read.";
+});
+</script>
+<!-- PROV:BEGIN -->
+<footer class="prov"><span class="prov-k">AWS</span> Lambda lane answers from the same redirect artefact<span class="prov-sep">·</span><span class="prov-k">SAP</span> the redirect decision carries its <code>gpt-5.4-2026-03-05</code> rationale like every other high-stakes action</footer>
+<!-- PROV:END -->
+</body>
+</html>

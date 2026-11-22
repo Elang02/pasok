@@ -1,0 +1,10 @@
+description: >-
+  This skill answers questions about the FMCG distributor's replenishment loop and the
+  purchase orders it produces. It reports how many orders were auto-issued versus escalated
+  to a human, the bullwhip amplification ratio, which SKUs are slipping under their coverage
+  floor or at stockout or expiry risk, why one SKU was reordered, held, redirected or
+  escalated, and where a purchase order ended up in the distributor's ordering system with
+  its reference, accepted units and promised delivery.
+target:
+  name: pasok_replenishment
+  type: function

@@ -1,0 +1,118 @@
+{
+  "replay": "replay2026_v29",
+  "window": "2026-01-01..2026-10-11",
+  "outcomes": {
+    "fill_A": {
+      "value": 0.9989,
+      "unit": "share of demand served",
+      "n_skus": 260
+    },
+    "stockout_A_per_month": {
+      "value": 3.6,
+      "unit": "SKU-months with demand lost, per month"
+    },
+    "inventory_A_idr": {
+      "value": 33667462665.0,
+      "unit": "average stock on hand, rupiah"
+    },
+    "fill_B": {
+      "value": 0.9887,
+      "unit": "share of demand served",
+      "n_skus": 188
+    },
+    "stockout_B_per_month": {
+      "value": 29.0,
+      "unit": "SKU-months with demand lost, per month"
+    },
+    "inventory_B_idr": {
+      "value": 3635032489.0,
+      "unit": "average stock on hand, rupiah"
+    },
+    "fill_C": {
+      "value": 0.9847,
+      "unit": "share of demand served",
+      "n_skus": 152
+    },
+    "stockout_C_per_month": {
+      "value": 27.4,
+      "unit": "SKU-months with demand lost, per month"
+    },
+    "inventory_C_idr": {
+      "value": 1154937676.0,
+      "unit": "average stock on hand, rupiah"
+    },
+    "expiry_units_per_month": {
+      "value": 6800.0,
+      "unit": "units, per month"
+    },
+    "expiry_idr_per_month": {
+      "value": 109949845.0,
+      "unit": "rupiah, per month"
+    },
+    "expiry_pct_of_cogs": {
+      "value": 0.0021,
+      "unit": "share of cost of goods sold"
+    },
+    "inventory_idr": {
+      "value": 38457432830.0,
+      "unit": "average, rupiah"
+    },
+    "dio_days": {
+      "value": 22.0,
+      "unit": "days of inventory"
+    }
+  },
+  "against_published": [
+    {
+      "metric": "fill_A",
+      "ours": 0.9989,
+      "unit": "share of demand served",
+      "benchmark": 0.92,
+      "benchmark_label": "retail shelf availability: about 8% of items out of stock on a store visit",
+      "benchmark_source": "Corsten & Gruen, out-of-stock rates; GMA 8.3% in physical stores",
+      "benchmark_url": "https://www.semanticscholar.org/paper/bad6469da2fd41a7d787d4b4b4b43b996f5eb68c",
+      "better_than_benchmark": true
+    },
+    {
+      "metric": "fill_B",
+      "ours": 0.9887,
+      "unit": "share of demand served",
+      "benchmark": 0.92,
+      "benchmark_label": "retail shelf availability: about 8% of items out of stock on a store visit",
+      "benchmark_source": "Corsten & Gruen, out-of-stock rates; GMA 8.3% in physical stores",
+      "benchmark_url": "https://www.semanticscholar.org/paper/bad6469da2fd41a7d787d4b4b4b43b996f5eb68c",
+      "better_than_benchmark": true
+    },
+    {
+      "metric": "fill_C",
+      "ours": 0.9847,
+      "unit": "share of demand served",
+      "benchmark": 0.92,
+      "benchmark_label": "retail shelf availability: about 8% of items out of stock on a store visit",
+      "benchmark_source": "Corsten & Gruen, out-of-stock rates; GMA 8.3% in physical stores",
+      "benchmark_url": "https://www.semanticscholar.org/paper/bad6469da2fd41a7d787d4b4b4b43b996f5eb68c",
+      "better_than_benchmark": true
+    },
+    {
+      "metric": "dio_days",
+      "ours": 22.0,
+      "unit": "days of inventory",
+      "benchmark": 56.67,
+      "benchmark_label": "PT Indofood CBP days of inventory, 2025 (43.73 in 2016)",
+      "benchmark_source": "Feranika dkk., Jurnal Manajemen Terapan dan Keuangan 15(3), 2026",
+      "benchmark_url": "https://online-journal.unja.ac.id/mankeu/article/view/60238",
+      "better_than_benchmark": true
+    },
+    {
+      "metric": "expiry_pct_of_cogs",
+      "ours": 0.0021,
+      "unit": "share of cost of goods sold",
+      "benchmark": 0.027,
+      "benchmark_label": "supermarket shrink, 2.70% of sales (range 1.76-3.10%)",
+      "benchmark_source": "National Supermarket Shrink Survey",
+      "benchmark_url": "http://wheresmyshrink.com/executivesummary.html",
+      "better_than_benchmark": true
+    }
+  ],
+  "note": "No manual-policy baseline is used: this repo has no record of the distributor's current practice, so a comparison against a replay we generated would measure the generator. Published benchmarks stand in for the outside world."
+}

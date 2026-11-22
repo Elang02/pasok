@@ -1,0 +1,179 @@
+{
+  "note": "one entry per supplier-term scenario; the middle one is the working assumption",
+  "scenarios": {
+    "dpo30": {
+      "sim": "data/sim/replay2026_v25",
+      "days": 284,
+      "terms": {
+        "dpo_days": 30,
+        "dso_days": 30
+      },
+      "assumptions": {
+        "storage": {
+          "rent_idr_per_m2_month": 81795,
+          "rent_source": "Greater Jakarta warehouse rent, Q2 2026, Cushman & Wakefield",
+          "rack_height_m": 6.0,
+          "implied_idr_per_m3_year": 163590,
+          "avg_occupied_m3": 2313
+        },
+        "handling_idr_per_unit": 12,
+        "damage_rate_per_year": 0.004,
+        "wacc": 0.12,
+        "order_cost_idr": 150000,
+        "margins_tested": [
+          0.08,
+          0.1,
+          0.12
+        ],
+        "margin_note": "gross margin is an assumption; the catalogue has cost, not price"
+      },
+      "working_capital": {
+        "avg_inventory_value_idr": 45985811678,
+        "cogs_idr": 498573023864,
+        "turns_per_year": 10.84,
+        "dio_days": 26.2,
+        "dso_days": 30,
+        "dpo_days": 30,
+        "ccc_days": 26.2,
+        "financed_days": 0.0,
+        "financed_value_idr": 0
+      },
+      "cost": {
+        "physical_carrying_idr": 1071910066,
+        "physical_detail_idr": {
+          "storage": 294423237,
+          "handling": 634363864,
+          "damage": 143122965
+        },
+        "financing_idr": 0,
+        "ordering_idr": 73800000,
+        "total_idr": 1145710066
+      },
+      "lost_demand": {
+        "units": 70066,
+        "at_cost_idr": 361523436,
+        "margin_lost_idr": {
+          "8pct": 28921875,
+          "10pct": 36152344,
+          "12pct": 43382812
+        }
+      }
+    },
+    "dpo45": {
+      "sim": "data/sim/replay2026_v25",
+      "days": 284,
+      "terms": {
+        "dpo_days": 45,
+        "dso_days": 30
+      },
+      "assumptions": {
+        "storage": {
+          "rent_idr_per_m2_month": 81795,
+          "rent_source": "Greater Jakarta warehouse rent, Q2 2026, Cushman & Wakefield",
+          "rack_height_m": 6.0,
+          "implied_idr_per_m3_year": 163590,
+          "avg_occupied_m3": 2313
+        },
+        "handling_idr_per_unit": 12,
+        "damage_rate_per_year": 0.004,
+        "wacc": 0.12,
+        "order_cost_idr": 150000,
+        "margins_tested": [
+          0.08,
+          0.1,
+          0.12
+        ],
+        "margin_note": "gross margin is an assumption; the catalogue has cost, not price"
+      },
+      "working_capital": {
+        "avg_inventory_value_idr": 45985811678,
+        "cogs_idr": 498573023864,
+        "turns_per_year": 10.84,
+        "dio_days": 26.2,
+        "dso_days": 30,
+        "dpo_days": 45,
+        "ccc_days": 11.2,
+        "financed_days": 0.0,
+        "financed_value_idr": 0
+      },
+      "cost": {
+        "physical_carrying_idr": 1071910066,
+        "physical_detail_idr": {
+          "storage": 294423237,
+          "handling": 634363864,
+          "damage": 143122965
+        },
+        "financing_idr": 0,
+        "ordering_idr": 73800000,
+        "total_idr": 1145710066
+      },
+      "lost_demand": {
+        "units": 70066,
+        "at_cost_idr": 361523436,
+        "margin_lost_idr": {
+          "8pct": 28921875,
+          "10pct": 36152344,
+          "12pct": 43382812
+        }
+      }
+    },
+    "dpo60": {
+      "sim": "data/sim/replay2026_v25",
+      "days": 284,
+      "terms": {
+        "dpo_days": 60,
+        "dso_days": 30
+      },
+      "assumptions": {
+        "storage": {
+          "rent_idr_per_m2_month": 81795,
+          "rent_source": "Greater Jakarta warehouse rent, Q2 2026, Cushman & Wakefield",
+          "rack_height_m": 6.0,
+          "implied_idr_per_m3_year": 163590,
+          "avg_occupied_m3": 2313
+        },
+        "handling_idr_per_unit": 12,
+        "damage_rate_per_year": 0.004,
+        "wacc": 0.12,
+        "order_cost_idr": 150000,
+        "margins_tested": [
+          0.08,
+          0.1,
+          0.12
+        ],
+        "margin_note": "gross margin is an assumption; the catalogue has cost, not price"
+      },
+      "working_capital": {
+        "avg_inventory_value_idr": 45985811678,
+        "cogs_idr": 498573023864,
+        "turns_per_year": 10.84,
+        "dio_days": 26.2,
+        "dso_days": 30,
+        "dpo_days": 60,
+        "ccc_days": -3.8,
+        "financed_days": 0.0,
+        "financed_value_idr": 0
+      },
+      "cost": {
+        "physical_carrying_idr": 1071910066,
+        "physical_detail_idr": {
+          "storage": 294423237,
+          "handling": 634363864,
+          "damage": 143122965
+        },
+        "financing_idr": 0,
+        "ordering_idr": 73800000,
+        "total_idr": 1145710066
+      },
+      "lost_demand": {
+        "units": 70066,
+        "at_cost_idr": 361523436,
+        "margin_lost_idr": {
+          "8pct": 28921875,
+          "10pct": 36152344,
+          "12pct": 43382812
+        }
+      }
+    }
+  }
+}

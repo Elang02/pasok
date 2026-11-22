@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pasok: order history</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/pasok.css">
+<style>
+/* page-specific rules only. theme, masthead, controls: /pasok.css */
+/* container comes from pasok.css: one width, one gutter */
+.band { margin-top: var(--space-2xl); }
+
+.band h2 { margin: 0 0 var(--space-2xs); }
+
+.band .sub { max-width: var(--measure); color: var(--color-muted);
+             font: 400 var(--text-sm) / 1.6 var(--font-body); margin: 0 0 var(--space-md); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+         gap: var(--space-md) var(--space-lg); margin: 0; }
+
+.facts dt { font: 500 var(--text-xs) / 1.3 var(--font-ui); letter-spacing: 0.07em;
+            text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-2xs); }
+
+.facts dd { margin: 0; font: 500 var(--text-lg) / 1.2 var(--font-display);
+            font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+.facts dd small { display: block; font: 400 var(--text-sm) / 1.5 var(--font-body);
+                  color: var(--color-muted); letter-spacing: 0; margin-top: var(--space-2xs); }
+
+.tools { display: flex; flex-wrap: wrap; align-items: center;
+         gap: var(--space-xs) var(--space-sm); margin: 0 0 var(--space-md); }
+
+.tools .field { flex: 1 1 260px; }
+
+.scroller { overflow-x: auto; }
+
+.note { color: var(--color-muted); font: 400 var(--text-sm) / 1.6 var(--font-body);
+        margin: var(--space-sm) 0 0; }
+
+.why { color: var(--color-muted); }
+
+/* an order that has not gone to the supplier is marked, not hidden */
+tr.is-waiting td { background: color-mix(in oklab, var(--color-warn) 8%, transparent); }
+
+tr.is-waiting td:first-child { box-shadow: inset 3px 0 0 var(--color-warn); }
+
+.chip { display: inline-block; padding: 1px 6px; border: var(--rule-hair) solid var(--color-warn);
+        color: var(--color-warn); font: 500 var(--text-xs) / 1.4 var(--font-ui); white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="issue"><!--SNAPSHOT--></p>
+  <h1 class="name">Pasok<i>.</i></h1>
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Console</a></li>
+      <li><a href="/orders" aria-current="page">Orders</a></li>
+      <li><a href="/receiving">Receiving</a></li>
+      <li><a href="/health">Stock</a></li>
+      <li><a href="/transfers">Transfers</a></li>
+      <li><a href="/suppliers">Suppliers</a></li>
+      <li><a href="/geography">Cities</a></li>
+      <li><a href="/catalog">Catalogue</a></li>
+      <li><a href="/loop">Loop</a></li>
+      <li><a href="/panel">Agent panel</a></li>
+    </ul>
+  </nav>
+  <hr class="double-rule">
+</header>
+
+<main class="sheet">
+
+  <!-- ═══ when the loop runs, and when it last ran ═══ -->
+  <section class="band">
+    <h2>When the loop runs</h2>
+    <p class="sub">Read from the run log the loop writes after every pass. No value on this page is typed by hand.</p>
+    <dl class="facts" id="schedule"></dl>
+  </section>
+
+  <!-- ═══ what the artefacts say right now ═══ -->
+  <section class="band">
+    <h2>This run, from the artefacts</h2>
+    <p class="sub">Read from the files the chain wrote, not from the log below. A log row is written when the
+      scheduled loop runs, so the newest row can be older than the state on disk.</p>
+    <dl class="facts" id="now"></dl>
+  </section>
+
+  <!-- ═══ the runs ═══ -->
+  <section class="band">
+    <h2>Every run in the log</h2>
+    <p class="sub">One row per run, newest first. A day with no row is a day the loop did not run. A row that says <em>Stopped with a problem</em> is kept rather than erased: it is the day the loop failed.</p>
+    <div class="scroller"><table class="rec" id="runs"></table></div>
+    <p class="note" id="runsnote"></p>
+  </section>
+
+  <!-- ═══ the buying record ═══ -->
+  <section class="band">
+    <h2>Every order, manual then by the agent</h2>
+    <p class="sub">One unbroken record. Up to 12 October 2026 the buying was the distributor's own, and from 15 October the agent places it. Each row says who placed the order, the day the supplier promised, the day it actually landed, and what the agent was thinking when it sized the order.</p>
+    <p class="sub">The agent half is a replay: the same code that runs today was run day by day from 1 January, so every one of its orders comes from one version of the loop, not a mix of yesterday's rules and today's. It covers 15 to 22 October. The pass that ran this morning is the block at the top of this page; the ledger below is the replay.</p>
+    <div class="tools">
+      <input class="field" id="q" type="search" autocomplete="off" aria-label="Search the orders"
+             placeholder="Search a SKU, an order number or a supplier">
+      <button class="btn" type="button" data-era="all" aria-pressed="true">Both</button>
+      <button class="btn" type="button" data-era="manual" aria-pressed="false">Manual</button>
+      <button class="btn" type="button" data-era="agent" aria-pressed="false">By the agent</button>
+    </div>
+    <div class="scroller"><table class="rec" id="orders"></table></div>
+    <p class="note" id="ordersnote"></p>
+    <dl class="facts" id="summary"></dl>
+  </section>
+
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const get = async (url) => (await fetch(url)).json();
+
+const MONTHS = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+
+const esc = (s) => String(s === null || s === undefined ? "" : s)
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const nf = (v) => Math.round(Number(v || 0)).toLocaleString("en-US");
+const idr = (v) => "IDR " + nf(v);
+const units = (v) => nf(v) + (Number(v) === 1 ? " unit" : " units");
+const secs = (v) => (Number(v) === 1 ? "1 second" : nf(v) + " seconds");
+const things = (v, one, many) => nf(v) + " " + (Number(v) === 1 ? one : many);
+
+/* 2026-10-18 becomes 18 October 2026 */
+function day(s) {
+  const p = String(s || "").slice(0, 10).split("-");
+  if (p.length !== 3 || p[0].length !== 4) return "not recorded";
+  return Number(p[2]) + " " + MONTHS[Number(p[1]) - 1] + " " + p[0];
+}
+
+/* 2026-10-18 10:40 becomes 10:40 WIB */
+function clock(s) {
+  const p = String(s || "").split(" ");
+  return p.length > 1 && p[1] ? p[1].slice(0, 5) + " WIB" : "not recorded";
+}
+
+function away(h) {
+  const n = Number(h);
+  if (!isFinite(n)) return "";
+  if (n < 1) return "less than an hour away";
+  if (n < 2) return "about an hour away";
+  return "in " + n + " hours";
+}
+
+function fact(k, v, n) {
+  return "<div><dt>" + esc(k) + "</dt><dd>" + v + "<small>" + esc(n || "") + "</small></dd></div>";
+}
+
+/* ---------- what the artefacts say right now ---------- */
+async function loadNow() {
+  const d = await get("/api/data");
+  const o = d.order_summary || {};
+  $("now").innerHTML = [
+    fact("Orders in this run", nf(o.skus_with_order || 0), "one line per SKU the loop decided to buy"),
+    fact("Placed without a person", nf(o.auto_issued || 0), "inside every gate"),
+    fact("Waiting for a person", nf(o.escalated || 0), "held for a reason the gates name"),
+    fact("Value placed", idr(o.total_value_idr || 0), "at landed cost"),
+  ].join("");
+}
+
+/* ---------- when the loop runs, and when it last ran ---------- */
+async function loadRuns() {
+  const d = await get("/api/runs");
+  const s = d.schedule || {};
+  const last = d.last || {};
+
+  const out = [];
+  out.push(fact("Runs", s.label || "not recorded", "On its own, on a timer. Nobody starts it."));
+  if (s.at) out.push(fact("Next run", day(s.at) + ", " + clock(s.at), away(s.in_hours)));
+  out.push(fact("Last run",
+    last.ran_at_wib ? day(last.ran_at_wib) + ", " + clock(last.ran_at_wib) : "never",
+    last.ran_at_wib
+      ? nf(last.orders_placed) + " orders placed, and the log records " + secs(last.seconds) + " for it"
+      : "The loop has not recorded a run yet"));
+  $("schedule").innerHTML = out.join("");
+
+  const rows = d.rows || [];
+  let h = '<thead><tr><th>Date</th><th>Time</th>' +
+          '<th class="num">Orders placed</th>' +
+          '<th class="num">Placed without a person</th>' +
+          '<th class="num">Waiting for a person</th>' +
+          '<th class="num">Value placed</th>' +
+          '<th class="num">Value waiting</th>' +
+          '<th>Run result</th></tr></thead><tbody>';
+  h += rows.map((r) => "<tr>" +
+    "<td>" + day(r.run_id) + "</td>" +
+    "<td>" + clock(r.ran_at_wib) + "</td>" +
+    '<td class="num">' + nf(r.orders_placed) + "</td>" +
+    '<td class="num">' + nf(r.placed_without_a_person) + "</td>" +
+    '<td class="num">' + nf(r.waiting_for_a_person) + "</td>" +
+    '<td class="num">' + idr(r.value_placed_idr) + "</td>" +
+    '<td class="num">' + idr(r.value_waiting_idr) + "</td>" +
+    "<td>" + (Number(r.chain_exit) === 0 ? "Finished" : "Stopped with a problem") + "</td>" +
+    "</tr>").join("");
+  h += "</tbody>";
+  $("runs").innerHTML = h;
+
+  const notes = [];
+  if (!rows.length) notes.push("The log holds no run yet. The loop has not written a row.");
+  if (rows.length === 1) notes.push("The log starts today. One run is recorded so far, and every day the loop runs adds a row.");
+  if (d.count > rows.length) notes.push("Showing the newest " + things(rows.length, "run", "runs") + " of " + nf(d.count) + ".");
+  $("runsnote").textContent = notes.join(" ");
+}
+
+/* ---------- the buying record, by hand then by the loop ---------- */
+const state = { era: "all", q: "" };
+
+/* The arrival day is only known once a delivery has landed, so an order still on its way
+   says that instead of leaving a blank the reader has to interpret. */
+function arrival(r) {
+  if (!r.arrived_date || String(r.landed) !== "true") {
+    const eta = r.arrived_date ? day(r.arrived_date) : null;
+    return '<span class="chip">On its way</span><br>' +
+           '<span class="why">' + (eta ? 'expected ' + eta : 'has not landed yet') + '</span>';
+  }
+  const gap = r.late_days > 0
+    ? things(r.late_days, "day", "days") + " after the promised day"
+    : "on the promised day";
+  return day(r.arrived_date) + '<br><span class="why">' + gap + '</span>';
+}
+
+async function loadOrders() {
+  $("ordersnote").textContent = "Reading the buying record.";
+  const url = "/api/order_history?limit=150&era=" + encodeURIComponent(state.era) +
+              "&q=" + encodeURIComponent(state.q);
+  const d = await get(url);
+  const rows = d.rows || [];
+
+  let h = "<thead><tr><th>Order</th><th>Placed on</th><th>By</th><th>SKU</th><th>Supplier</th>" +
+          '<th class="num">Units</th><th class="num">Value</th><th>Promised for</th>' +
+          "<th>Arrived on</th><th>Why it was placed</th></tr></thead><tbody>";
+  h += rows.map((r) => "<tr>" +
+    "<td>" + esc(r.order_id) + "</td>" +
+    "<td>" + day(r.date) + "</td>" +
+    "<td>" + esc(r.placed_by) + "</td>" +
+    "<td>" + esc(r.sku) + "</td>" +
+    "<td>" + esc(r.supplier) + "</td>" +
+    '<td class="num">' + units(r.qty) + "</td>" +
+    '<td class="num">' + idr(r.value_idr) + "</td>" +
+    "<td>" + day(r.promised_date) + "</td>" +
+    "<td>" + arrival(r) + "</td>" +
+    '<td class="why">' + esc(r.reason) + "</td>" +
+    "</tr>").join("");
+  h += "</tbody>";
+  $("orders").innerHTML = h;
+
+  const notes = [];
+  if (!rows.length) {
+    notes.push(state.q ? "No order matches that search." : "The record is empty.");
+  } else {
+    notes.push("Newest first. Showing " + nf(rows.length) + " of " +
+               things(d.count, "order", "orders") + ".");
+    if (state.q) notes.push('Matched on "' + state.q + '".');
+    const known = rows.filter((r) => r.arrived_date).length;
+    if (known < rows.length) {
+      notes.push("The arrival day is known for " + nf(known) + " of these, and the rest are " +
+                 "still on their way, so the page says that rather than guessing.");
+    }
+  }
+  $("ordersnote").textContent = notes.join(" ");
+
+  const e = d.eras || {};
+  const hand = e["manual"] || {};
+  const agent = e["by the agent"] || {};
+  const share = (x) => (x.late_share === null || x.late_share === undefined)
+    ? "not known yet" : x.late_share + "%";
+  const out = [];
+  if (hand.lines) {
+    out.push(fact("Placed manually", things(hand.lines, "order", "orders"),
+      "from " + day(hand.first) + " to " + day(hand.last) + ", worth " + idr(hand.value_idr) +
+      ", " + units(hand.units) + " in total."));
+    out.push(fact("Late arrivals, placed manually", share(hand),
+      things(hand.late, "order", "orders") + " of the " + nf(hand.landed) +
+      " that have landed came after the promised day, on average " +
+      things(hand.mean_late_days, "day", "days") + " late."));
+  }
+  if (agent.lines) {
+    out.push(fact("Placed by the agent", things(agent.lines, "order", "orders"),
+      "since " + day(agent.first) + ", worth " + idr(agent.value_idr) + ", " +
+      units(agent.units) + " in total."));
+    out.push(fact("Late arrivals, by the agent", share(agent),
+      things(agent.late, "order", "orders") + " of the " + nf(agent.landed) +
+      " that have landed so far. The record is young, so this number will move."));
+  }
+  $("summary").innerHTML = out.join("");
+}
+
+/* ---------- controls: the server does the filtering and the search ---------- */
+function setEra(which) {
+  state.era = which || "all";
+  document.querySelectorAll(".tools .btn").forEach((b) => {
+    b.setAttribute("aria-pressed", b.dataset.era === state.era ? "true" : "false");
+  });
+  loadOrders();
+}
+
+document.querySelectorAll(".tools .btn").forEach((b) => {
+  b.addEventListener("click", () => setEra(b.dataset.era));
+});
+
+let typing = null;
+$("q").addEventListener("input", (e) => {
+  state.q = e.target.value.trim();
+  clearTimeout(typing);
+  typing = setTimeout(loadOrders, 250);
+});
+
+/* ---------- boot ---------- */
+try {
+  loadNow();
+  loadRuns();
+  loadOrders();
+} catch (err) {
+  $("runsnote").textContent = "The run log could not be read.";
+  $("ordersnote").textContent = "The order ledger could not be read.";
+}
+</script>
+<!-- PROV:BEGIN -->
+<footer class="prov"><span class="prov-k">AWS</span> Lambda <code>{"action":"network"}</code> returns the same order summary the page shows<span class="prov-sep">·</span><span class="prov-k">SAP</span> SAP AI Core wrote the plain-language rationale on every escalated order (<code>data/sap/rationales.csv</code>, 40 of 40, no template fallback)</footer>
+<!-- PROV:END -->
+</body>
+</html>

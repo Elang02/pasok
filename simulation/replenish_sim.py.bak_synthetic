@@ -1,0 +1,144 @@
+#!/usr/bin/env python3
+"""ReplenishAgent working-MVP simulation: bullwhip guardrail A/B test.
+
+Scenario: one aggregated demand stream representing a fast-moving FMCG SKU
+portfolio at a Jakarta distributor. 250 trading days (+30 warmup), daily
+replenishment decisions.
+
+Policy A (unguarded reactive agent): tracks the latest observation with a
+high gain, extrapolates short-term trend into its order, and adds
+multiplicative decision jitter (the decision-policy instability that
+Long et al. 2605.17036 call the agent bullwhip effect).
+
+Policy B (same agent + ReplenishAgent guardrails):
+  1. forecast smoothing  - EWMA with a low gain before anything drives sizing
+  2. order damping       - order pulled back toward target against the
+                           previous order (anti-oscillation)
+  3. variance cap        - no order above k rolling std of smoothed demand
+
+Metric: variance amplification = Var(orders) / Var(demand) over the 250
+post-warmup days, plus service (fill rate, stockout days) under a simple
+inventory with the policy's own lead-time profile.
+
+Everything is seeded and deterministic. Run: python3 replenish_sim.py
+"""
+import json
+import numpy as np
+
+SEED = 20260905
+DAYS = 250
+WARMUP = 30
+TOTAL = DAYS + WARMUP
+
+# ---------------------------------------------------------------- demand ---
+def make_demand(rng):
+    """Retail-like demand: weekly seasonality, right-skewed noise, mild drift."""
+    t = np.arange(TOTAL)
+    seasonal = 1.0 + 0.12 * np.sin(2 * np.pi * t / 7.0)
+    # gamma noise: right-skewed like retail baskets (mean ~ 1)
+    noise = rng.gamma(shape=4.0, scale=0.25, size=TOTAL)
+    drift = np.linspace(1.0, 1.08, TOTAL)          # slow category growth
+    d = 100.0 * seasonal * noise / noise.mean() * drift
+    return d
+
+# ------------------------------------------------------------- policies ---
+def policy_unguarded(demand, rng, gain=0.85, trend_w=0.35, jitter=0.35):
+    """Reactive agent: overweights the latest obs, chases trend, jittery."""
+    n = len(demand)
+    mu_fast = demand[0]
+    mu_slow = demand[:7].mean()
+    orders = np.zeros(n)
+    for t in range(1, n):
+        mu_fast = gain * demand[t - 1] + (1 - gain) * mu_fast
+        mu_slow = 0.9 * mu_slow + 0.1 * demand[t - 1]
+        trend = (demand[t - 1] - mu_slow) / max(mu_slow, 1e-9)
+        target = mu_fast * (1 + trend_w * trend)
+        target = max(target, 0.0)
+        jitter_mult = rng.lognormal(mean=0.0, sigma=jitter)
+        orders[t] = target * jitter_mult
+    return orders
+
+def policy_guarded(demand, rng, alpha=0.15, damp=0.5, cap_k=2.5, lead=3):
+    """Same agent + the three ReplenishAgent guardrails."""
+    n = len(demand)
+    # 1) forecast smoothing (EWMA, low gain)
+    f = np.zeros(n)
+    f[0] = demand[:7].mean()
+    for t in range(1, n):
+        f[t] = alpha * demand[t - 1] + (1 - alpha) * f[t - 1]
+    resid = demand - f
+    sigma = pd_std(resid, 21)
+    orders = np.zeros(n)
+    prev_order = f[0]
+    for t in range(1, n):
+        target = f[t] + (f[t] - f[t - 1])  # target level + expected growth
+        target = max(target, 0.0)
+        # 2) order damping against the previous order
+        order = target - damp * (prev_order - target)
+        # 3) variance cap on the order stream
+        order = min(order, f[t] + cap_k * sigma[t])
+        order = max(order, 0.0)
+        orders[t] = order
+        prev_order = order
+    return orders
+
+def pd_std(x, w):
+    """Rolling std with min_periods=1."""
+    out = np.zeros(len(x))
+    for i in range(len(x)):
+        lo = max(0, i - w + 1)
+        out[i] = x[lo:i + 1].std() if i > 0 else 0.0
+    return out
+
+# -------------------------------------------------------------- service ---
+def simulate_service(demand, orders, start_stock, lead_days):
+    """Simple inventory: orders arrive after lead, fill from stock."""
+    n = len(demand)
+    stock = start_stock
+    pipeline = {}
+    filled = 0.0
+    stockouts = 0
+    inv_sum = 0.0
+    for t in range(n):
+        stock += pipeline.pop(t, 0.0)
+        d = demand[t]
+        if stock >= d:
+            filled += d
+            stock -= d
+        else:
+            filled += stock
+            stock = 0.0
+            stockouts += 1
+        pipeline[t + lead_days] = orders[t]
+        inv_sum += stock
+    return {"fill_rate": round(filled / demand.sum(), 4),
+            "stockout_days": stockouts,
+            "avg_inventory": round(inv_sum / n, 1)}
+
+# ----------------------------------------------------------------- main ---
+def main():
+    rng = np.random.default_rng(SEED)
+    demand = make_demand(rng)
+    obs = demand[WARMUP:]
+
+    orders_A = policy_unguarded(demand, rng)
+    orders_B = policy_guarded(demand, rng)
+
+    amp_A = orders_A[WARMUP:].var() / obs.var()
+    amp_B = orders_B[WARMUP:].var() / obs.var()
+
+    svc_A = simulate_service(obs, orders_A[WARMUP:], start_stock=260, lead_days=3)
+    svc_B = simulate_service(obs, orders_B[WARMUP:], start_stock=260, lead_days=3)
+
+    result = {
+        "seed": SEED, "days": DAYS, "warmup": WARMUP,
+        "demand_var": float(obs.var()),
+        "unguarded": {"amplification": round(float(amp_A), 2), **svc_A},
+        "guarded": {"amplification": round(float(amp_B), 2), **svc_B},
+    }
+    print(json.dumps(result, indent=2))
+    with open("/home/ubuntu/agentic_ai/simulation/results.json", "w") as fh:
+        json.dump(result, fh, indent=2)
+
+if __name__ == "__main__":
+    main()

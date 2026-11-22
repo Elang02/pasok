@@ -1,0 +1,35 @@
+action_groups:
+  - actions:
+      - type: status-update
+        message: <? "Loading Pasok exception queue" ?>
+
+      - type: message
+        message:
+          type: text
+          markdown: true
+          content: |
+            **Pasok replenishment exception queue** (snapshot 2026-10-11, 7 of 600 SKUs)
+
+            Everything else in the network clears without a human: 130 of 137 purchase
+            orders were issued automatically. These 7 are waiting on a person, and the
+            reason is printed next to each one rather than left as a code.
+
+            Waiting because the order value is above the automatic signing line:
+
+            - SKU0147 · principal P09 · IDR 499.0 juta (line is 200 juta)
+            - SKU0157 · principal P01 · IDR 457.9 juta
+            - SKU0182 · principal P03 · IDR 284.8 juta
+            - SKU0181 · principal P04 · IDR 229.3 juta
+            - SKU0328 · principal P11 · IDR 221.6 juta
+
+            Waiting because the order is below the supplier's minimum order quantity:
+
+            - SKU0509 · principal P08 · IDR 4.8 juta
+            - SKU0349 · principal P02 · IDR 0.6 juta
+
+            That is 1.2% of the catalog needing a human, against the proposal's target
+            of under 10%.
+
+            Ask for any SKU by name for its full rationale: days of cover left, the
+            learned lead time p90, the forecast the order was sized against, and the
+            guardrails that shrank the raw order.

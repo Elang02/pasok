@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">9</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">Three rules guard the order stream</text>
+    <rect x="96" y="208" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="208" width="96" height="3" fill="#B4551F" />
+  <g id="rules" data-pptx-bounds="96 252 720 240">
+    <text x="96" y="300" font-size="16" fill="#B4551F">1</text>
+    <text x="144" y="304" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">Smooth</text>
+    <text x="336" y="304" font-size="24" fill="#2A2622">the forecast before it drives sizing</text>
+    <rect x="96" y="324" width="700" height="1" fill="#D8CDBB" />    <text x="96" y="372" font-size="16" fill="#B4551F">2</text>
+    <text x="144" y="376" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">Damp</text>
+    <text x="336" y="376" font-size="24" fill="#2A2622">against the last order, week to week</text>
+    <rect x="96" y="396" width="700" height="1" fill="#D8CDBB" />    <text x="96" y="444" font-size="16" fill="#B4551F">3</text>
+    <text x="144" y="448" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">Cap</text>
+    <text x="336" y="448" font-size="24" fill="#2A2622">so variance out stays near variance in</text>
+    <rect x="96" y="468" width="700" height="1" fill="#D8CDBB" />
+  </g>
+  <g id="formula" data-pptx-bounds="860 252 324 240">
+    <text x="860" y="300" font-size="16" fill="#6B6257">cover = lead p90 + review + buffer</text>
+    <text x="860" y="326" font-size="16" fill="#6B6257">buffer = z · √(lead variance² + forecast error²)</text>
+    <text x="860" y="384" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#1F1B16">1.33x → 0.36x</text>
+    <text x="860" y="412" font-size="16" fill="#6B6257">replay, 104 days</text>
+  </g>
+  <g id="honest" data-pptx-bounds="96 520 1088 110">
+    <rect x="96" y="528" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="566" font-size="24" fill="#2A2622">Replay: 1.33x to 0.36x. Cap touched 0 of 600 orders.<tspan x="96" dy="34">All three are coded. On this snapshot none cut a unit, so the replay is the evidence.</tspan></text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">Source: src/agents/decision.py, blocks 433-464 and 516.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">9</text>
+  </g>
+</svg>

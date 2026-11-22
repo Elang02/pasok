@@ -1,8 +1,68 @@
+# python
 .venv/
 __pycache__/
 *.pyc
-.env
+.pytest_cache/
+*.egg-info/
+
+# node
+node_modules/
+.cdk.staging/
+cdk.out/
+
+# large generated data (regenerate with run_chain.sh)
+data/m5/
+
+# os / editor
 .DS_Store
-.planning/
-logs/
-out/
+*.swp
+.idea/
+.vscode/
+
+# secrets
+.env
+*.pem
+*.key
+credentials.json
+
+# venv symlink (local only)
+.venv
+
+# nested venv inside agentcore
+agentcore/app/pasok_agent/.venv/
+agentcore/app/pasok_agent/__pycache__/
+
+# large generated inputs (regenerate: python src/catalog/generate.py, then bash run_chain.sh)
+data/catalog/sales.csv
+data/stock/stock_daily.csv
+
+# dunia simulasi: 47 MB potongan stock_daily yang bisa dibuat ulang kapan saja
+data/sim/*/world/
+# kunci rahasia, hanya contohnya yang boleh masuk repo
+.env.*
+!.env.example
+demo/timelapse_frames/
+
+# intermediate policy experiments (v25 is the canonical one, tracked)
+data/sim/replay2026_v19/
+data/sim/replay2026_v20/
+data/sim/replay2026_v21/
+data/sim/replay2026_v22/
+data/sim/replay2026_v23/
+data/sim/replay2026_v24/
+data/sim/evpeak/
+
+data/sim/replay2026_v27/
+data/sim/replay2026_m/
+data/sim/replay2026_v28/
+data/sim/replay2026_v29/
+
+# generated render artefacts: rebuild with the scripts beside them, never commit
+demo/video/*/shots/
+demo/video/*/frames/
+demo/video/explainer/pages/
+demo/video/explainer/capture_*.png
+demo/video/take/take_raw.mp4
+demo/video/take/take_video.mp4
+demo/video/take/*.wav
+demo/video/legacy/

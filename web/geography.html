@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pasok: cities</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/pasok.css">
+<style>
+/* page-specific rules only. theme, masthead, controls: /pasok.css */
+/* container comes from pasok.css: one width, one gutter */
+.band { margin-top: var(--space-2xl); }
+
+.band h2 { margin: 0 0 var(--space-2xs); }
+
+.band .sub { max-width: var(--measure); color: var(--color-muted);
+             font: 400 var(--text-sm) / 1.6 var(--font-body); margin: 0 0 var(--space-md); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+         gap: var(--space-md) var(--space-lg); margin: 0; }
+
+.facts dt { font: 500 var(--text-xs) / 1.3 var(--font-ui); letter-spacing: 0.07em;
+            text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-2xs); }
+
+.facts dd { margin: 0; font: 500 var(--text-lg) / 1.2 var(--font-display);
+            font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+.facts dd small { display: block; font: 400 var(--text-sm) / 1.5 var(--font-body);
+                  color: var(--color-muted); letter-spacing: 0; margin-top: var(--space-2xs); }
+
+.scroller { overflow-x: auto; }
+
+.note { color: var(--color-muted); font: 400 var(--text-sm) / 1.6 var(--font-body);
+        margin: var(--space-sm) 0 0; }
+
+.share { display: block; height: 3px; margin-bottom: var(--space-2xs);
+         background: var(--color-rule-2); }
+
+.share i { display: block; height: 3px; background: var(--color-accent); }
+
+.why { color: var(--color-muted); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="issue"><!--SNAPSHOT--></p>
+  <h1 class="name">Pasok<i>.</i></h1>
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Console</a></li>
+      <li><a href="/orders">Orders</a></li>
+      <li><a href="/receiving">Receiving</a></li>
+      <li><a href="/health">Stock</a></li>
+      <li><a href="/transfers">Transfers</a></li>
+      <li><a href="/suppliers">Suppliers</a></li>
+      <li><a href="/geography" aria-current="page">Cities</a></li>
+      <li><a href="/catalog">Catalogue</a></li>
+      <li><a href="/loop">Loop</a></li>
+      <li><a href="/panel">Agent panel</a></li>
+    </ul>
+  </nav>
+  <hr class="double-rule">
+</header>
+
+<main class="sheet">
+
+  <!-- ═══ how much of the network the five cities are ═══ -->
+  <section class="band">
+    <h2>The cities the network sells into</h2>
+    <p class="sub">Read from the city demand and the outlet list behind the answers. Every figure on this page is fetched from the network, so the page cannot print a number the files do not hold.</p>
+    <dl class="facts" id="headline"></dl>
+    <p class="note" id="headnote"></p>
+  </section>
+
+  <!-- ═══ which city asks for the most ═══ -->
+  <section class="band">
+    <h2>Where the goods sell</h2>
+    <p class="sub">One row per city, the biggest demand first. The bar is that city's share of everything the network asked for. The five goods below each city are the ones it asks for most, and the letter after each SKU is its class, where A adds the most to sales.</p>
+    <div class="scroller"><table class="rec" id="cities"></table></div>
+    <p class="note" id="citiesnote"></p>
+  </section>
+
+  <!-- ═══ which city is short, and where its stock comes from ═══ -->
+  <section class="band">
+    <h2>Stock that sits above the target</h2>
+    <p class="sub">A SKU holds extra stock when it covers more days than the plan asked for, and that stock sits in the central depot. The loop moves the extra stock to another city instead of buying it again, and it picks the city where the goods sell fastest. The value below is the extra stock each city depot is in line to take.</p>
+    <div class="scroller" id="surplusscroll"><table class="rec" id="surplus"></table></div>
+    <p class="note" id="surplusnote"></p>
+    <p class="note">Every move the loop has made is listed on the <a href="/transfers">Transfers</a> page.</p>
+  </section>
+
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const get = async (url) => (await fetch(url)).json();
+
+const esc = (s) => String(s === null || s === undefined ? "" : s)
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const nf = (v) => Math.round(Number(v || 0)).toLocaleString("en-US");
+const idr = (v) => "IDR " + nf(v);
+const units = (v) => nf(v) + (Math.round(Number(v)) === 1 ? " unit" : " units");
+const things = (v, one, many) => nf(v) + " " + (Number(v) === 1 ? one : many);
+const pct = (v) => (Number(v || 0) * 100).toFixed(1) + "%";
+
+function fact(k, v, n) {
+  return "<div><dt>" + esc(k) + "</dt><dd>" + v + "<small>" + esc(n || "") + "</small></dd></div>";
+}
+
+/* ---------- A. how much of the network the cities are ---------- */
+function loadHeadline(d) {
+  const s = d.summary || {};
+  const outlets = Number(s.outlets || 0);
+  const warung = Number(s.warung || 0);
+  const out = [];
+  out.push(fact("Cities", nf(s.cities), "cities the network sells into"));
+  out.push(fact("Outlets", nf(s.outlets), "shops the network serves"));
+  out.push(fact("Warung", nf(s.warung),
+    "small shops, " + pct(outlets ? warung / outlets : 0) + " of the outlets"));
+  out.push(fact("Units asked for", units(s.units),
+    "the whole history of the data, not one day"));
+  out.push(fact("Value of that demand", idr(s.value_idr),
+    "at the catalogue cost of each item"));
+  $("headline").innerHTML = out.join("");
+  $("headnote").textContent = "Units and value here are the total the network asked for " +
+    "across the whole history of the data. They are not the sales of one day, and not the " +
+    "stock on hand now.";
+}
+
+/* ---------- B and C. one row per city, biggest demand first ---------- */
+function loadCities(rows) {
+  let h = "<thead><tr><th>City</th>" +
+          '<th class="num">Units asked for</th>' +
+          "<th>Share of the demand</th>" +
+          "<th>Outlets</th>" +
+          '<th class="num">Value</th>' +
+          "<th>Goods asked for most</th>" +
+          "</tr></thead><tbody>";
+  h += rows.map((r) => {
+    const bar = (Number(r.share || 0) * 100).toFixed(1);
+    const tops = (r.top_skus || []).map((t) =>
+      "<div>" + esc(t.sku) + ", class " + esc(t.class) + ", " + units(t.units) + "</div>"
+    ).join("");
+    const kinds = [
+      things(r.warung, "warung", "warung"),
+      things(r.minimarket, "minimarket", "minimarkets"),
+      things(r.kiosk, "kiosk", "kiosks"),
+    ].join(", ");
+    return "<tr>" +
+      "<td>" + esc(r.city) + "</td>" +
+      '<td class="num">' + units(r.units) + "</td>" +
+      '<td><span class="share"><i style="width:' + bar + '%"></i></span>' +
+      '<span class="why">' + pct(r.share) + " of the total</span></td>" +
+      "<td><div>" + things(r.outlets, "outlet", "outlets") + "</div>" +
+      '<div class="why">' + kinds + "</div></td>" +
+      '<td class="num">' + idr(r.value_idr) + "</td>" +
+      "<td>" + tops + "</td>" +
+      "</tr>";
+  }).join("");
+  h += "</tbody>";
+  $("cities").innerHTML = h;
+  $("citiesnote").textContent = things(rows.length, "city", "cities") +
+    ", the biggest demand first. The bar is that city's share of the total asked for " +
+    "across the whole history of the data, not one day.";
+}
+
+/* ---------- D. stock the loop holds above the target ---------- */
+function loadSurplus(rows) {
+  const withStock = rows.filter((r) => Number(r.stock_heading_here_idr || 0) > 0);
+  const total = rows.reduce((sum, r) => sum + Number(r.stock_heading_here_idr || 0), 0);
+  if (!withStock.length) {
+    $("surplus").innerHTML = "";
+    $("surplusscroll").hidden = true;
+    $("surplusnote").textContent = "No city depot is in line to take extra stock, " +
+      "so there is nothing to move. Every city is at or under its target.";
+    return;
+  }
+  let h = "<thead><tr><th>City depot</th>" +
+          '<th class="num">Value of the extra stock</th>' +
+          "<th>Share of the extra stock</th>" +
+          "</tr></thead><tbody>";
+  h += withStock.map((r) => {
+    const bar = (Number(r.stock_heading_here_idr || 0) / (total || 1) * 100).toFixed(1);
+    return "<tr>" +
+      "<td>" + esc(r.city) + "</td>" +
+      '<td class="num">' + idr(r.stock_heading_here_idr) + "</td>" +
+      '<td><span class="share"><i style="width:' + bar + '%"></i></span>' +
+      '<span class="why">' + pct(bar / 100) + " of the extra stock is headed here</span></td>" +
+      "</tr>";
+  }).join("");
+  h += "</tbody>";
+  $("surplus").innerHTML = h;
+  $("surplusnote").textContent = "Together the city depots are in line to take " +
+    idr(total) + " of stock the network already owns. Moving it costs a truck, and buying " +
+    "the same goods again costs the full price, so the loop moves what is already here first.";
+}
+
+/* ---------- boot ---------- */
+async function boot() {
+  try {
+    const d = await get("/api/geography?limit=40");
+    loadHeadline(d);
+    loadCities(d.rows || []);
+    loadSurplus(d.rows || []);
+  } catch (err) {
+    $("headnote").textContent = "The city demand could not be read.";
+    $("citiesnote").textContent = "The city demand could not be read.";
+    $("surplusnote").textContent = "The stock above the target could not be read.";
+  }
+}
+
+boot();
+</script>
+<!-- PROV:BEGIN -->
+<footer class="prov"><span class="prov-k">AWS</span> Lambda lane answers from the same order and stock artefacts<span class="prov-sep">·</span><span class="prov-k">SAP</span> no SAP dependency; this is a reading of the same records</footer>
+<!-- PROV:END -->
+</body>
+</html>

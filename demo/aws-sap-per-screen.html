@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pasok: AWS and SAP, per screen</title>
+<style>
+@page { size: A4; margin: 12mm 12mm; }
+body { font: 400 8.4pt/1.36 "Times New Roman", serif; margin: 0; color: #111; }
+h1 { font-size: 13pt; margin: 0 0 2pt; }
+.sub { color: #555; margin: 0 0 7pt; font-size: 8pt; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border: 0.5pt solid #999; padding: 2.4pt 3pt; vertical-align: top; }
+th { background: #eee; font-size: 7.6pt; text-align: left; }
+td.r { font-weight: 700; white-space: nowrap; }
+td.k { font-weight: 700; white-space: nowrap; }
+p.small { margin: 6pt 0 0; font-size: 7.6pt; color: #333; }
+code { font-family: "DejaVu Sans Mono", monospace; font-size: 7.4pt; }
+</style>
+</head>
+<body>
+<h1>Pasok: the AWS and SAP parts, per screen</h1>
+<p class="sub">Technical execution on AWS/SAP, 25 percent. Every line names a component that
+is live today, or says plainly that the account gate blocks it. Generated from
+tools/aws_sap_map.py; the console carries the same sentence at the foot of each page.</p>
+<table>
+<thead><tr><th>Screen</th><th>AWS</th><th>SAP</th><th>Honest limit</th></tr></thead>
+<tbody>
+<tr><td class="r">/<br><span style="font-weight:400">Console</span></td><td>AWS Lambda <code>pasok_agent</code> (us-west-2, public Function URL) answers the same question class through <code>{"action":"ask"}</code></td><td>SAP AI Core orchestration <code>d8c092efb8980093</code>, model <code>gpt-5.4-2026-03-05</code> writes the sentence; the trace under each answer names it and its milliseconds</td><td>native Bedrock <code>Converse</code> and AgentCore Runtime are account-gated; the Lambda lane is the substitute, with Bedrock reached through Mantle</td></tr>
+<tr><td class="r">/orders<br><span style="font-weight:400">Order history</span></td><td>Lambda <code>{"action":"network"}</code> returns the same order summary the page shows</td><td>SAP AI Core wrote the plain-language rationale on every escalated order (<code>data/sap/rationales.csv</code>, 40 of 40, no template fallback)</td><td>the SAP business system itself is reached through a pluggable intake, proven against a stand-in ERP, not a live SAP write</td></tr>
+<tr><td class="r">/receiving<br><span style="font-weight:400">Receiving</span></td><td>Lambda <code>{"action":"sku"}</code> returns the same delivery and fill figures from the bundled artefacts</td><td>the order intake seam (file-backed default, HTTP adapter by <code>PASOK_ORDER_ENDPOINT</code>) is where a distributor's own system plugs in</td><td>no SAP business-system write path is built; the seam is the honest substitute and it is demonstrable</td></tr>
+<tr><td class="r">/health<br><span style="font-weight:400">Stock health</span></td><td>Lambda <code>{"action":"exceptions"}</code> returns the same flags, sorted by the same urgency rule</td><td>SAP AI Core RPT-1.6 (<code>sap-rpt-1.6</code>) scored all 600 SKUs on three targets in one call: 293 stockout-Yes, 52 expiry-Yes (<code>data/sap/rpt_scores.csv</code>)</td><td>the Bedrock Knowledge Base that the proposal names for the registry does not exist; the registry is a file the Decision Agent reads</td></tr>
+<tr><td class="r">/transfers<br><span style="font-weight:400">Depot transfers</span></td><td>Lambda lane answers from the same redirect artefact</td><td>the redirect decision carries its <code>gpt-5.4-2026-03-05</code> rationale like every other high-stakes action</td><td>nothing here is blocked; the transfer is planned and recorded, not executed against a warehouse system</td></tr>
+<tr><td class="r">/suppliers<br><span style="font-weight:400">Suppliers</span></td><td>Lambda <code>{"action":"sku"}</code> carries the same supplier reliability figures</td><td>no SAP dependency on this screen: the numbers come from the receiving records, and it is worth saying so out loud</td><td>lead-time drift detection reports over a one-day window on this snapshot; the year of history is on <code>/loop</code></td></tr>
+<tr><td class="r">/geography<br><span style="font-weight:400">Cities</span></td><td>Lambda lane answers from the same order and stock artefacts</td><td>no SAP dependency; this is a reading of the same records</td><td>city granularity is the outlet file's own field, not a geocoded feed</td></tr>
+<tr><td class="r">/loop<br><span style="font-weight:400">Loop map</span></td><td>the four-agent reasoning layer is the same code the Lambda lane runs; the runtime is the host, the artefacts are the evidence</td><td>SAP AI Core <code>gpt-5.4-2026-03-05</code> writes the run report at the end of a loop (<code>/api/chat</code> streams the stages, then the model's summary)</td><td>multi-agent coordination is in-process on the Lambda; AgentCore Memory and Gateway return empty lists on this account</td></tr>
+<tr><td class="r">/panel<br><span style="font-weight:400">Agent panel</span></td><td>Lambda <code>{"action":"exceptions"}</code> and <code>{"action":"sku"}</code> mirror the queue and the single-SKU trace</td><td>RPT-1.6 scores the SKU and gpt-5.4 writes its rationale; the Joule capability that carries the approval is published to the tenant</td><td>AgentCore Memory and Gateway are empty on this account; the decision history is a durable file instead</td></tr>
+<tr><td class="r">/demo<br><span style="font-weight:400">Demo page</span></td><td>the Mantle endpoint serves the answering models on this account (<code>moonshotai.kimi-k2.5</code>, <code>deepseek.v3.2</code>, <code>qwen3-235b</code>, <code>zai.glm-4.7</code>)</td><td>the same page's live sample runs through SAP AI Core <code>gpt-5.4-2026-03-05</code></td><td>Amazon Nova and Llama are not served by Mantle (404) and stay behind the native Bedrock gate</td></tr>
+</tbody>
+</table>
+<p class="small"><b>Account gate, and what runs instead.</b> Native Bedrock `Converse` / `InvokeModel` — `Operation not allowed`, all 86 active text models → BYPASSED: Mantle endpoint serves models today. AgentCore Runtime — `Total Agents per Account` quota = 0, increase refused → BLOCKED: only AWS can lift it; the lane runs on Lambda. Bedrock Knowledge Base — none exist on the account → NOT BUILT: registry is a file, swap documented. AgentCore Memory / Gateway — `list-memories` and `list-gateways` return empty → SUBSTITUTED: durable files, in-process coordination. SAP business-system write — no live write path → SEAM: file-backed intake, proven against a stand-in ERP.</p>
+<p class="small"><b>Live right now.</b> <code>POST https://vyfesxclb5gwzqqkg5csbkgxeq0jdnpf.lambda-url.us-west-2.on.aws/</code> returns the loop's summaries
+with no credentials. SAP AI Core orchestration <code>d8c092efb8980093</code> serves <code>gpt-5.4-2026-03-05</code>
+on the answer lane and writes one rationale per escalated order; <code>sap-rpt-1.6</code>
+scored all 600 SKUs in one call.</p>
+<p class="small"><b>Not claimed.</b> The console is served over the committed artefacts; the AWS lane answers the same question classes on Lambda, it does not host these pages. No post-deployment result is claimed: the stockout and inventory targets are targets. SAP is the scoring and reasoning layer here, not the system of record.</p>
+</body>
+</html>

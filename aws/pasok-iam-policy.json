@@ -1,0 +1,30 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PasokBedrockAgentCore",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:*",
+        "bedrock-agentcore:*",
+        "bedrock-agentcore-runtime:*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "PasokSupportingServices",
+      "Effect": "Allow",
+      "Action": [
+        "s3:*",
+        "logs:*",
+        "cloudwatch:*",
+        "lambda:*",
+        "iam:PassRole",
+        "iam:GetRole",
+        "sts:GetCallerIdentity",
+        "ecr:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

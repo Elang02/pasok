@@ -1,0 +1,100 @@
+{
+  "window": {
+    "last_day": "2026-10-11",
+    "months": 46
+  },
+  "skus": 600,
+  "label_counts": {
+    "flat": 550,
+    "growing": 50
+  },
+  "momentum_counts": {
+    "steady": 304,
+    "slowing": 269,
+    "accelerating": 27
+  },
+  "yoy_median_pct": 2.42,
+  "yoy_positive_share": 0.998,
+  "cv_median": 0.42,
+  "peak_month_mode": 3,
+  "by_category": [
+    {
+      "category": "air_mineral",
+      "skus": 33,
+      "value_12m": 30120524250.0,
+      "median_yoy": 2.4
+    },
+    {
+      "category": "beras",
+      "skus": 25,
+      "value_12m": 664216483450.0,
+      "median_yoy": 2.13
+    },
+    {
+      "category": "biskuit",
+      "skus": 89,
+      "value_12m": 164950806650.0,
+      "median_yoy": 2.43
+    },
+    {
+      "category": "bumbu",
+      "skus": 31,
+      "value_12m": 154585773600.0,
+      "median_yoy": 2.38
+    },
+    {
+      "category": "gula",
+      "skus": 46,
+      "value_12m": 107738049600.0,
+      "median_yoy": 2.34
+    },
+    {
+      "category": "kopi_teh",
+      "skus": 58,
+      "value_12m": 73260561450.0,
+      "median_yoy": 2.41
+    },
+    {
+      "category": "mie_instan",
+      "skus": 64,
+      "value_12m": 47351042750.0,
+      "median_yoy": 2.55
+    },
+    {
+      "category": "minuman",
+      "skus": 20,
+      "value_12m": 17520070250.0,
+      "median_yoy": 2.6
+    },
+    {
+      "category": "minyak_goreng",
+      "skus": 21,
+      "value_12m": 361896763050.0,
+      "median_yoy": 2.79
+    },
+    {
+      "category": "perawatan_diri",
+      "skus": 81,
+      "value_12m": 70305881900.0,
+      "median_yoy": 2.76
+    },
+    {
+      "category": "perawatan_rumah",
+      "skus": 74,
+      "value_12m": 144765097250.0,
+      "median_yoy": 2.3
+    },
+    {
+      "category": "snack",
+      "skus": 31,
+      "value_12m": 29596927400.0,
+      "median_yoy": 2.54
+    },
+    {
+      "category": "susu",
+      "skus": 27,
+      "value_12m": 121460882350.0,
+      "median_yoy": 2.31
+    }
+  ]
+}

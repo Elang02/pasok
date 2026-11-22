@@ -1,0 +1,601 @@
+sku,category,subcategory,pack_size,pack_unit,unit_cost_idr,shelf_life_months
+SKU0001,roti,Roti Manis,0.3,kg,8950,1
+SKU0002,bumbu,Kecap Manis,0.52,L,14800,9
+SKU0003,kopi_teh,Kopi Bubuk,0.1,kg,6300,7
+SKU0004,perawatan_diri,Sampo,0.1,kg,8550,29
+SKU0005,perawatan_rumah,Deterjen Bubuk,0.4,L,10400,18
+SKU0006,cokelat,Cokelat Bubuk,0.1,kg,8550,9
+SKU0007,mie_instan,Mi Goreng,0.085,kg,1700,8
+SKU0008,air_mineral,Air Mineral,0.33,L,1250,6
+SKU0009,perawatan_diri,Sampo,0.17,kg,15000,29
+SKU0010,perawatan_rumah,Sabun Cuci Piring,0.8,L,21050,22
+SKU0011,kue_kering,Nastar,0.5,kg,39950,6
+SKU0012,beras,Beras Medium,1.0,kg,14650,8
+SKU0013,sirup,Sirup Melon,0.63,L,8900,12
+SKU0014,kopi_teh,Kopi Bubuk,0.165,kg,10850,18
+SKU0015,perawatan_rumah,Pembersih Lantai,0.8,L,20150,19
+SKU0016,cokelat,Cokelat Batang,0.165,kg,14100,12
+SKU0017,bumbu,Saus Tomat,0.52,L,14500,8
+SKU0018,air_mineral,Air Mineral Dingin,0.33,L,1200,7
+SKU0019,perawatan_diri,Sampo,0.17,kg,15350,21
+SKU0020,gula,Gula Pasir Halus,1.0,kg,18400,25
+SKU0021,kue_kering,Kastengel,0.3,kg,23200,4
+SKU0022,bumbu,Saus Sambal,0.34,L,9700,9
+SKU0023,kopi_teh,Kopi Bubuk,0.1,kg,6650,8
+SKU0024,kopi_teh,Kopi Instan,0.1,kg,6500,19
+SKU0025,gula,Gula Pasir Halus,2.0,kg,38000,31
+SKU0026,biskuit,Biskuit Marie,0.3,kg,15000,9
+SKU0027,beras,Beras Pandan Wangi,5.0,kg,75800,8
+SKU0028,kopi_teh,Teh Celup,0.2,kg,13450,7
+SKU0029,perawatan_diri,Sampo,0.17,kg,14550,21
+SKU0030,gula,Gula Pasir Halus,0.5,kg,9500,25
+SKU0031,snack,Snack Jagung,0.068,kg,4900,10
+SKU0032,bumbu,Saus Tomat,0.34,L,9200,9
+SKU0033,minuman,Teh Melati,0.25,L,2000,7
+SKU0034,perawatan_diri,Pasta Gigi,0.1,kg,9000,18
+SKU0035,gula,Gula Pasir Halus,2.0,kg,36000,19
+SKU0036,roti,Roti Tawar,0.4,kg,12050,1
+SKU0037,beras,Beras Pandan Wangi,5.0,kg,75800,8
+SKU0038,minyak_goreng,Minyak Goreng Kemasan,0.9,L,20300,6
+SKU0039,perawatan_diri,Sampo,0.1,kg,8750,22
+SKU0040,perawatan_rumah,Deterjen Bubuk,1.0,L,26050,27
+SKU0041,biskuit,Biskuit Kelapa,0.3,kg,15700,8
+SKU0042,bumbu,Saus Tomat,0.34,L,9600,9
+SKU0043,susu,Susu Kental Manis,0.19,L,5850,6
+SKU0044,kopi_teh,Teh Celup,0.165,kg,10500,18
+SKU0045,perawatan_rumah,Sabun Cuci Piring,0.8,L,20850,27
+SKU0046,cokelat,Cokelat Batang,0.1,kg,8950,9
+SKU0047,mie_instan,Mi Kuah Ayam,0.07,kg,1450,9
+SKU0048,minuman,Teh Melati,0.35,L,3000,7
+SKU0049,kopi_teh,Kopi Instan,0.1,kg,6650,21
+SKU0050,gula,Gula Pasir Halus,2.0,kg,37200,31
+SKU0051,roti,Roti Gandum,0.3,kg,9200,1
+SKU0052,mie_instan,Mi Kuah Soto,0.075,kg,1550,9
+SKU0053,sirup,Sirup Cocopandan,0.66,L,9400,12
+SKU0054,perawatan_diri,Sampo,0.075,kg,6850,29
+SKU0055,perawatan_rumah,Pembersih Lantai,0.8,L,21050,18
+SKU0056,cokelat,Cokelat Koin,0.165,kg,14400,9
+SKU0057,mie_instan,Mi Kuah Ayam,0.075,kg,1600,9
+SKU0058,kopi_teh,Kopi Instan,0.1,kg,6500,7
+SKU0059,perawatan_diri,Pasta Gigi,0.1,kg,9000,20
+SKU0060,perawatan_rumah,Pembersih Lantai,1.0,L,25500,26
+SKU0061,biskuit,Biskuit Marie,0.15,kg,7600,8
+SKU0062,bumbu,Kecap Manis,0.52,L,14650,8
+SKU0063,kopi_teh,Kopi Instan,0.165,kg,10650,6
+SKU0064,perawatan_diri,Sampo,0.17,kg,15000,21
+SKU0065,perawatan_rumah,Sabun Cuci Piring,1.0,L,26050,20
+SKU0066,kue_kering,Nastar,0.25,kg,19550,4
+SKU0067,mie_instan,Mi Kuah Ayam,0.075,kg,1550,8
+SKU0068,kopi_teh,Kopi Instan,0.165,kg,11100,6
+SKU0069,kopi_teh,Kopi Bubuk,0.1,kg,6450,29
+SKU0070,perawatan_rumah,Deterjen Bubuk,0.4,L,10200,22
+SKU0071,roti,Roti Manis,0.55,kg,16550,1
+SKU0072,mie_instan,Mi Kuah Ayam,0.07,kg,1400,9
+SKU0073,sirup,Sirup Markisa,0.66,L,9500,12
+SKU0074,perawatan_diri,Pasta Gigi,0.17,kg,15000,24
+SKU0075,perawatan_rumah,Pembersih Lantai,0.4,L,10300,21
+SKU0076,snack,Snack Jagung,0.05,kg,3500,8
+SKU0077,mie_instan,Mi Kuah Ayam,0.085,kg,1700,8
+SKU0078,sirup,Sirup Cocopandan,0.46,L,6300,18
+SKU0079,perawatan_diri,Sampo,0.1,kg,8550,28
+SKU0080,perawatan_rumah,Sabun Cuci Piring,0.4,L,10400,22
+SKU0081,cokelat,Cokelat Bubuk,0.06,kg,5400,18
+SKU0082,mie_instan,Mi Kuah Ayam,0.075,kg,1600,8
+SKU0083,sirup,Sirup Melon,0.66,L,9400,18
+SKU0084,perawatan_diri,Pasta Gigi,0.1,kg,8750,25
+SKU0085,perawatan_rumah,Sabun Cuci Piring,1.0,L,26600,24
+SKU0086,biskuit,Biskuit Marie,0.15,kg,7400,10
+SKU0087,mie_instan,Mi Goreng,0.075,kg,1550,8
+SKU0088,susu,Susu Kental Manis,1.0,L,29100,2
+SKU0089,perawatan_diri,Sabun Mandi,0.075,kg,6500,24
+SKU0090,perawatan_rumah,Deterjen Bubuk,0.8,L,20600,18
+SKU0091,biskuit,Biskuit Marie,0.1,kg,5300,11
+SKU0092,mie_instan,Mi Kuah Soto,0.085,kg,1700,8
+SKU0093,sirup,Sirup Markisa,0.66,L,9000,18
+SKU0094,kopi_teh,Teh Celup,0.2,kg,13150,24
+SKU0095,perawatan_rumah,Pembersih Lantai,1.0,L,25750,21
+SKU0096,cokelat,Cokelat Bubuk,0.1,kg,8750,9
+SKU0097,bumbu,Saus Sambal,0.34,L,9200,8
+SKU0098,minyak_goreng,Minyak Goreng Kemasan,0.9,L,20750,8
+SKU0099,kopi_teh,Kopi Bubuk,0.1,kg,6500,24
+SKU0100,perawatan_rumah,Sabun Cuci Piring,1.0,L,26300,29
+SKU0101,kue_kering,Kue Semprit,0.25,kg,20000,4
+SKU0102,bumbu,Kecap Manis,0.34,L,9500,9
+SKU0103,sirup,Sirup Cocopandan,0.63,L,8600,18
+SKU0104,perawatan_diri,Sabun Mandi,0.17,kg,14700,25
+SKU0105,perawatan_rumah,Pembersih Lantai,0.4,L,10200,32
+SKU0106,cokelat,Cokelat Bubuk,0.06,kg,5450,9
+SKU0107,bumbu,Saus Sambal,0.52,L,14500,9
+SKU0108,air_mineral,Air Mineral,0.33,L,1250,7
+SKU0109,perawatan_diri,Pasta Gigi,0.1,kg,8850,27
+SKU0110,perawatan_rumah,Deterjen Bubuk,0.8,L,20400,19
+SKU0111,biskuit,Biskuit Marie,0.1,kg,5050,10
+SKU0112,beras,Beras Pandan Wangi,5.0,kg,75000,9
+SKU0113,minuman,Teh Lemon,0.25,L,2100,6
+SKU0114,perawatan_diri,Pasta Gigi,0.17,kg,14550,26
+SKU0115,perawatan_rumah,Pembersih Lantai,1.0,L,25500,26
+SKU0116,biskuit,Biskuit Cokelat,0.3,kg,14850,8
+SKU0117,bumbu,Saus Tomat,0.34,L,9300,8
+SKU0118,susu,Susu UHT,0.4,L,12300,2
+SKU0119,perawatan_diri,Sabun Mandi,0.075,kg,6650,18
+SKU0120,gula,Gula Pasir Kristal,0.5,kg,9200,33
+SKU0121,cokelat,Cokelat Bubuk,0.165,kg,14100,18
+SKU0122,mie_instan,Mi Kuah Ayam,0.07,kg,1500,9
+SKU0123,minyak_goreng,Minyak Goreng Sawit,1.0,L,22300,8
+SKU0124,perawatan_diri,Sabun Mandi,0.17,kg,15350,25
+SKU0125,perawatan_rumah,Sabun Cuci Piring,1.0,L,26300,31
+SKU0126,snack,Keripik Kentang,0.1,kg,7150,11
+SKU0127,mie_instan,Mi Goreng,0.085,kg,1800,9
+SKU0128,kopi_teh,Kopi Instan,0.1,kg,6600,8
+SKU0129,perawatan_diri,Sampo,0.1,kg,8950,25
+SKU0130,gula,Gula Pasir Halus,2.0,kg,36800,26
+SKU0131,kue_kering,Kastengel,0.25,kg,19350,4
+SKU0132,mie_instan,Mi Kuah Soto,0.085,kg,1800,8
+SKU0133,susu,Susu UHT,1.0,L,30400,2
+SKU0134,perawatan_diri,Pasta Gigi,0.1,kg,8550,26
+SKU0135,gula,Gula Pasir Halus,2.0,kg,38400,21
+SKU0136,snack,Keripik Kentang,0.1,kg,7000,11
+SKU0137,mie_instan,Mi Kuah Soto,0.07,kg,1450,8
+SKU0138,minyak_goreng,Minyak Goreng Sawit,5.0,L,109200,6
+SKU0139,perawatan_diri,Sampo,0.17,kg,14550,20
+SKU0140,gula,Gula Pasir Halus,0.5,kg,9200,19
+SKU0141,snack,Snack Jagung,0.068,kg,4600,7
+SKU0142,bumbu,Kecap Manis,0.52,L,14350,8
+SKU0143,sirup,Sirup Markisa,0.46,L,6600,12
+SKU0144,kopi_teh,Kopi Bubuk,0.1,kg,6600,21
+SKU0145,perawatan_rumah,Deterjen Bubuk,0.4,L,10400,32
+SKU0146,snack,Keripik Singkong,0.068,kg,4750,11
+SKU0147,mie_instan,Mi Kuah Ayam,0.07,kg,1400,9
+SKU0148,air_mineral,Air Mineral Dingin,0.33,L,1250,7
+SKU0149,kopi_teh,Kopi Bubuk,0.165,kg,10650,28
+SKU0150,perawatan_rumah,Pembersih Lantai,0.8,L,21050,30
+SKU0151,kue_kering,Kastengel,0.3,kg,23450,4
+SKU0152,mie_instan,Mi Goreng,0.075,kg,1600,9
+SKU0153,minuman,Teh Lemon,0.35,L,3000,7
+SKU0154,kopi_teh,Teh Celup,0.165,kg,10400,20
+SKU0155,perawatan_rumah,Sabun Cuci Piring,0.4,L,10100,27
+SKU0156,biskuit,Biskuit Cokelat,0.3,kg,15700,7
+SKU0157,bumbu,Saus Sambal,0.135,L,3900,8
+SKU0158,sirup,Sirup Markisa,0.66,L,9400,18
+SKU0159,kopi_teh,Kopi Bubuk,0.2,kg,13300,27
+SKU0160,gula,Gula Pasir Halus,1.0,kg,18400,21
+SKU0161,biskuit,Biskuit Marie,0.3,kg,15200,10
+SKU0162,bumbu,Kecap Manis,0.135,L,3750,9
+SKU0163,sirup,Sirup Markisa,0.66,L,8900,12
+SKU0164,perawatan_diri,Sampo,0.1,kg,8750,20
+SKU0165,gula,Gula Pasir Kristal,0.5,kg,9400,35
+SKU0166,biskuit,Biskuit Kelapa,0.15,kg,7500,10
+SKU0167,bumbu,Saus Tomat,0.52,L,14350,8
+SKU0168,air_mineral,Air Mineral,0.33,L,1200,7
+SKU0169,perawatan_diri,Sampo,0.17,kg,14700,26
+SKU0170,perawatan_rumah,Deterjen Bubuk,0.8,L,20850,20
+SKU0171,biskuit,Biskuit Cokelat,0.15,kg,7650,6
+SKU0172,beras,Beras Pandan Wangi,1.0,kg,15000,9
+SKU0173,minuman,Teh Lemon,0.35,L,2900,8
+SKU0174,perawatan_diri,Pasta Gigi,0.075,kg,6500,27
+SKU0175,gula,Gula Pasir Kristal,0.5,kg,9100,29
+SKU0176,snack,Keripik Kentang,0.05,kg,3500,10
+SKU0177,mie_instan,Mi Kuah Soto,0.07,kg,1500,8
+SKU0178,sirup,Sirup Markisa,0.46,L,6400,24
+SKU0179,kopi_teh,Kopi Bubuk,0.2,kg,12600,26
+SKU0180,gula,Gula Pasir Kristal,1.0,kg,18400,25
+SKU0181,cokelat,Cokelat Koin,0.06,kg,5150,18
+SKU0182,mie_instan,Mi Kuah Soto,0.085,kg,1700,9
+SKU0183,sirup,Sirup Cocopandan,0.66,L,9400,24
+SKU0184,kopi_teh,Kopi Bubuk,0.165,kg,11100,20
+SKU0185,gula,Gula Pasir Kristal,2.0,kg,36400,28
+SKU0186,biskuit,Biskuit Kelapa,0.3,kg,15000,7
+SKU0187,mie_instan,Mi Goreng,0.085,kg,1700,8
+SKU0188,minuman,Teh Lemon,0.25,L,2150,6
+SKU0189,kopi_teh,Teh Celup,0.165,kg,10750,18
+SKU0190,gula,Gula Pasir Kristal,2.0,kg,37600,27
+SKU0191,biskuit,Biskuit Kelapa,0.3,kg,15000,11
+SKU0192,mie_instan,Mi Goreng,0.075,kg,1600,9
+SKU0193,sirup,Sirup Markisa,0.66,L,9100,18
+SKU0194,perawatan_diri,Sampo,0.1,kg,9000,23
+SKU0195,perawatan_rumah,Pembersih Lantai,0.8,L,21300,18
+SKU0196,biskuit,Biskuit Marie,0.15,kg,7850,10
+SKU0197,bumbu,Saus Tomat,0.52,L,14800,9
+SKU0198,sirup,Sirup Markisa,0.63,L,9050,18
+SKU0199,kopi_teh,Kopi Instan,0.165,kg,11100,28
+SKU0200,perawatan_rumah,Pembersih Lantai,0.8,L,20150,32
+SKU0201,snack,Snack Jagung,0.068,kg,4700,9
+SKU0202,beras,Beras Premium,1.0,kg,15650,9
+SKU0203,air_mineral,Air Mineral,0.33,L,1250,6
+SKU0204,perawatan_diri,Pasta Gigi,0.1,kg,8550,25
+SKU0205,perawatan_rumah,Pembersih Lantai,0.8,L,20850,22
+SKU0206,kue_kering,Kastengel,0.5,kg,39100,6
+SKU0207,beras,Beras Pandan Wangi,2.0,kg,30950,9
+SKU0208,air_mineral,Air Mineral Dingin,0.33,L,1250,8
+SKU0209,perawatan_diri,Pasta Gigi,0.1,kg,8750,24
+SKU0210,perawatan_rumah,Sabun Cuci Piring,0.4,L,10300,21
+SKU0211,biskuit,Biskuit Marie,0.15,kg,7900,7
+SKU0212,beras,Beras Pandan Wangi,5.0,kg,76600,9
+SKU0213,minuman,Minuman Rasa Buah,0.25,L,2100,6
+SKU0214,perawatan_diri,Sabun Mandi,0.17,kg,14850,20
+SKU0215,gula,Gula Pasir Halus,0.5,kg,9200,18
+SKU0216,cokelat,Cokelat Batang,0.06,kg,5250,9
+SKU0217,mie_instan,Mi Kuah Soto,0.075,kg,1500,8
+SKU0218,susu,Susu Kental Manis,0.19,L,5700,2
+SKU0219,perawatan_diri,Sabun Mandi,0.17,kg,14850,18
+SKU0220,gula,Gula Pasir Kristal,2.0,kg,38000,35
+SKU0221,snack,Keripik Kentang,0.05,kg,3400,11
+SKU0222,bumbu,Saus Sambal,0.135,L,3750,9
+SKU0223,minyak_goreng,Minyak Goreng Sawit,5.0,L,109200,6
+SKU0224,perawatan_diri,Pasta Gigi,0.075,kg,6750,28
+SKU0225,perawatan_rumah,Pembersih Lantai,0.4,L,10650,27
+SKU0226,cokelat,Cokelat Koin,0.165,kg,14600,9
+SKU0227,mie_instan,Mi Goreng,0.07,kg,1500,8
+SKU0228,minyak_goreng,Minyak Goreng Kemasan,1.0,L,21600,6
+SKU0229,kopi_teh,Kopi Instan,0.165,kg,10650,20
+SKU0230,perawatan_rumah,Pembersih Lantai,1.0,L,26300,19
+SKU0231,cokelat,Cokelat Bubuk,0.06,kg,5300,12
+SKU0232,bumbu,Saus Tomat,0.34,L,9500,9
+SKU0233,kopi_teh,Teh Celup,0.1,kg,6650,8
+SKU0234,kopi_teh,Kopi Instan,0.2,kg,12600,21
+SKU0235,perawatan_rumah,Deterjen Bubuk,0.8,L,20400,26
+SKU0236,roti,Roti Tawar,0.55,kg,16350,2
+SKU0237,beras,Beras Pandan Wangi,2.0,kg,30950,8
+SKU0238,sirup,Sirup Melon,0.66,L,9300,12
+SKU0239,perawatan_diri,Sabun Mandi,0.1,kg,8650,19
+SKU0240,gula,Gula Pasir Halus,2.0,kg,37200,24
+SKU0241,biskuit,Biskuit Kelapa,0.1,kg,4950,9
+SKU0242,bumbu,Saus Tomat,0.34,L,9400,8
+SKU0243,sirup,Sirup Cocopandan,0.63,L,8500,12
+SKU0244,perawatan_diri,Pasta Gigi,0.075,kg,6750,19
+SKU0245,gula,Gula Pasir Halus,2.0,kg,37600,24
+SKU0246,snack,Keripik Singkong,0.1,kg,7150,9
+SKU0247,mie_instan,Mi Kuah Soto,0.075,kg,1550,9
+SKU0248,minyak_goreng,Minyak Goreng Kemasan,0.9,L,20100,7
+SKU0249,perawatan_diri,Pasta Gigi,0.1,kg,9100,29
+SKU0250,gula,Gula Pasir Kristal,0.5,kg,9300,33
+SKU0251,snack,Keripik Kentang,0.05,kg,3500,11
+SKU0252,mie_instan,Mi Kuah Soto,0.07,kg,1450,8
+SKU0253,air_mineral,Air Mineral Dingin,0.6,L,2200,6
+SKU0254,perawatan_diri,Sabun Mandi,0.17,kg,15500,27
+SKU0255,perawatan_rumah,Pembersih Lantai,0.4,L,10400,35
+SKU0256,roti,Roti Tawar,0.4,kg,12050,1
+SKU0257,bumbu,Saus Sambal,0.52,L,14800,8
+SKU0258,air_mineral,Air Mineral Dingin,0.33,L,1200,7
+SKU0259,perawatan_diri,Sampo,0.17,kg,14850,22
+SKU0260,perawatan_rumah,Deterjen Bubuk,0.4,L,10200,21
+SKU0261,biskuit,Biskuit Cokelat,0.1,kg,5000,10
+SKU0262,mie_instan,Mi Kuah Ayam,0.075,kg,1500,9
+SKU0263,minuman,Teh Lemon,0.5,L,4200,8
+SKU0264,perawatan_diri,Sampo,0.075,kg,6650,19
+SKU0265,perawatan_rumah,Sabun Cuci Piring,0.8,L,21050,25
+SKU0266,cokelat,Cokelat Koin,0.06,kg,5250,12
+SKU0267,mie_instan,Mi Kuah Soto,0.075,kg,1550,9
+SKU0268,sirup,Sirup Markisa,0.63,L,8900,18
+SKU0269,perawatan_diri,Sampo,0.1,kg,9000,29
+SKU0270,perawatan_rumah,Pembersih Lantai,0.4,L,10200,20
+SKU0271,biskuit,Biskuit Kelapa,0.3,kg,15700,11
+SKU0272,mie_instan,Mi Kuah Ayam,0.07,kg,1500,8
+SKU0273,kopi_teh,Teh Celup,0.1,kg,6300,8
+SKU0274,perawatan_diri,Sabun Mandi,0.1,kg,9000,23
+SKU0275,gula,Gula Pasir Halus,1.0,kg,19000,27
+SKU0276,snack,Keripik Singkong,0.05,kg,3500,9
+SKU0277,mie_instan,Mi Kuah Soto,0.075,kg,1550,9
+SKU0278,minyak_goreng,Minyak Goreng Sawit,1.0,L,22300,7
+SKU0279,perawatan_diri,Sampo,0.075,kg,6500,25
+SKU0280,perawatan_rumah,Deterjen Bubuk,0.4,L,10200,32
+SKU0281,kue_kering,Kastengel,0.3,kg,22950,3
+SKU0282,mie_instan,Mi Kuah Ayam,0.075,kg,1500,9
+SKU0283,minuman,Teh Melati,0.5,L,4300,6
+SKU0284,kopi_teh,Kopi Instan,0.1,kg,6350,18
+SKU0285,perawatan_rumah,Pembersih Lantai,0.4,L,10300,33
+SKU0286,biskuit,Biskuit Cokelat,0.15,kg,7600,6
+SKU0287,beras,Beras Medium,5.0,kg,75800,9
+SKU0288,air_mineral,Air Mineral Dingin,0.33,L,1250,8
+SKU0289,kopi_teh,Teh Celup,0.2,kg,13150,25
+SKU0290,perawatan_rumah,Deterjen Bubuk,0.8,L,21300,27
+SKU0291,roti,Roti Gandum,0.4,kg,11500,2
+SKU0292,bumbu,Kecap Manis,0.34,L,9600,8
+SKU0293,air_mineral,Air Mineral,0.6,L,2200,7
+SKU0294,perawatan_diri,Sabun Mandi,0.075,kg,6750,21
+SKU0295,gula,Gula Pasir Kristal,2.0,kg,36800,20
+SKU0296,biskuit,Biskuit Marie,0.3,kg,15700,8
+SKU0297,mie_instan,Mi Goreng,0.085,kg,1700,9
+SKU0298,minyak_goreng,Minyak Goreng Kemasan,0.9,L,19650,6
+SKU0299,perawatan_diri,Sampo,0.075,kg,6500,18
+SKU0300,perawatan_rumah,Pembersih Lantai,0.8,L,20150,24
+SKU0301,biskuit,Biskuit Kelapa,0.3,kg,15500,11
+SKU0302,mie_instan,Mi Kuah Ayam,0.07,kg,1500,8
+SKU0303,susu,Susu UHT,1.0,L,29450,9
+SKU0304,perawatan_diri,Sabun Mandi,0.17,kg,15500,23
+SKU0305,perawatan_rumah,Deterjen Bubuk,0.8,L,21500,30
+SKU0306,cokelat,Cokelat Batang,0.165,kg,15050,9
+SKU0307,beras,Beras Pandan Wangi,5.0,kg,78250,9
+SKU0308,minyak_goreng,Minyak Goreng Kemasan,2.0,L,43200,7
+SKU0309,perawatan_diri,Pasta Gigi,0.1,kg,9000,27
+SKU0310,perawatan_rumah,Deterjen Bubuk,1.0,L,25200,21
+SKU0311,biskuit,Biskuit Kelapa,0.15,kg,7650,6
+SKU0312,mie_instan,Mi Kuah Ayam,0.07,kg,1450,9
+SKU0313,air_mineral,Air Mineral Dingin,1.5,L,5600,6
+SKU0314,perawatan_diri,Pasta Gigi,0.075,kg,6550,23
+SKU0315,gula,Gula Pasir Halus,2.0,kg,36400,29
+SKU0316,roti,Roti Manis,0.3,kg,9200,1
+SKU0317,bumbu,Kecap Manis,0.135,L,3800,8
+SKU0318,susu,Susu Kental Manis,1.0,L,30100,9
+SKU0319,kopi_teh,Kopi Instan,0.1,kg,6450,26
+SKU0320,perawatan_rumah,Pembersih Lantai,0.4,L,10750,20
+SKU0321,cokelat,Cokelat Batang,0.165,kg,14250,9
+SKU0322,beras,Beras Pandan Wangi,2.0,kg,30300,8
+SKU0323,minuman,Teh Melati,0.25,L,2150,7
+SKU0324,perawatan_diri,Sampo,0.17,kg,14550,20
+SKU0325,gula,Gula Pasir Kristal,1.0,kg,18000,18
+SKU0326,kue_kering,Kastengel,0.25,kg,20400,4
+SKU0327,bumbu,Kecap Manis,0.135,L,3800,8
+SKU0328,kopi_teh,Teh Celup,0.165,kg,10750,6
+SKU0329,perawatan_diri,Sabun Mandi,0.1,kg,8850,19
+SKU0330,perawatan_rumah,Sabun Cuci Piring,0.8,L,20400,20
+SKU0331,kue_kering,Nastar,0.5,kg,39100,4
+SKU0332,mie_instan,Mi Kuah Soto,0.085,kg,1800,8
+SKU0333,minuman,Minuman Rasa Buah,0.25,L,2100,6
+SKU0334,perawatan_diri,Sabun Mandi,0.1,kg,8650,25
+SKU0335,perawatan_rumah,Pembersih Lantai,0.4,L,10100,23
+SKU0336,biskuit,Biskuit Marie,0.15,kg,7500,11
+SKU0337,beras,Beras Medium,2.0,kg,30950,8
+SKU0338,minyak_goreng,Minyak Goreng Sawit,2.0,L,43200,8
+SKU0339,perawatan_diri,Pasta Gigi,0.1,kg,9100,23
+SKU0340,gula,Gula Pasir Kristal,0.5,kg,9600,22
+SKU0341,roti,Roti Gandum,0.4,kg,12150,2
+SKU0342,mie_instan,Mi Goreng,0.075,kg,1600,8
+SKU0343,minuman,Minuman Rasa Buah,0.35,L,2950,8
+SKU0344,perawatan_diri,Sabun Mandi,0.17,kg,14850,26
+SKU0345,perawatan_rumah,Sabun Cuci Piring,1.0,L,25200,21
+SKU0346,biskuit,Biskuit Kelapa,0.15,kg,7600,9
+SKU0347,mie_instan,Mi Kuah Ayam,0.07,kg,1400,8
+SKU0348,minyak_goreng,Minyak Goreng Kemasan,0.9,L,19450,8
+SKU0349,perawatan_diri,Sampo,0.1,kg,8650,26
+SKU0350,gula,Gula Pasir Kristal,0.5,kg,9600,19
+SKU0351,biskuit,Biskuit Marie,0.1,kg,4950,10
+SKU0352,mie_instan,Mi Goreng,0.075,kg,1600,9
+SKU0353,air_mineral,Air Mineral Dingin,0.33,L,1250,6
+SKU0354,perawatan_diri,Sampo,0.1,kg,9100,20
+SKU0355,perawatan_rumah,Pembersih Lantai,1.0,L,25200,27
+SKU0356,cokelat,Cokelat Bubuk,0.06,kg,5250,18
+SKU0357,mie_instan,Mi Kuah Ayam,0.07,kg,1400,8
+SKU0358,sirup,Sirup Markisa,0.66,L,8900,24
+SKU0359,perawatan_diri,Sampo,0.1,kg,9000,29
+SKU0360,gula,Gula Pasir Kristal,0.5,kg,9100,28
+SKU0361,biskuit,Biskuit Marie,0.1,kg,5050,10
+SKU0362,beras,Beras Medium,5.0,kg,75000,9
+SKU0363,susu,Susu UHT,0.4,L,12050,9
+SKU0364,perawatan_diri,Sampo,0.1,kg,9100,22
+SKU0365,gula,Gula Pasir Halus,2.0,kg,36400,31
+SKU0366,roti,Roti Tawar,0.55,kg,16200,1
+SKU0367,bumbu,Kecap Manis,0.34,L,9500,9
+SKU0368,kopi_teh,Kopi Bubuk,0.165,kg,10750,8
+SKU0369,perawatan_diri,Sabun Mandi,0.1,kg,8950,22
+SKU0370,perawatan_rumah,Deterjen Bubuk,0.4,L,10300,31
+SKU0371,biskuit,Biskuit Kelapa,0.3,kg,15850,6
+SKU0372,bumbu,Saus Sambal,0.52,L,14050,9
+SKU0373,kopi_teh,Kopi Bubuk,0.2,kg,13450,8
+SKU0374,perawatan_diri,Sabun Mandi,0.075,kg,6700,24
+SKU0375,perawatan_rumah,Deterjen Bubuk,0.8,L,20600,28
+SKU0376,biskuit,Biskuit Kelapa,0.3,kg,15350,9
+SKU0377,mie_instan,Mi Goreng,0.085,kg,1700,8
+SKU0378,sirup,Sirup Melon,0.63,L,8900,12
+SKU0379,perawatan_diri,Pasta Gigi,0.17,kg,15350,20
+SKU0380,perawatan_rumah,Deterjen Bubuk,0.4,L,10300,28
+SKU0381,roti,Roti Tawar,0.4,kg,11900,1
+SKU0382,mie_instan,Mi Kuah Ayam,0.085,kg,1800,8
+SKU0383,kopi_teh,Kopi Instan,0.1,kg,6300,7
+SKU0384,kopi_teh,Kopi Bubuk,0.2,kg,13150,21
+SKU0385,perawatan_rumah,Deterjen Bubuk,0.4,L,10750,31
+SKU0386,roti,Roti Tawar,0.55,kg,15850,1
+SKU0387,mie_instan,Mi Goreng,0.085,kg,1800,9
+SKU0388,air_mineral,Air Mineral,1.5,L,5450,8
+SKU0389,kopi_teh,Kopi Bubuk,0.2,kg,12750,24
+SKU0390,gula,Gula Pasir Kristal,0.5,kg,9100,30
+SKU0391,cokelat,Cokelat Bubuk,0.1,kg,8750,12
+SKU0392,mie_instan,Mi Kuah Soto,0.085,kg,1750,8
+SKU0393,kopi_teh,Kopi Bubuk,0.165,kg,10650,7
+SKU0394,perawatan_diri,Sabun Mandi,0.1,kg,8750,26
+SKU0395,perawatan_rumah,Sabun Cuci Piring,1.0,L,26050,30
+SKU0396,kue_kering,Kue Semprit,0.25,kg,19350,4
+SKU0397,beras,Beras Premium,2.0,kg,29350,8
+SKU0398,sirup,Sirup Melon,0.63,L,9000,24
+SKU0399,kopi_teh,Kopi Instan,0.1,kg,6650,28
+SKU0400,perawatan_rumah,Pembersih Lantai,1.0,L,26600,25
+SKU0401,biskuit,Biskuit Kelapa,0.1,kg,5300,6
+SKU0402,bumbu,Saus Tomat,0.52,L,14350,9
+SKU0403,air_mineral,Air Mineral Dingin,1.5,L,5750,6
+SKU0404,perawatan_diri,Sampo,0.075,kg,6650,26
+SKU0405,perawatan_rumah,Sabun Cuci Piring,0.4,L,10650,34
+SKU0406,kue_kering,Kue Semprit,0.5,kg,40800,6
+SKU0407,mie_instan,Mi Kuah Ayam,0.075,kg,1500,8
+SKU0408,minyak_goreng,Minyak Goreng Kemasan,2.0,L,44650,6
+SKU0409,perawatan_diri,Pasta Gigi,0.17,kg,15200,18
+SKU0410,perawatan_rumah,Pembersih Lantai,0.8,L,20600,27
+SKU0411,snack,Keripik Kentang,0.1,kg,7200,11
+SKU0412,mie_instan,Mi Kuah Soto,0.075,kg,1550,9
+SKU0413,minuman,Minuman Rasa Buah,0.35,L,2900,6
+SKU0414,perawatan_diri,Sabun Mandi,0.17,kg,14550,25
+SKU0415,gula,Gula Pasir Halus,0.5,kg,9500,27
+SKU0416,kue_kering,Kastengel,0.5,kg,40800,4
+SKU0417,mie_instan,Mi Kuah Ayam,0.07,kg,1400,8
+SKU0418,susu,Susu Bubuk,1.0,L,29100,9
+SKU0419,perawatan_diri,Pasta Gigi,0.1,kg,9000,24
+SKU0420,perawatan_rumah,Pembersih Lantai,0.4,L,10400,18
+SKU0421,biskuit,Biskuit Marie,0.1,kg,5300,11
+SKU0422,bumbu,Saus Tomat,0.52,L,14200,9
+SKU0423,minuman,Teh Melati,0.25,L,2050,7
+SKU0424,perawatan_diri,Sabun Mandi,0.1,kg,9000,25
+SKU0425,perawatan_rumah,Sabun Cuci Piring,0.8,L,20600,26
+SKU0426,biskuit,Biskuit Kelapa,0.15,kg,7900,9
+SKU0427,mie_instan,Mi Kuah Soto,0.085,kg,1800,8
+SKU0428,susu,Susu Bubuk,0.19,L,5650,9
+SKU0429,perawatan_diri,Sabun Mandi,0.17,kg,15200,19
+SKU0430,gula,Gula Pasir Kristal,0.5,kg,9100,23
+SKU0431,biskuit,Biskuit Kelapa,0.1,kg,5150,11
+SKU0432,mie_instan,Mi Kuah Soto,0.07,kg,1450,9
+SKU0433,minyak_goreng,Minyak Goreng Kemasan,0.9,L,20750,8
+SKU0434,perawatan_diri,Sampo,0.17,kg,15350,24
+SKU0435,perawatan_rumah,Deterjen Bubuk,0.8,L,20150,21
+SKU0436,biskuit,Biskuit Marie,0.1,kg,5100,10
+SKU0437,mie_instan,Mi Goreng,0.075,kg,1550,8
+SKU0438,minuman,Minuman Rasa Buah,0.35,L,2950,6
+SKU0439,kopi_teh,Teh Celup,0.165,kg,10750,25
+SKU0440,perawatan_rumah,Pembersih Lantai,0.8,L,21300,22
+SKU0441,roti,Roti Manis,0.3,kg,8950,1
+SKU0442,beras,Beras Medium,1.0,kg,14650,9
+SKU0443,susu,Susu Bubuk,0.4,L,12150,6
+SKU0444,kopi_teh,Kopi Instan,0.165,kg,11100,24
+SKU0445,perawatan_rumah,Sabun Cuci Piring,1.0,L,25500,23
+SKU0446,snack,Keripik Kentang,0.05,kg,3450,10
+SKU0447,mie_instan,Mi Kuah Ayam,0.07,kg,1400,9
+SKU0448,air_mineral,Air Mineral,0.33,L,1200,7
+SKU0449,perawatan_diri,Sabun Mandi,0.17,kg,15500,26
+SKU0450,gula,Gula Pasir Halus,0.5,kg,9400,28
+SKU0451,biskuit,Biskuit Marie,0.3,kg,15700,6
+SKU0452,mie_instan,Mi Goreng,0.085,kg,1700,8
+SKU0453,susu,Susu Kental Manis,1.0,L,29750,2
+SKU0454,kopi_teh,Teh Celup,0.1,kg,6500,20
+SKU0455,gula,Gula Pasir Kristal,2.0,kg,38000,26
+SKU0456,biskuit,Biskuit Kelapa,0.15,kg,7650,6
+SKU0457,mie_instan,Mi Kuah Soto,0.085,kg,1700,9
+SKU0458,air_mineral,Air Mineral,0.33,L,1250,7
+SKU0459,perawatan_diri,Pasta Gigi,0.17,kg,14700,22
+SKU0460,gula,Gula Pasir Halus,0.5,kg,9400,26
+SKU0461,cokelat,Cokelat Bubuk,0.06,kg,5150,9
+SKU0462,mie_instan,Mi Goreng,0.085,kg,1800,8
+SKU0463,sirup,Sirup Cocopandan,0.46,L,6200,24
+SKU0464,perawatan_diri,Sampo,0.1,kg,9000,27
+SKU0465,gula,Gula Pasir Halus,0.5,kg,9000,30
+SKU0466,kue_kering,Kue Semprit,0.25,kg,20400,3
+SKU0467,mie_instan,Mi Kuah Ayam,0.085,kg,1800,8
+SKU0468,kopi_teh,Teh Celup,0.2,kg,13150,6
+SKU0469,perawatan_diri,Sabun Mandi,0.075,kg,6400,18
+SKU0470,perawatan_rumah,Pembersih Lantai,1.0,L,25200,30
+SKU0471,kue_kering,Kastengel,0.5,kg,40400,3
+SKU0472,beras,Beras Medium,5.0,kg,77400,8
+SKU0473,sirup,Sirup Cocopandan,0.63,L,8500,12
+SKU0474,perawatan_diri,Pasta Gigi,0.17,kg,15200,27
+SKU0475,perawatan_rumah,Deterjen Bubuk,0.4,L,10550,19
+SKU0476,cokelat,Cokelat Koin,0.165,kg,14100,12
+SKU0477,mie_instan,Mi Goreng,0.085,kg,1700,8
+SKU0478,minuman,Teh Lemon,0.5,L,4200,6
+SKU0479,kopi_teh,Kopi Bubuk,0.1,kg,6600,29
+SKU0480,gula,Gula Pasir Kristal,2.0,kg,36000,30
+SKU0481,biskuit,Biskuit Marie,0.1,kg,5050,8
+SKU0482,mie_instan,Mi Kuah Soto,0.07,kg,1400,9
+SKU0483,kopi_teh,Kopi Instan,0.1,kg,6450,8
+SKU0484,perawatan_diri,Sabun Mandi,0.1,kg,8850,18
+SKU0485,perawatan_rumah,Deterjen Bubuk,0.4,L,10200,27
+SKU0486,roti,Roti Manis,0.55,kg,16550,1
+SKU0487,bumbu,Kecap Manis,0.52,L,14650,9
+SKU0488,minyak_goreng,Minyak Goreng Sawit,1.0,L,22800,7
+SKU0489,kopi_teh,Kopi Bubuk,0.2,kg,13300,19
+SKU0490,perawatan_rumah,Deterjen Bubuk,0.4,L,10200,31
+SKU0491,biskuit,Biskuit Marie,0.1,kg,5100,8
+SKU0492,mie_instan,Mi Kuah Ayam,0.075,kg,1550,9
+SKU0493,air_mineral,Air Mineral,0.33,L,1200,8
+SKU0494,perawatan_diri,Sampo,0.17,kg,15500,24
+SKU0495,gula,Gula Pasir Kristal,1.0,kg,18000,20
+SKU0496,cokelat,Cokelat Bubuk,0.06,kg,5400,12
+SKU0497,beras,Beras Medium,2.0,kg,31300,8
+SKU0498,sirup,Sirup Markisa,0.63,L,8500,18
+SKU0499,perawatan_diri,Sampo,0.1,kg,9000,29
+SKU0500,gula,Gula Pasir Kristal,0.5,kg,9200,19
+SKU0501,biskuit,Biskuit Marie,0.1,kg,5100,10
+SKU0502,mie_instan,Mi Goreng,0.085,kg,1800,9
+SKU0503,kopi_teh,Teh Celup,0.2,kg,13000,8
+SKU0504,perawatan_diri,Sampo,0.1,kg,8950,20
+SKU0505,perawatan_rumah,Deterjen Bubuk,1.0,L,26300,18
+SKU0506,biskuit,Biskuit Kelapa,0.15,kg,7650,6
+SKU0507,mie_instan,Mi Goreng,0.075,kg,1550,8
+SKU0508,air_mineral,Air Mineral Dingin,0.6,L,2250,8
+SKU0509,kopi_teh,Kopi Bubuk,0.1,kg,6600,29
+SKU0510,gula,Gula Pasir Halus,2.0,kg,36800,33
+SKU0511,cokelat,Cokelat Koin,0.1,kg,8950,12
+SKU0512,bumbu,Saus Sambal,0.135,L,3750,9
+SKU0513,minyak_goreng,Minyak Goreng Kemasan,0.9,L,19850,7
+SKU0514,perawatan_diri,Sabun Mandi,0.17,kg,15200,20
+SKU0515,perawatan_rumah,Pembersih Lantai,0.8,L,20850,18
+SKU0516,snack,Snack Jagung,0.068,kg,4600,8
+SKU0517,mie_instan,Mi Goreng,0.075,kg,1500,8
+SKU0518,sirup,Sirup Cocopandan,0.66,L,9000,24
+SKU0519,perawatan_diri,Sabun Mandi,0.17,kg,14550,25
+SKU0520,gula,Gula Pasir Halus,0.5,kg,9400,28
+SKU0521,cokelat,Cokelat Batang,0.1,kg,8850,12
+SKU0522,beras,Beras Medium,1.0,kg,15150,8
+SKU0523,minyak_goreng,Minyak Goreng Kemasan,2.0,L,43200,6
+SKU0524,perawatan_diri,Pasta Gigi,0.17,kg,14850,23
+SKU0525,perawatan_rumah,Sabun Cuci Piring,1.0,L,26300,27
+SKU0526,biskuit,Biskuit Kelapa,0.3,kg,15000,7
+SKU0527,mie_instan,Mi Kuah Soto,0.085,kg,1800,9
+SKU0528,minyak_goreng,Minyak Goreng Sawit,2.0,L,43200,7
+SKU0529,kopi_teh,Teh Celup,0.165,kg,10950,23
+SKU0530,gula,Gula Pasir Kristal,0.5,kg,9300,28
+SKU0531,roti,Roti Gandum,0.55,kg,16900,1
+SKU0532,mie_instan,Mi Kuah Ayam,0.085,kg,1750,9
+SKU0533,air_mineral,Air Mineral,0.33,L,1200,6
+SKU0534,kopi_teh,Kopi Instan,0.165,kg,10750,22
+SKU0535,perawatan_rumah,Deterjen Bubuk,0.4,L,10400,18
+SKU0536,biskuit,Biskuit Kelapa,0.1,kg,4950,9
+SKU0537,mie_instan,Mi Kuah Soto,0.075,kg,1600,9
+SKU0538,minyak_goreng,Minyak Goreng Sawit,5.0,L,110400,6
+SKU0539,kopi_teh,Teh Celup,0.1,kg,6300,19
+SKU0540,perawatan_rumah,Deterjen Bubuk,1.0,L,25750,25
+SKU0541,roti,Roti Manis,0.55,kg,16350,2
+SKU0542,mie_instan,Mi Kuah Soto,0.07,kg,1450,8
+SKU0543,sirup,Sirup Melon,0.46,L,6200,24
+SKU0544,kopi_teh,Teh Celup,0.1,kg,6450,18
+SKU0545,gula,Gula Pasir Halus,0.5,kg,9000,31
+SKU0546,biskuit,Biskuit Marie,0.1,kg,5000,6
+SKU0547,beras,Beras Pandan Wangi,10.0,kg,151600,9
+SKU0548,air_mineral,Air Mineral,0.6,L,2300,6
+SKU0549,kopi_teh,Teh Celup,0.1,kg,6600,20
+SKU0550,gula,Gula Pasir Halus,0.5,kg,9100,35
+SKU0551,kue_kering,Kastengel,0.25,kg,20400,4
+SKU0552,bumbu,Saus Sambal,0.135,L,3750,8
+SKU0553,minuman,Minuman Rasa Buah,0.5,L,4300,8
+SKU0554,kopi_teh,Teh Celup,0.165,kg,10650,22
+SKU0555,perawatan_rumah,Deterjen Bubuk,0.4,L,10300,21
+SKU0556,kue_kering,Nastar,0.3,kg,23200,6
+SKU0557,beras,Beras Pandan Wangi,5.0,kg,75800,8
+SKU0558,air_mineral,Air Mineral,0.33,L,1250,8
+SKU0559,perawatan_diri,Pasta Gigi,0.17,kg,14850,25
+SKU0560,gula,Gula Pasir Kristal,0.5,kg,9600,22
+SKU0561,biskuit,Biskuit Kelapa,0.1,kg,5150,11
+SKU0562,bumbu,Saus Sambal,0.135,L,3750,8
+SKU0563,minyak_goreng,Minyak Goreng Sawit,5.0,L,110400,7
+SKU0564,perawatan_diri,Pasta Gigi,0.075,kg,6400,27
+SKU0565,perawatan_rumah,Pembersih Lantai,1.0,L,25200,24
+SKU0566,biskuit,Biskuit Kelapa,0.3,kg,15500,9
+SKU0567,beras,Beras Medium,10.0,kg,151600,8
+SKU0568,minuman,Teh Melati,0.35,L,2950,6
+SKU0569,kopi_teh,Teh Celup,0.165,kg,10650,27
+SKU0570,perawatan_rumah,Pembersih Lantai,0.4,L,10750,27
+SKU0571,cokelat,Cokelat Koin,0.06,kg,5200,9
+SKU0572,beras,Beras Pandan Wangi,1.0,kg,14850,8
+SKU0573,susu,Susu UHT,1.0,L,30100,6
+SKU0574,perawatan_diri,Sampo,0.17,kg,14550,23
+SKU0575,gula,Gula Pasir Halus,2.0,kg,37200,20
+SKU0576,kue_kering,Kue Semprit,0.25,kg,19350,3
+SKU0577,bumbu,Kecap Manis,0.34,L,9600,8
+SKU0578,kopi_teh,Teh Celup,0.2,kg,13300,7
+SKU0579,perawatan_diri,Sabun Mandi,0.17,kg,14550,29
+SKU0580,perawatan_rumah,Pembersih Lantai,1.0,L,25200,32
+SKU0581,cokelat,Cokelat Batang,0.1,kg,9100,18
+SKU0582,beras,Beras Premium,5.0,kg,75000,9
+SKU0583,minyak_goreng,Minyak Goreng Sawit,2.0,L,44650,7
+SKU0584,kopi_teh,Kopi Instan,0.1,kg,6500,20
+SKU0585,perawatan_rumah,Pembersih Lantai,0.4,L,10100,28
+SKU0586,biskuit,Biskuit Cokelat,0.15,kg,7500,11
+SKU0587,mie_instan,Mi Kuah Soto,0.075,kg,1500,8
+SKU0588,air_mineral,Air Mineral Dingin,0.33,L,1200,8
+SKU0589,kopi_teh,Kopi Bubuk,0.2,kg,13150,24
+SKU0590,perawatan_rumah,Pembersih Lantai,1.0,L,26600,32
+SKU0591,cokelat,Cokelat Bubuk,0.165,kg,15050,12
+SKU0592,beras,Beras Medium,2.0,kg,30000,8
+SKU0593,air_mineral,Air Mineral Dingin,0.33,L,1250,7
+SKU0594,perawatan_diri,Sabun Mandi,0.17,kg,15350,20
+SKU0595,perawatan_rumah,Sabun Cuci Piring,0.4,L,10550,21
+SKU0596,cokelat,Cokelat Batang,0.165,kg,14900,12
+SKU0597,mie_instan,Mi Kuah Soto,0.07,kg,1500,9
+SKU0598,minyak_goreng,Minyak Goreng Sawit,5.0,L,108000,8
+SKU0599,kopi_teh,Kopi Instan,0.2,kg,13150,28
+SKU0600,gula,Gula Pasir Kristal,1.0,kg,18400,25

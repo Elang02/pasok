@@ -1,0 +1,42 @@
+action_groups:
+  - actions:
+      - type: status-update
+        message: <? "Loading purchase orders" ?>
+
+      - type: message
+        message:
+          type: text
+          markdown: true
+          content: |
+            **Pasok purchase orders** (snapshot 2026-10-11)
+
+            Issued automatically: **130 orders**, Rp 6,009.6 juta total. These cleared
+            policy on their own, with no person in the path.
+            Waiting for a signature: **7 orders**, Rp 1,698.2 juta. Five are above the
+            automatic signing line of Rp 200 juta, two are below the supplier's minimum
+            order quantity.
+
+            Largest issued automatically:
+
+            - PO-0006 SKU0262 (P06): 5,195 unit, Rp 197.4 juta
+            - PO-0007 SKU0407 (P07): 8,657 unit, Rp 190.5 juta
+            - PO-0008 SKU0072 (P12): 8,510 unit, Rp 187.2 juta
+            - PO-0009 SKU0063 (P07): 4,907 unit, Rp 186.5 juta
+            - PO-0010 SKU0287 (P02): 4,362 unit, Rp 165.8 juta
+            - PO-0011 SKU0357 (P10): 4,353 unit, Rp 165.4 juta
+            - PO-0012 SKU0333 (P07): 7,291 unit, Rp 160.4 juta
+            - PO-0013 SKU0205 (P11): 4,057 unit, Rp 154.2 juta
+
+            Waiting on a person, with the reason:
+
+            - PO-0001 SKU0147 (P09): Rp 499.0 juta, above the 200 juta signing line
+            - PO-0002 SKU0157 (P01): Rp 457.9 juta, above the signing line
+            - PO-0003 SKU0182 (P03): Rp 284.8 juta, above the signing line
+            - PO-0004 SKU0181 (P04): Rp 229.3 juta, above the signing line
+            - PO-0005 SKU0328 (P11): Rp 221.6 juta, above the signing line
+            - PO-0006 SKU0509 (P08): Rp 4.8 juta, below the minimum order quantity
+            - PO-0007 SKU0349 (P02): Rp 0.6 juta, below the minimum order quantity
+
+            Order sizes are shrunk by three guardrails before they leave: smoothing,
+            damping, and a variance cap. Across the replay window the raw order would
+            have amplified demand 1.30x; with the guardrails it is 0.35x.

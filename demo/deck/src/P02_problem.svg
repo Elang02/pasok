@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">2</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">One buyer reorders 600 SKUs</text>
+    <text x="96" y="222" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">against a calendar that moves</text>
+    <rect x="96" y="262" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="262" width="96" height="3" fill="#B4551F" />
+  <g id="claim-body" data-pptx-bounds="96 276 660 160">
+    <text x="96" y="318" font-size="24" fill="#2A2622">69% of FMCG volume moves through general trade.<tspan x="96" dy="36">Most stores reorder at a fixed point, set once.</tspan><tspan x="96" dy="36">Every event drifts, so last year's plan lands in</tspan><tspan x="96" dy="36">the wrong week.</tspan></text>
+  </g>
+  <g id="drift" data-pptx-bounds="792 276 392 160">
+    <text x="792" y="318" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">9 of 12 suppliers</text>
+    <text x="792" y="344" font-size="16" fill="#6B6257">deliver below 95% fill, so the</text>
+    <text x="792" y="364" font-size="16" fill="#6B6257">calendar slips as well as moves.</text>
+    <text x="792" y="404" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#B4551F">480 orders</text>
+    <text x="792" y="428" font-size="16" fill="#6B6257">is what one pass of this desk sends.</text>
+  </g>
+  <g id="timeline" data-pptx-bounds="96 444 1088 186">
+    <rect x="96" y="470" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="500" font-size="16" fill="#2A2622">5 Jun</text>
+    <rect x="96" y="508" width="2" height="14" fill="#B4551F" />
+    <text x="96" y="540" font-size="16" fill="#6B6257">2019</text>    <text x="232" y="500" font-size="16" fill="#2A2622">24 May</text>
+    <rect x="232" y="508" width="2" height="14" fill="#B4551F" />
+    <text x="232" y="540" font-size="16" fill="#6B6257">2020</text>    <text x="368" y="500" font-size="16" fill="#2A2622">13 May</text>
+    <rect x="368" y="508" width="2" height="14" fill="#B4551F" />
+    <text x="368" y="540" font-size="16" fill="#6B6257">2021</text>    <text x="504" y="500" font-size="16" fill="#2A2622">2 May</text>
+    <rect x="504" y="508" width="2" height="14" fill="#B4551F" />
+    <text x="504" y="540" font-size="16" fill="#6B6257">2022</text>    <text x="640" y="500" font-size="16" fill="#2A2622">22 Apr</text>
+    <rect x="640" y="508" width="2" height="14" fill="#B4551F" />
+    <text x="640" y="540" font-size="16" fill="#6B6257">2023</text>    <text x="776" y="500" font-size="16" fill="#2A2622">10 Apr</text>
+    <rect x="776" y="508" width="2" height="14" fill="#B4551F" />
+    <text x="776" y="540" font-size="16" fill="#6B6257">2024</text>    <text x="912" y="500" font-size="16" fill="#2A2622">31 Mar</text>
+    <rect x="912" y="508" width="2" height="14" fill="#B4551F" />
+    <text x="912" y="540" font-size="16" fill="#6B6257">2025</text>    <text x="1048" y="500" font-size="16" fill="#2A2622">20 Mar</text>
+    <rect x="1048" y="508" width="2" height="14" fill="#B4551F" />
+    <text x="1048" y="540" font-size="16" fill="#6B6257">2026</text>
+    <text x="96" y="578" font-size="24" fill="#2A2622">Eight years, eight dates, each one earlier.<tspan x="96" dy="34">A reorder point set last year buys for the wrong week.</tspan></text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">Sources: general-trade share from the proposal; event dates from data/demand/event_calendar.csv.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">2</text>
+  </g>
+</svg>

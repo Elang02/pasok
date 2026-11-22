@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pasok: catalogue</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/pasok.css">
+<style>
+/* page-specific rules only. theme, masthead, controls: /pasok.css */
+.band { margin-top: var(--space-2xl); }
+
+.band h2 { margin: 0 0 var(--space-2xs); }
+
+.band .sub { max-width: var(--measure); color: var(--color-muted);
+             font: 400 var(--text-sm) / 1.6 var(--font-body); margin: 0 0 var(--space-md); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+         gap: var(--space-md) var(--space-lg); margin: 0; }
+
+.facts dt { font: 500 var(--text-xs) / 1.3 var(--font-ui); letter-spacing: 0.07em;
+            text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-2xs); }
+
+.facts dd { margin: 0; font: 500 var(--text-lg) / 1.2 var(--font-display);
+            font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+.facts dd small { display: block; font: 400 var(--text-sm) / 1.5 var(--font-body);
+                  color: var(--color-muted); letter-spacing: 0; margin-top: var(--space-2xs); }
+
+.tools { display: flex; flex-wrap: wrap; align-items: center;
+         gap: var(--space-xs) var(--space-sm); margin: 0 0 var(--space-md); }
+
+.tools .field { flex: 1 1 260px; }
+
+.scroller { overflow-x: auto; }
+
+.note { color: var(--color-muted); font: 400 var(--text-sm) / 1.6 var(--font-body);
+        margin: var(--space-sm) 0 0; }
+
+.chip { display: inline-block; padding: 1px 6px; border: var(--rule-hair) solid var(--color-accent);
+        color: var(--color-accent); font: 500 var(--text-xs) / 1.4 var(--font-ui); white-space: nowrap; }
+
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="issue"><!--SNAPSHOT--></p>
+  <h1 class="name">Pasok<i>.</i></h1>
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Console</a></li>
+      <li><a href="/orders">Orders</a></li>
+      <li><a href="/catalog" aria-current="page">Catalogue</a></li>
+      <li><a href="/receiving">Receiving</a></li>
+      <li><a href="/health">Stock</a></li>
+      <li><a href="/transfers">Transfers</a></li>
+      <li><a href="/suppliers">Suppliers</a></li>
+      <li><a href="/geography">Cities</a></li>
+      <li><a href="/loop">Loop</a></li>
+      <li><a href="/panel">Agent panel</a></li>
+    </ul>
+  </nav>
+  <hr class="double-rule">
+</header>
+
+<main class="sheet">
+
+  <section class="band">
+    <h2>The catalogue, as the buyer sees it</h2>
+    <p class="sub">Names, packs and prices are generated from the pipeline catalogue, the learned
+      event ramp and four years of sales. Nothing on this page is typed by hand, and the brand
+      names are invented on purpose: this pilot has no real product list behind it.</p>
+    <dl class="facts">
+      <div><dt>SKUs</dt><dd><span data-fig="catalog_skus">600</span><small>one row per SKU</small></dd></div>
+      <div><dt>Distinct names</dt><dd><span data-fig="catalog_names">600</span><small>no duplicates</small></dd></div>
+      <div><dt>Sell price</dt><dd><span data-fig="catalog_price_low">Rp 3 rb</span> to <span data-fig="catalog_price_high">Rp 45 rb</span><small>warung pack sizes</small></dd></div>
+      <div><dt>Gross margin</dt><dd><span data-fig="catalog_margin_avg">11.5%</span><small>average across the range</small></dd></div>
+      <div><dt>Events with a learned ramp</dt><dd><span data-fig="catalog_events">7</span><small>peak day measured per SKU</small></dd></div>
+    </dl>
+  </section>
+
+  <section class="band">
+    <h2>Every SKU, its price, and when its event rise starts</h2>
+    <p class="sub">The last three columns are the trend the agent plans against: the event each SKU
+      peaks in, how many times normal demand it reaches, and how many days before the event the
+      rise starts. A dash means the SKU carries no learned peak for any event.</p>
+    <div class="tools">
+      <input class="field" id="q" type="search" autocomplete="off" aria-label="Search the catalogue"
+             placeholder="Search a product name, a SKU or a supplier">
+      <button class="btn" type="button" data-cat="" aria-pressed="true">All categories</button>
+    </div>
+    <div class="scroller"><table class="rec" id="cat">
+      <thead><tr>
+        <th>Product</th><th>SKU</th><th>Supplier</th>
+        <th class="num">Cost</th><th class="num">Sell</th><th class="num">Margin</th>
+        <th>Top event</th><th class="num">Peak</th><th class="num">Rise starts</th><th class="num">YoY</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <p class="note" id="catnote">Loading the catalogue.</p>
+  </section>
+
+</main>
+
+<script>
+const table = document.querySelector("#cat tbody");
+const note = document.querySelector("#catnote");
+const q = document.querySelector("#q");
+const tools = document.querySelector(".tools");
+let cat = "";
+
+function rp(v) {
+  const n = Number(v);
+  return "Rp " + n.toLocaleString("en-US");
+}
+
+function render(data) {
+  table.innerHTML = "";
+  for (const r of data.rows) {
+    const tr = document.createElement("tr");
+    const peak = Number(r.peak_mult) > 1 ? "x" + Number(r.peak_mult).toFixed(2) : "-";
+    const rise = r.top_event ? "H-" + Math.round(Number(r.days_to_peak)) : "-";
+    tr.innerHTML = `<td>${r.name}</td><td><span class="chip">${r.sku}</span></td>` +
+      `<td>${r.principal_id}</td><td class="num">${rp(r.unit_cost_idr)}</td>` +
+      `<td class="num">${rp(r.sell_price_idr)}</td><td class="num">${Number(r.margin_pct).toFixed(1)}%</td>` +
+      `<td>${r.top_event || "-"}</td><td class="num">${peak}</td><td class="num">${rise}</td>` +
+      `<td class="num">${Number(r.yoy_growth_pct) >= 0 ? "+" : ""}${Number(r.yoy_growth_pct).toFixed(1)}%</td>`;
+    table.appendChild(tr);
+  }
+  note.textContent = `${data.returned} of ${data.summary.skus} SKUs shown, ` +
+    `${data.summary.names} distinct names, prices ${rp(data.summary.price_low)} to ${rp(data.summary.price_high)}.`;
+}
+
+async function load() {
+  const url = `/api/catalog?q=${encodeURIComponent(q.value)}&category=${encodeURIComponent(cat)}`;
+  const r = await fetch(url);
+  render(await r.json());
+}
+
+function buildCats(data) {
+  for (const c of data.summary.categories) {
+    const b = document.createElement("button");
+    b.className = "btn";
+    b.type = "button";
+    b.dataset.cat = c;
+    b.textContent = c.replaceAll("_", " ");
+    b.setAttribute("aria-pressed", "false");
+    tools.appendChild(b);
+  }
+}
+
+fetch("/api/catalog").then(r => r.json()).then(d => { buildCats(d); render(d); });
+
+tools.addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-cat]");
+  if (!b) return;
+  cat = b.dataset.cat;
+  for (const x of tools.querySelectorAll("button[data-cat]"))
+    x.setAttribute("aria-pressed", String(x === b));
+  load();
+});
+
+q.addEventListener("input", () => load());
+</script>
+
+</body>
+</html>

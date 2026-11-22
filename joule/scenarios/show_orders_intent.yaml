@@ -1,0 +1,8 @@
+description: >
+  Shows purchase orders Pasok issued automatically and the ones waiting for the
+  buyer's approval. Use this when the user asks what was ordered, what is in the
+  approval queue, which POs were auto-issued, or the status of restocking.
+
+target:
+  type: function
+  name: show_orders

@@ -1,0 +1,18 @@
+{
+  "n_principals": 12,
+  "recent_window_days": 180,
+  "otif_range": [
+    0.721,
+    0.974
+  ],
+  "otif_mean": 0.817,
+  "buffer_days_range": [
+    2,
+    7
+  ],
+  "drift_flags": 0,
+  "p90_gt_p50_all": true,
+  "worst_otif": "P01",
+  "best_otif": "P03",
+  "note": "Buffer days come from observed p90 spread, not from the master record."
+}

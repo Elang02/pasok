@@ -1,0 +1,19 @@
+category,event,amplitude,share,basis,source,note
+sirup,Ramadan-Lebaran,1.3,0.75,industry turnover,GAPMMI via Katadata 2020,"syrup, biscuits, wafer, packaged juice move together"
+sirup,Lebaran,1.3,0.75,industry turnover,GAPMMI via Katadata 2020,window spans Ramadan into Lebaran week
+kue_kering,Ramadan-Lebaran,1.5,0.65,sales,Antara 2019,"small-producer sales; 5x production at Ina Cookies is an upper bound, production not sell-out"
+kue_kering,Imlek,1.3,0.60,sales,Antara 2019,cookie demand also follows Imlek gifting; same producer evidence
+cokelat,Valentine,1.2,0.55,sales,"Straits Times / Jakarta Post, 14 Feb 2026",average over the window; buyer traffic 4x on 13-14 Feb only
+cokelat,Christmas,1.35,0.60,sales,"Straits Times / Jakarta Post, 14 Feb 2026",1.3-1.4x at Christmas and Lebaran
+cokelat,Lebaran,1.35,0.60,sales,"Straits Times / Jakarta Post, 14 Feb 2026",1.3-1.4x at Christmas and Lebaran
+biskuit,Ramadan-Lebaran,1.3,0.55,industry turnover,GAPMMI via Katadata 2020,biscuits named in the same industry figure
+minuman,Ramadan-Lebaran,1.3,0.55,industry turnover,GAPMMI via Katadata 2020,packaged juice in the same figure; syrup sits in this group
+snack,Lebaran,1.1,0.55,sales,NielsenIQ Mar 2025,FMCG value grew under 10% through Ramadan
+default,Ramadan-Lebaran,1.1,0.25,sales,NielsenIQ Mar 2025,household spending +20% but FMCG value under +10%: the rest of the catalogue barely moves
+default,Imlek,1.08,0.20,no category source,assumption,calendar lift for goods with no specific Imlek row
+default,THR,1.12,0.30,no category source,assumption,salary bonus lands before Lebaran; modest across the board
+default,Christmas,1.06,0.15,no category source,assumption,"year-end lift, concentrated in chocolate and hampers"
+default,NewYear,1.05,0.15,no category source,assumption,first week of January
+default,Nyepi,1.03,0.10,no category source,assumption,"Bali holiday, small on a Greater Jakarta network"
+snack,THR,1.15,0.50,no category source,assumption,gifting and travel snacks
+minuman,THR,1.15,0.50,no category source,assumption,syrup and ready-to-drink move with THR

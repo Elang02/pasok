@@ -1,0 +1,10 @@
+description: >
+  Shows the current Pasok replenishment exception queue. Use this whenever the
+  user asks about stockout risks, SKUs needing reorder today, the replenishment
+  exception list, or what Pasok recommends buying now. Examples: "show me the
+  Pasok exception queue", "which SKUs are at stockout risk", "what should I
+  reorder today", "Pasok recommendations".
+
+target:
+  type: function
+  name: show_queue

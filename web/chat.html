@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pasok: Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/pasok.css">
+<style>
+/* page-specific rules only. theme, masthead, controls: /pasok.css */
+
+/* ══════════════════════════════════════════════════════════════
+   Design Read (web-design-engineer, Step 2b)
+   artifact: working console surface, a chat with four agents
+   audience: one operator, a supply-chain lead, reading numbers all day
+   visual-language: information architecture. Rational, data-first, restrained.
+     Bloomberg Terminal and Tufte, not Linear and not Awwwards.
+   mode: extension (shares pasok.css with three other pages)
+   dials: visual-variance 2 · motion-intensity 2 · information-density 7
+          asset-dependence 1 · brand-fidelity 4
+
+   Density 7 is the whole point. This is a work surface, not a brochure: the
+   numbers are the content and they stay on screen together. Variance 2 keeps
+   it predictable on purpose, because an operator who already knows where the
+   stockout list sits should never have to look for it again.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── the thread: question right, answer left, both aligned to a spine ── */
+#log { display: block; }
+.exchange { padding-block: var(--space-md); }
+.exchange:first-child { padding-top: 0; }
+
+.q-line { display: flex; justify-content: flex-end; }
+.q-line .what {
+  font: 400 var(--text-base) / 1.5 var(--font-body);
+  color: var(--color-paper); background: var(--color-accent);
+  padding: var(--space-sm) var(--space-md); border-radius: var(--radius);
+  max-width: 40ch; margin: 0;
+}
+
+.a-line { margin-top: var(--space-md); }
+.a-line .who {
+  display: flex; align-items: center; gap: var(--space-sm);
+  font: 500 var(--text-xs) / 1 var(--font-ui); letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--color-neutral);
+  margin: 0 0 var(--space-sm);
+}
+.a-line .who b { color: var(--color-ink); font-weight: 600; letter-spacing: 0; }
+.a-line .who .rule { flex: 1; height: 1px; background: var(--color-rule); }
+
+/* the answer carries a left rule, so a long thread stays scannable by eye */
+.answer {
+  font-size: var(--text-base); line-height: 1.6; max-width: var(--measure);
+  padding-left: var(--space-md); border-left: 2px solid var(--color-rule-2);
+}
+.answer h2 { color: var(--color-ink); }
+
+/* ── how the agent got there: collapsed by default, one line per step ── */
+.think {
+  margin: 0 0 var(--space-sm); border-left: var(--rule-hair) solid var(--color-rule);
+  padding-left: var(--space-sm);
+}
+.think > summary {
+  cursor: pointer; list-style: none; color: var(--color-muted);
+  font: 500 var(--text-xs) / 1.4 var(--font-ui); letter-spacing: 0.03em;
+}
+.think > summary::-webkit-details-marker { display: none; }
+.think > summary::before { content: "▸ "; color: var(--color-neutral); }
+.think[open] > summary::before { content: "▾ "; }
+.think ul { margin: var(--space-2xs) 0 0; padding-left: var(--space-md); }
+.think li { margin-bottom: var(--space-2xs); font-size: var(--text-sm); }
+.think .who {
+  font: 500 var(--text-xs) / 1.3 var(--font-mono); color: var(--color-accent);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-right: 0.4em;
+}
+.think .det { display: block; color: var(--color-muted); font-size: var(--text-xs); }
+.answer p { margin: 0 0 var(--space-2xs); }
+.answer ul { margin: 0 0 var(--space-2xs); padding-left: var(--space-lg); }
+.answer li { margin-bottom: 0; }
+.answer table { border-collapse: collapse; width: 100%; font-size: var(--text-sm); margin: var(--space-2xs) 0; }
+.answer th, .answer td { border-bottom: var(--rule-hair) solid var(--color-rule);
+                         padding: var(--space-3xs) var(--space-sm) var(--space-3xs) 0; text-align: left; }
+.answer th { font: 500 var(--text-xs) / 1.3 var(--font-ui); letter-spacing: 0.07em;
+             text-transform: uppercase; color: var(--color-neutral);
+             border-bottom: var(--rule-hair) solid var(--color-rule-2); }
+.answer td { font-variant-numeric: tabular-nums; }
+.answer code { font: 400 0.875em var(--font-mono); background: var(--color-paper-2);
+               padding: 1px 4px; }
+.answer strong { font-weight: 500; }
+
+/* ── the work log: a table, because that is what it is ── */
+.record { margin: var(--space-md) 0; border: var(--rule-hair) solid var(--color-rule);
+          border-radius: var(--radius); background: var(--color-paper-2); padding: var(--space-sm) var(--space-md); }
+.record .cap {
+  font: 500 var(--text-xs) / 1.4 var(--font-mono); letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--color-neutral); margin: 0 0 var(--space-2xs);
+}
+.record .cap b { color: var(--color-ink); font-weight: 500; }
+table.log { border-collapse: collapse; width: 100%; font: 400 var(--text-xs) / 1.45 var(--font-mono); }
+table.log td { padding: var(--space-3xs) var(--space-sm) var(--space-3xs) 0; vertical-align: top;
+               border-bottom: var(--rule-hair) solid var(--color-rule); }
+table.log tr:last-child td { border-bottom: 0; }
+table.log .t { width: 3rem; color: var(--color-neutral); font-variant-numeric: tabular-nums; }
+table.log .g { width: 6.5rem; }
+table.log .d { color: var(--color-muted); }
+table.log .r { color: var(--color-ink); font-variant-numeric: tabular-nums; }
+tr[data-state="waiting"] { opacity: .45; }
+tr[data-state="running"] { background: color-mix(in oklab, var(--color-accent) 12%, transparent); }
+tr[data-state="running"] .d { color: var(--color-accent); }
+tr[data-state="failed"] { background: color-mix(in oklab, var(--color-bad) 16%, transparent); }
+tr[data-state="failed"] .d { color: var(--color-bad); }
+
+.waiting { color: var(--color-neutral); font-size: var(--text-sm); }
+
+.closing {
+  margin-top: var(--space-sm); padding: var(--space-2xs) var(--space-md);
+  background: var(--color-paper-2); border-left: 2px solid var(--color-accent);
+  font-size: var(--text-sm); line-height: 1.55; max-width: var(--measure);
+}
+.closing.bad { border-left-color: var(--color-bad); background: color-mix(in oklab, var(--color-bad) 16%, transparent); }
+
+/* ── charts: one accent line, hairline grid, units on every axis ── */
+
+/* ── composer: pinned, bordered, one button ── */
+.ask { position: sticky; bottom: 0; margin-top: var(--space-xl);
+       background: var(--color-paper); padding: var(--space-sm) 0 var(--space-md);
+       border-top: var(--rule-hair) solid var(--color-rule); }
+.ask .row { display: flex; align-items: center; gap: var(--space-sm);
+            border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius);
+            padding: var(--space-3xs) var(--space-3xs) var(--space-3xs) var(--space-md); }
+.ask .row:focus-within { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.ask input {
+  flex: 1 1 auto; min-width: 0; height: 40px; border: 0; background: transparent;
+  color: var(--color-ink); font: 400 var(--text-base) / 1.5 var(--font-body);
+  padding: 0 var(--space-2xs);
+}
+.ask input::placeholder { color: var(--color-neutral); }
+.ask input:focus-visible { outline: none; }
+.ask button {
+  height: 40px; padding: 0 var(--space-lg); border: 0;
+  background: var(--color-ink); color: var(--color-paper); cursor: pointer;
+  font: 500 var(--text-sm) / 1 var(--font-ui); white-space: nowrap;
+  border-radius: var(--radius);
+  transition: opacity var(--dur-micro) var(--ease-out);
+}
+.ask button:hover:not(:disabled) { opacity: .88; }
+.ask button:active:not(:disabled) { transform: translateY(1px); }
+.ask button:disabled { opacity: .45; cursor: not-allowed; }
+.helper { min-height: 1lh; margin: var(--space-2xs) 0 0; font-size: var(--text-xs);
+          color: var(--color-muted); max-width: var(--measure); }
+.helper a { cursor: pointer; }
+.helper .sep { color: var(--color-rule-2); }
+
+/* the opening prompt: one paragraph, real sentences, no chip row */
+.starter {
+  font-size: var(--text-sm); line-height: 1.7; color: var(--color-muted);
+  max-width: var(--measure); margin: var(--space-md) 0 0;
+}
+.starter a { color: var(--color-ink); text-decoration-color: var(--color-rule-2); }
+.starter a:hover { text-decoration-color: var(--color-accent); }
+
+/* ── the bench: the live critical list, sortable, every row a question ── */
+.bench { margin: var(--space-lg) 0 0; border-top: 2px solid var(--color-ink);
+         padding-top: var(--space-sm); }
+.bench-head { display: flex; flex-wrap: wrap; align-items: baseline;
+              justify-content: space-between; gap: var(--space-sm); }
+.bench-head h2 { font: 500 var(--text-base) / 1.3 var(--font-ui); margin: 0;
+                 letter-spacing: 0.01em; }
+.bench-ctl { display: flex; gap: var(--space-3xs); }
+.bench-ctl button {
+  font: 500 var(--text-xs) / 1 var(--font-ui); padding: var(--space-2xs) var(--space-sm);
+  border: var(--rule-hair) solid var(--color-rule-2); background: transparent;
+  color: var(--color-muted); cursor: pointer; border-radius: var(--radius);
+}
+.bench-ctl button:hover { border-color: var(--color-ink); color: var(--color-ink); }
+.bench-ctl button[aria-pressed="true"] {
+  background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink);
+}
+.bench-sub { font-size: var(--text-xs); color: var(--color-neutral);
+             margin: var(--space-2xs) 0 var(--space-sm); max-width: var(--measure); }
+.bench-body { max-height: 19rem; overflow-y: auto; overflow-x: auto;
+              overscroll-behavior: contain; }
+table.bench-tbl { border-collapse: collapse; width: 100%;
+                  font: 400 var(--text-xs) / 1.5 var(--font-mono); }
+table.bench-tbl th { position: sticky; top: 0; background: var(--color-paper);
+                     font: 500 var(--text-xs) / 1.3 var(--font-ui); letter-spacing: 0.07em;
+                     text-transform: uppercase; color: var(--color-neutral);
+                     text-align: left; padding: var(--space-3xs) var(--space-sm) var(--space-3xs) 0;
+                     border-bottom: var(--rule-hair) solid var(--color-rule-2); }
+table.bench-tbl td { padding: var(--space-3xs) var(--space-sm) var(--space-3xs) 0;
+                     border-bottom: var(--rule-hair) solid var(--color-rule);
+                     font-variant-numeric: tabular-nums; }
+table.bench-tbl tr:last-child td { border-bottom: 0; }
+table.bench-tbl th.n, table.bench-tbl td.n { text-align: right; }
+table.bench-tbl tbody tr { cursor: pointer; }
+table.bench-tbl tbody tr:hover { background: var(--color-paper-2); }
+table.bench-tbl tbody tr:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+table.bench-tbl td.sku { color: var(--color-ink); }
+table.bench-tbl td.sku::after { content: " ↖"; color: var(--color-rule-2); }
+table.bench-tbl tbody tr:hover td.sku::after { color: var(--color-accent); }
+table.bench-tbl td.cat { color: var(--color-neutral); font-family: var(--font-ui);
+                         letter-spacing: 0.01em; white-space: nowrap; }
+td.zero { color: var(--color-bad); font-weight: 500; }
+td.thin { color: var(--color-accent); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="issue"><!--SNAPSHOT--></p>
+  <h1 class="name">Pasok<i>.</i></h1>
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="/" aria-current="page">Console</a></li>
+      <li><a href="/orders">Orders</a></li>
+      <li><a href="/receiving">Receiving</a></li>
+      <li><a href="/health">Stock</a></li>
+      <li><a href="/transfers">Transfers</a></li>
+      <li><a href="/suppliers">Suppliers</a></li>
+      <li><a href="/geography">Cities</a></li>
+      <li><a href="/catalog">Catalogue</a></li>
+      <li><a href="/loop">Loop</a></li>
+      <li><a href="/panel">Agent panel</a></li>
+    </ul>
+  </nav>
+  <hr class="double-rule">
+</header>
+
+<main class="sheet">
+
+  <form class="ask" id="askform" onsubmit="return false;">
+    <div class="row">
+      <input id="q" name="q" type="text" autocomplete="off" spellcheck="false"
+             placeholder="Ask a question, for example: what runs out this week?">
+      <button id="send" type="submit">Send</button>
+    </div>
+  </form>
+
+  <div class="ticker" id="ticker" hidden>
+    <span><span class="k">snapshot</span> <span class="v" id="tk-snap">-</span></span><span class="sep">·</span>
+    <span><span class="k">SKU</span> <span class="v" id="tk-skus">-</span></span><span class="sep">·</span>
+    <span><span class="k">orders placed</span> <span class="v" id="tk-orders">-</span></span><span class="sep">·</span>
+    <span><span class="k">placed without a person</span> <span class="v ok" id="tk-auto">-</span></span><span class="sep">·</span>
+    <span><span class="k">waiting for a person</span> <span class="v up" id="tk-wait">-</span></span><span class="sep">·</span>
+    <span><span class="k">share of the order delivered</span> <span class="v" id="tk-fill">-</span></span><span class="sep">·</span>
+    <span><span class="k">forecast miss, ordered SKUs</span> <span class="v" id="tk-wape">-</span></span>
+  </div>
+
+  <section class="bench" id="bench" hidden>
+    <div class="bench-head">
+      <h2>Tight right now</h2>
+      <div class="bench-ctl" role="group" aria-label="Sort the list">
+        <button type="button" data-sort="cover" aria-pressed="true">Least cover first</button>
+        <button type="button" data-sort="usual" aria-pressed="false">Selling faster than usual</button>
+      </div>
+    </div>
+    <p class="bench-sub">
+      <span id="bench-count">-</span> SKUs from the latest snapshot. Press a row to ask
+      about that SKU.
+    </p>
+    <div class="bench-body" id="bench-body">
+      <p class="waiting">Loading stock position…</p>
+    </div>
+  </section>
+
+  <div id="log"></div>
+  <p id="nolog" class="waiting">
+    No question yet. Pick an example, or type your own.
+  </p>
+
+  <p class="starter" id="starter">
+    Pick a question, or type your own:
+    <a onclick="contoh('What runs out this week?')">what runs out this week</a>,
+    <a onclick="contoh('What needs more stock for a spike next month?')">what needs more stock for a spike next month</a>,
+    <a onclick="contoh('Which SKUs are waiting for a person?')">which SKUs are waiting for a person</a>,
+    <a onclick="contoh('Why was SKU0041 reordered?')">why was SKU0041 reordered</a>,
+    <a onclick="contoh('Where did PO-0155 end up?')">where did PO-0155 end up</a>, and
+    <a onclick="contoh('Run the loop')">run the loop</a>.
+  </p>
+
+  <footer class="colophon">
+  <span><span data-fig="n_skus">600</span> SKUs</span><span class="dot">·</span>
+  <span><span data-fig="principal_count">12</span> principals</span>
+</footer>
+
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const log = $("log");
+const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+function jam() {
+  const d = new Date();
+  return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+}
+function contoh(t) { $("q").value = t; kirim(); }
+
+/* ── light markdown ── */
+function render(md) {
+  let h = esc(md);
+  h = h.replace(/^## (.*)$/gm, "<h2>$1</h2>");
+  h = h.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  h = h.replace(/`(.+?)`/g, "<code>$1</code>");
+  h = h.replace(/(?:^\|.*\|\s*$\n?)+/gm, function (b) {
+    const rows = b.trim().split("\n").filter(r => !/^\|[\s\-|]+\|$/.test(r));
+    let t = "<table>";
+    rows.forEach((r, i) => {
+      const c = r.split("|").slice(1, -1).map(x => x.trim());
+      t += "<tr>" + c.map(x => (i === 0 ? "<th>" + x + "</th>" : "<td>" + x + "</td>")).join("") + "</tr>";
+    });
+    return t + "</table>";
+  });
+  h = h.replace(/^- (.*)$/gm, "<li>$1</li>");
+  h = h.replace(/(<li>[\s\S]*?<\/li>)(?!\s*<li>)/g, "<ul>$1</ul>");
+  h = h.replace(/\n{2,}/g, "</p><p>").replace(/\n/g, "<br>");
+  return "<p>" + h + "</p>";
+}
+
+/* ── one row of the agent work log ── */
+function baris(s) {
+  const st = s.state || "waiting";
+  const t = st === "done" && s.seconds != null ? s.seconds.toFixed(1) + "s" : "";
+  let d;
+  if (st === "running") d = "running";
+  else if (st === "done") d = esc(s.label);
+  else if (st === "failed") d = "failed: " + esc(s.label);
+  else d = esc(s.label);
+  const r = (st === "done" && s.note) ? '<td class="r">' + esc(s.note) + "</td>" : "<td></td>";
+  return '<tr data-state="' + st + '"><td class="t">' + t + '</td><td class="g">' +
+         esc(s.agent) + '</td><td class="d">' + d + "</td>" + r + "</tr>";
+}
+
+function catatan(job) {
+  const done = job.stages.filter(s => s.state === "done").length;
+  const cap = job.done
+    ? (job.ok ? "done · " + done + " steps · " + job.elapsed + "s"
+              : "stopped · " + job.elapsed + "s")
+    : "running · " + done + "/" + job.stages.length + " · " + job.elapsed + "s";
+  return '<div class="record"><p class="cap">agent work log: ' + esc(cap) + '</p><table>' +
+         job.stages.map(baris).join("") + "</table></div>";
+}
+
+function tukarBaru() {
+  const el = document.createElement("article");
+  el.className = "exchange";
+  log.insertAdjacentElement("beforeend", el);
+  return el;
+}
+
+/* ── the agent's byline above every answer ── */
+function oleh(agen) {
+  return '<p class="who"><b>' + esc(agen) + '</b><span class="rule"></span></p>';
+}
+
+// The reasoning, the way a chat assistant shows it: one collapsed line, the steps inside.
+function pikir(job) {
+  const st = job.steps || [];
+  if (!st.length) return "";
+  const secs = job.thought_ms
+    ? Number(job.thought_ms).toFixed(1)
+    : ((job.ms || 0) / 1000).toFixed(1);
+  let h = '<details class="think"><summary>Thought for ' + esc(secs) + 's</summary><ul>';
+  st.forEach(s => {
+    h += '<li><span class="who">' + esc(s.agent || "Agent") + "</span>" + esc(s.doing || "")
+      + '<span class="det">' + esc(s.detail || "") + "</span></li>";
+  });
+  return h + "</ul></details>";
+}
+
+async function kirim() {
+  const v = $("q").value.trim();
+  if (!v) return;
+  $("q").value = "";
+  $("send").disabled = true;
+  const starter = $("starter");
+  if (starter) starter.remove();
+
+  const el = tukarBaru();
+  const nolog = $("nolog");
+  if (nolog) nolog.remove();
+  el.innerHTML =
+    '<div class="q-line"><p class="what">' + esc(v) + "</p></div>";
+
+  let job;
+  try {
+    const r = await fetch("/api/chat", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ q: v }),
+    });
+    job = await r.json();
+    if (!r.ok) {
+      el.insertAdjacentHTML("beforeend",
+        '<div class="a-line"><div class="closing bad">' + esc(job.detail || r.status) + "</div></div>");
+      selesai(); return;
+    }
+  } catch (e) {
+    el.insertAdjacentHTML("beforeend",
+      '<div class="a-line"><div class="closing bad">Cannot reach the server: ' + esc(e) + "</div></div>");
+    selesai(); return;
+  }
+
+  const isi = (html) => {
+    let a = el.querySelector(".a-line");
+    if (!a) {
+      a = document.createElement("div");
+      a.className = "a-line";
+      el.insertAdjacentElement("beforeend", a);
+    }
+    a.innerHTML = "";
+    // html may be a string or a DOM node, so charts can carry live handlers
+    if (typeof html === "string") a.innerHTML = html;
+    else a.appendChild(html);
+    return a;
+  };
+
+  if (job.done) {
+    const wrap = document.createElement("div");
+    wrap.appendChild(document.createRange().createContextualFragment(
+      pikir(job) + oleh(job.agent || "Agent")
+      + '<div class="answer">' + render(job.answer || "") + "</div>"));
+    if (!job.ok) wrap.insertAdjacentHTML("beforeend",
+      '<div class="closing bad">' + esc(job.error || "") + "</div>");
+    isi(wrap);
+    selesai(); return;
+  }
+
+  isi('<div class="record"><p class="cap">agent work log</p><p class="waiting">preparing…</p></div>');
+  const pantau = async () => {
+    try {
+      const r = await fetch("/api/run/" + job.job_id);
+      const d = await r.json();
+      let h = pikir(d) + catatan(d);
+      if (d.done) {
+        h += oleh(d.agent || "Agent") + '<div class="answer">' + render(d.answer || "") + "</div>";
+        isi(h);
+        const a = el.querySelector(".a-line");
+        if (g && a) a.appendChild(g);
+            if (!d.ok) a.insertAdjacentHTML("beforeend",
+          '<div class="closing bad">' + esc(d.error || "") + "</div>");
+      } else {
+        h += '<p class="waiting">agent working, log updating…</p>';
+        isi(h);
+      }
+      if (!d.done) { setTimeout(pantau, 900); return; }
+    } catch (e) {
+      isi('<div class="closing bad">Connection lost: ' + esc(e) + "</div>");
+    }
+    selesai();
+  };
+  pantau();
+}
+
+function selesai() {
+  $("send").disabled = false;
+}
+
+$("askform").addEventListener("submit", (e) => { e.preventDefault(); kirim(); });
+$("q").addEventListener("keydown", (e) => { if (e.key === "Enter") kirim(); });
+// let the screenshot harness drive the page from outside
+window.kirim = kirim;
+
+/* ══════════════════════════════════════════════════════════════
+   The bench and the ticker: the page's two live surfaces.
+   Both read from disk on every load, so what is on screen is what
+   the loop last wrote, not a cached promise.
+   ══════════════════════════════════════════════════════════════ */
+const pct = (v, d = 1) => (v == null ? "-" : (v * 100).toFixed(d) + "%");
+const num = (v, d = 1) => (v == null ? "-" : v.toLocaleString("en-US", {maximumFractionDigits: d}));
+
+async function isiTicker() {
+  const bar = $("ticker");
+  try {
+    const r = await fetch("/api/ticker");
+    if (!r.ok) return;
+    const d = await r.json();
+    $("tk-snap").textContent = d.snapshot || "-";
+    $("tk-skus").textContent = num(d.skus, 0);
+    $("tk-orders").textContent = num(d.orders, 0);
+    $("tk-auto").textContent = pct(d.auto_rate, 0);
+    $("tk-wait").textContent = num(d.waiting, 0);
+    $("tk-fill").textContent = pct(d.fill, 1);
+    $("tk-wape").textContent = pct(d.wape, 1);
+    bar.hidden = false;
+  } catch (e) { /* the chat still works without it */ }
+}
+
+let urutan = "cover";
+
+/* the catalog stores category keys; show them as readable English names */
+const KAT = {
+  instant_noodles: "Instant noodles",
+  beverages: "Beverages",
+  biscuits: "Biscuits",
+  household: "Household",
+  personal_care: "Personal care",
+};
+function kategori(c) {
+  return KAT[c] || (c ? c.replace(/_/g, " ") : "other");
+}
+
+async function isiBench(sort) {
+  urutan = sort || urutan;
+  const body = $("bench-body");
+  document.querySelectorAll(".bench-ctl button").forEach(b => {
+    b.setAttribute("aria-pressed", String(b.dataset.sort === urutan));
+  });
+  body.innerHTML = '<p class="waiting">Loading stock position…</p>';
+  try {
+    const r = await fetch("/api/skus?limit=40&sort=" + urutan);
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    const rows = d.rows || [];
+    $("bench-count").textContent = num(d.count, 0);
+    if (!rows.length) {
+      body.innerHTML = '<p class="waiting">No stock position on file yet. Run the loop.</p>';
+      $("bench").hidden = false;
+      return;
+    }
+    let h = '<table class="bench-tbl"><thead><tr>' +
+            '<th>SKU</th><th>Category</th><th>Principal</th>' +
+            '<th class="n">Days of stock left</th><th class="n">Sold per day</th>' +
+            '<th class="n">On hand</th><th class="n">In transit</th>' +
+            '<th class="n">Delivery time</th>' +
+            '</tr></thead><tbody>';
+    rows.forEach(x => {
+      const warna = x.cover <= 0.05 ? "zero" : (x.cover < 3 ? "thin" : "");
+      const ccls = warna ? ' class="n ' + warna + '"' : ' class="n"';
+      h += '<tr tabindex="0" role="button" data-sku="' + esc(x.sku) + '" ' +
+           'aria-label="Ask about ' + esc(x.sku) + '">' +
+           '<td class="sku">' + esc(x.sku) + '</td>' +
+           '<td class="cat">' + esc(kategori(x.category)) + '</td>' +
+           '<td>' + esc(x.principal) + '</td>' +
+           '<td' + ccls + '>' + num(x.cover, 1) + ' days</td>' +
+           '<td class="n">' + num(x.velocity, 0) + '</td>' +
+           '<td class="n">' + num(x.onhand, 0) + '</td>' +
+           '<td class="n">' + num(x.transit, 0) + '</td>' +
+           '<td class="n">' + num(x.lead, 0) + ' days</td>' +
+           '</tr>';
+    });
+    body.innerHTML = h + '</tbody></table>';
+    body.querySelectorAll("tbody tr").forEach(tr => {
+      const tanya = () => {
+        contoh("Why was " + tr.dataset.sku + " reordered?");
+        $("q").scrollIntoView({ block: "center", behavior: "smooth" });
+      };
+      tr.addEventListener("click", tanya);
+      tr.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tanya(); }
+      });
+    });
+    $("bench").hidden = false;
+  } catch (e) {
+    body.innerHTML = '<p class="waiting">Cannot read stock position: ' + esc(e) + '</p>';
+    $("bench").hidden = false;
+  }
+}
+
+document.querySelectorAll(".bench-ctl button").forEach(b => {
+  b.addEventListener("click", () => isiBench(b.dataset.sort));
+});
+
+isiTicker();
+isiBench("cover");
+</script>
+<!-- PROV:BEGIN -->
+<footer class="prov"><span class="prov-k">AWS</span> AWS Lambda <code>pasok_agent</code> (us-west-2, public Function URL) answers the same question class through <code>{"action":"ask"}</code><span class="prov-sep">·</span><span class="prov-k">SAP</span> SAP AI Core orchestration <code>d8c092efb8980093</code>, model <code>gpt-5.4-2026-03-05</code> writes the sentence; the trace under each answer names it and its milliseconds</footer>
+<!-- PROV:END -->
+</body>
+</html>

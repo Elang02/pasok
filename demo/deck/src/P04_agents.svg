@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">4</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">Four agents run one pass,</text>
+    <text x="96" y="222" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">and the model never picks a quantity</text>
+    <rect x="96" y="262" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="262" width="96" height="3" fill="#B4551F" />
+  <g id="flow" data-pptx-bounds="96 302 1088 200">
+    <rect x="96" y="382" width="1088" height="2" fill="#D8CDBB" />
+    <text x="96" y="340" font-size="16" fill="#B4551F">01</text>
+    <rect x="96" y="358" width="2" height="8" fill="#1F1B16" />
+    <text x="96" y="412" font-size="24" fill="#1F1B16">Demand Agent</text>
+    <text x="96" y="444" font-size="16" fill="#6B6257">forecast, event ramp,<tspan x="96" dy="22">anomaly flag</tspan></text>    <text x="368" y="340" font-size="16" fill="#B4551F">02</text>
+    <rect x="368" y="358" width="2" height="8" fill="#1F1B16" />
+    <text x="368" y="412" font-size="24" fill="#1F1B16">Stock Position Agent</text>
+    <text x="368" y="444" font-size="16" fill="#6B6257">sellable units, days<tspan x="368" dy="22">of cover, two flags</tspan></text>    <text x="640" y="340" font-size="16" fill="#B4551F">03</text>
+    <rect x="640" y="358" width="2" height="8" fill="#1F1B16" />
+    <text x="640" y="412" font-size="24" fill="#1F1B16">Supplier Reliability</text>
+    <text x="640" y="444" font-size="16" fill="#6B6257">lead p50 and p90,<tspan x="640" dy="22">fill rate, drift</tspan></text>    <text x="912" y="340" font-size="16" fill="#B4551F">04</text>
+    <rect x="912" y="358" width="2" height="8" fill="#1F1B16" />
+    <text x="912" y="412" font-size="24" fill="#1F1B16">Decision Agent</text>
+    <text x="912" y="444" font-size="16" fill="#6B6257">action, quantity, reason,<tspan x="912" dy="22">then send or hold</tspan></text>
+  </g>
+  <g id="quote" data-pptx-bounds="96 516 1088 84">
+    <rect x="96" y="520" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="568" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#1F1B16">The model writes the reason, never the quantity.</text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">Quantity comes from arithmetic over measured inputs; the sentence a buyer reads comes from the model.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">4</text>
+  </g>
+</svg>

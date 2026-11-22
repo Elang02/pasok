@@ -1,0 +1,204 @@
+/* ══════════════════════════════════════════════════════════════════
+   PASOK · design system (shared by every console page)
+   One theme, one voice. Do not fork this per page.
+
+   Design Read:
+     artifact: a working console for a supply-chain operator
+     audience: one operator who reads numbers all day, on a screen all day
+     visual-language: dark data surface, one accent, dense tabular numbers
+     mode: extension across four console pages, plus the public demo page,
+       which carries the same palette and face so the product reads as one thing
+     dials: variance 2 · motion 2 · density 7 · assets 1 · brand-fidelity 5
+
+   The palette below is the demo page's own `:root`. The console used to be warm
+   paper; the operator rejected it, and the dark page it sat beside made switching
+   tabs feel like switching products. One ground, one ink, one accent, and three
+   signal colours that encode meaning. Nothing here is decoration.
+
+   Two rules exist only so the pages stop disagreeing with each other:
+     - `.sheet` and `.wrap` resolve to one box (one content width, one gutter).
+     - the masthead is full-bleed on every page, never inside the content box.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* the demo page's tokens, and the only copy of them on the console side */
+  --color-paper:    #1c1c1c;   /* ground */
+  --color-paper-2:  #262626;   /* surface: one step up from the ground */
+  --color-paper-3:  #2b2e28;   /* surface, second step: log and code wells */
+  --color-rule:     #33332f;
+  --color-rule-2:   #45453f;
+  --color-neutral:  #9a9b96;   /* secondary text, 6.6:1 on the ground */
+  --color-muted:    #b5b6b0;   /* body-adjacent secondary, brighter */
+  --color-ink:      #f1f1ef;   /* running text, 15:1 on the ground */
+
+  /* signal colours, and only these carry meaning */
+  --color-accent:   #8fa68e;   /* actions, links, the live path */
+  --color-focus:    #8fa68e;
+  --color-ok:       #9fb894;   /* on plan */
+  --color-warn:     #d3ae7a;   /* watch: cover thin, lead drifting */
+  --color-bad:      #d98a7f;   /* breached: stockout, over the signing line */
+
+  /* Type: one grotesque for everything the reader reads, mono for records. */
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body:    "Bricolage Grotesque", system-ui, sans-serif;
+  --font-ui:      "Bricolage Grotesque", system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Spacing: 4pt, nine steps. */
+  --space-3xs: 0.125rem;  --space-2xs: 0.25rem;  --space-xs: 0.5rem;
+  --space-sm:  0.75rem;   --space-md: 1rem;      --space-lg: 1.5rem;
+  --space-xl:  2.5rem;    --space-2xl: 4rem;     --space-3xl: 6rem;
+
+  --text-xs: 0.75rem;   --text-sm: 0.875rem;  --text-base: 1rem;
+  --text-md: 1.125rem;  --text-lg: 1.5rem;    --text-xl: 1.875rem;
+  --text-2xl: 2.25rem;
+  --text-display: clamp(2.125rem, 3.5vw + 0.5rem, 3.25rem);
+
+  /* One container, one gutter: every page puts its content on the same two
+     edges, so changing tabs does not move the page sideways. */
+  --page-width: 1080px;
+  --page-gutter: clamp(1.125rem, 4vw, 3rem);
+  --measure: 64ch;
+  --rule-hair: 1px;
+  --radius: 0px;   /* the demo page's radius; square corners, decided once */
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 120ms;
+}
+
+* { box-sizing: border-box; }
+html { overflow-x: clip; -webkit-text-size-adjust: 100%; }
+body { overflow-x: clip; }
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font: 400 var(--text-base) / 1.62 var(--font-body);
+  font-variant-numeric: lining-nums tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: color-mix(in oklab, var(--color-accent) 32%, transparent); }
+a { color: var(--color-accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── the one container ── */
+.sheet,
+.wrap {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter) var(--space-3xl);
+}
+
+/* ── one heading scale, so a section heading is one size everywhere ── */
+h2 { font: 500 var(--text-lg) / 1.25 var(--font-display); letter-spacing: -0.01em; }
+/* the second level, inside a well: an answer, a card, a panel tile */
+.card h2, #out h2, .answer h2 { font: 500 var(--text-md) / 1.3 var(--font-display);
+                                letter-spacing: -0.005em; margin: 0 0 var(--space-sm); }
+
+/* ── the masthead: full-bleed on every page ── */
+.masthead { text-align: center; padding: var(--space-lg) var(--page-gutter) 0; }
+.masthead .issue {
+  font: 400 var(--text-xs) / 1 var(--font-mono); font-variant-caps: all-small-caps;
+  letter-spacing: 0.14em; color: var(--color-neutral); margin: 0 0 var(--space-sm);
+}
+.masthead .name {
+  font: 500 var(--text-2xl) / 0.98 var(--font-display);
+  letter-spacing: -0.03em; margin: 0;
+}
+.masthead .name i { font-style: normal; color: var(--color-accent); }
+.masthead nav { margin: var(--space-md) 0 var(--space-sm); }
+.masthead nav ul {
+  display: inline-flex; gap: var(--space-lg); list-style: none; margin: 0; padding: 0;
+  flex-wrap: wrap; justify-content: center;
+}
+.masthead nav a {
+  font: 500 var(--text-sm) / 1 var(--font-ui); color: var(--color-muted);
+  text-decoration: none; padding: var(--space-2xs) 0; border-bottom: 2px solid transparent;
+}
+.masthead nav a:hover { color: var(--color-ink); border-bottom-color: var(--color-rule-2); }
+.masthead nav a[aria-current] { color: var(--color-ink); border-bottom-color: var(--color-accent); }
+.double-rule { border: 0; border-top: var(--rule-hair) solid var(--color-rule-2);
+               border-bottom: var(--rule-hair) solid var(--color-rule-2); height: 3px; margin: 0; }
+
+/* ── the colophon line, shared by every page ── */
+.colophon { border-top: var(--rule-hair) solid var(--color-rule); margin-top: var(--space-2xl);
+            padding: var(--space-sm) var(--page-gutter) 0; display: flex; flex-wrap: wrap;
+            gap: var(--space-xs) var(--space-md); justify-content: center;
+            font: 400 var(--text-xs) / 1.6 var(--font-mono); color: var(--color-neutral); }
+.colophon .dot { color: var(--color-neutral); }
+
+/* ── the ticker: one line of live state, the operator's first read ── */
+.ticker {
+  display: flex; flex-wrap: wrap; gap: 0 var(--space-lg);
+  border-top: var(--rule-hair) solid var(--color-rule-2);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  padding: var(--space-2xs) 0; margin: 0 0 var(--space-lg);
+  font: 400 var(--text-xs) / 1.9 var(--font-mono); color: var(--color-muted);
+}
+.ticker .k { color: var(--color-neutral); }
+.ticker .v { color: var(--color-ink); font-variant-numeric: tabular-nums; }
+.ticker .v.up { color: var(--color-accent); }
+.ticker .v.ok { color: var(--color-ok); }
+.ticker .sep { color: var(--color-neutral); }
+
+/* ── shared controls ── */
+.btn {
+  height: 44px; padding: 0 var(--space-lg); border: var(--rule-hair) solid var(--color-rule-2);
+  background: transparent; color: var(--color-ink); cursor: pointer;
+  font: 500 var(--text-sm) / 1 var(--font-ui); white-space: nowrap;
+  transition: background var(--dur-micro) var(--ease-out),
+              color var(--dur-micro) var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out);
+}
+.btn:hover:not(:disabled) { background: var(--color-ink); color: var(--color-paper);
+                            border-color: var(--color-ink); }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn[aria-pressed="true"] { background: var(--color-accent); color: var(--color-paper);
+                            border-color: var(--color-accent); }
+
+.field {
+  flex: 1 1 auto; min-width: 0; height: 44px;
+  border: 0; border-bottom: var(--rule-hair) solid var(--color-rule-2);
+  background: transparent; color: var(--color-ink);
+  font: 400 var(--text-md) / 1.5 var(--font-body); padding: 0 var(--space-2xs);
+}
+.field::placeholder { color: var(--color-neutral); }
+.field:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+.cap {
+  font: 500 var(--text-xs) / 1.4 var(--font-mono); letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--color-neutral); margin: 0 0 var(--space-xs);
+}
+
+.card { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule);
+        border-radius: var(--radius); padding: var(--space-md); }
+
+table.rec { border-collapse: collapse; width: 100%;
+            font: 400 var(--text-sm) / 1.5 var(--font-mono); }
+table.rec th, table.rec td { border-bottom: var(--rule-hair) solid var(--color-rule);
+                             padding: var(--space-2xs) var(--space-sm) var(--space-2xs) 0;
+                             text-align: left; vertical-align: top; }
+table.rec th { font: 500 var(--text-xs) / 1.3 var(--font-ui); letter-spacing: 0.07em;
+               text-transform: uppercase; color: var(--color-neutral);
+               border-bottom: var(--rule-hair) solid var(--color-rule-2); }
+table.rec tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; text-align: right; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important;
+                           transition-duration: 1ms !important; }
+}
+
+/* ── provenance strip: which AWS and SAP parts make this screen true ── */
+.prov { margin: var(--space-2xl, 3rem) 0 0; padding-top: var(--space-sm, .6rem);
+        border-top: 1px solid var(--color-rule, #d8d5cd);
+        color: var(--color-muted, #6b6a64);
+        font: 400 var(--text-sm, .8rem) / 1.7 var(--font-body, sans-serif); }
+.prov-k { display: inline-block; margin-right: .35rem; padding: .05rem .4rem;
+          border: 1px solid currentColor; border-radius: 2px;
+          font: 500 var(--text-xs, .68rem) / 1.5 var(--font-ui, monospace);
+          letter-spacing: .08em; text-transform: uppercase; }
+.prov-sep { margin: 0 .5rem; opacity: .55; }
+.prov code { font-family: var(--font-ui, monospace); font-size: .95em; }

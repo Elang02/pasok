@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">5</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">The console names the next event</text>
+    <text x="96" y="222" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">and the goods that spike</text>
+    <rect x="96" y="262" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="262" width="96" height="3" fill="#B4551F" />
+  <g id="question" data-pptx-bounds="96 302 700 120">
+    <text x="96" y="348" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-style="italic" fill="#1F1B16">“What needs more stock for a spike next month?”</text>
+    <rect x="96" y="366" width="700" height="1" fill="#D8CDBB" />
+    <text x="96" y="394" font-size="16" fill="#6B6257">asked in the console, 26 October 2026</text>
+  </g>
+  <g id="answer" data-pptx-bounds="812 302 372 160">
+    <text x="812" y="346" font-family="Georgia, 'Times New Roman', serif" font-size="44" fill="#B4551F">79</text>
+    <text x="812" y="380" font-size="16" fill="#6B6257">days to Christmas,</text>
+    <text x="812" y="400" font-size="16" fill="#6B6257">the next registered event</text>
+  </g>
+  <g id="numbers" data-pptx-bounds="96 508 1088 120">
+    <rect x="96" y="516" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="556" font-size="24" fill="#2A2622">median SKU 1.60 times normal · one SKU passes 2.5, the strongest 2.63<tspan x="96" dy="34">nothing inside one month, and the console says so</tspan></text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">Four steps, 6.1 seconds, and every number in the answer checked against the records before it was printed.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">5</text>
+  </g>
+</svg>

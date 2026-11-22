@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">7</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">The forecast learns what each SKU</text>
+    <text x="96" y="222" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">does around an event</text>
+    <rect x="96" y="262" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="262" width="96" height="3" fill="#B4551F" />
+  <g id="wape" data-pptx-bounds="96 302 620 210">
+    <text x="96" y="346" font-size="24" fill="#2A2622">learned ramp</text>
+    <rect x="316" y="330" width="260" height="28" fill="#B4551F" />
+    <text x="596" y="346" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#1F1B16">0.0775</text>
+    <text x="96" y="410" font-size="24" fill="#2A2622">flat bump</text>
+    <rect x="316" y="394" width="390" height="28" fill="#2F4858" />
+    <text x="596" y="410" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#1F1B16">0.1161</text>
+    <rect x="96" y="438" width="500" height="1" fill="#D8CDBB" />
+    <text x="96" y="466" font-size="16" fill="#6B6257">WAPE, lower is better</text>
+  </g>
+  <g id="novelty" data-pptx-bounds="812 302 372 210">
+    <text x="812" y="346" font-size="16" fill="#2A2622">novel spikes caught</text>
+    <text x="1184" y="346" font-family="Georgia, 'Times New Roman', serif" font-size="24" text-anchor="end" fill="#1F1B16">120 of 120</text>
+    <rect x="812" y="362" width="372" height="1" fill="#D8CDBB" />
+    <text x="812" y="398" font-size="16" fill="#2A2622">false alarms</text>
+    <text x="1184" y="398" font-family="Georgia, 'Times New Roman', serif" font-size="24" text-anchor="end" fill="#1F1B16">0.65 per 100 days</text>
+  </g>
+  <g id="method" data-pptx-bounds="96 512 1088 110">
+    <rect x="96" y="520" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="558" font-size="24" fill="#2A2622">30,490 M5 series, 154 event windows, scored leave-one-occurrence-out.<tspan x="96" dy="34">A spike with no registered event still gets flagged for a human to name.</tspan></text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">Artefacts: experiments/e2_results.json, data/demand/sku_ramps.csv.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">7</text>
+  </g>
+</svg>

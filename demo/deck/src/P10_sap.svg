@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">10</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">SAP scores the catalogue</text>
+    <text x="96" y="222" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">and writes the reason</text>
+    <rect x="96" y="262" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="262" width="96" height="3" fill="#B4551F" />
+  <g id="sap" data-pptx-bounds="96 302 1088 238">
+    <text x="96" y="332" font-size="16" letter-spacing="1.6" fill="#6B6257">SAP-RPT-1.6</text>
+    <text x="96" y="368" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#1F1B16">600 SKUs</text>
+    <text x="396" y="368" font-size="24" fill="#2A2622">scored in 10.73 seconds</text>
+    <rect x="96" y="386" width="1088" height="1" fill="#D8CDBB" />    <text x="96" y="404" font-size="16" letter-spacing="1.6" fill="#6B6257">GPT-5.4</text>
+    <text x="96" y="440" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#1F1B16">40 of 40</text>
+    <text x="396" y="440" font-size="24" fill="#2A2622">rationales, none from a template</text>
+    <rect x="96" y="458" width="1088" height="1" fill="#D8CDBB" />    <text x="96" y="476" font-size="16" letter-spacing="1.6" fill="#6B6257">JOULE</text>
+    <text x="96" y="512" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#1F1B16">0.895</text>
+    <text x="396" y="512" font-size="24" fill="#2A2622">agreement with the agent, queue inside the tool</text>
+    <rect x="96" y="530" width="1088" height="1" fill="#D8CDBB" />
+  </g>
+  <g id="caveat" data-pptx-bounds="96 548 1088 88">
+    <rect x="96" y="552" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="590" font-size="24" fill="#2A2622">RPT flags 577 SKUs as expiry risk where we flag none.<tspan x="96" dy="34">The definitions differ, and we say so rather than average them.</tspan></text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">Buyer approves inside Joule; artefacts: data/sap/rpt_summary.json, data/sap/rationale_summary.json.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">10</text>
+  </g>
+</svg>

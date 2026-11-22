@@ -1,0 +1,18 @@
+{
+  "seed": 20260905,
+  "days": 250,
+  "warmup": 30,
+  "demand_var": 2280.2318328823335,
+  "unguarded": {
+    "amplification": 2.68,
+    "fill_rate": 0.9893,
+    "stockout_days": 5,
+    "avg_inventory": 2187.3
+  },
+  "guarded": {
+    "amplification": 0.24,
+    "fill_rate": 0.9868,
+    "stockout_days": 6,
+    "avg_inventory": 274.4
+  }
+}

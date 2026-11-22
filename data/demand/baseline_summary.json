@@ -1,0 +1,22 @@
+{
+  "n_skus": 600,
+  "median_wape_best": 0.12777599670606143,
+  "mean_wape_best": 0.13316040488117073,
+  "baseline_pick": {
+    "ma4": 390,
+    "snaive": 210
+  },
+  "class_volume": {
+    "A": 260,
+    "B": 188,
+    "C": 152
+  },
+  "class_volatility": {
+    "Low": 600
+  },
+  "wape_by_class": {
+    "A": 0.1121,
+    "B": 0.1307,
+    "C": 0.1422
+  }
+}

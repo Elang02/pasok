@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">11</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">The AWS lane answers live</text>
+    <rect x="96" y="208" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="208" width="96" height="3" fill="#B4551F" />
+  <g id="lane" data-pptx-bounds="96 268 1088 200">
+    <rect x="96" y="328" width="760" height="2" fill="#1F1B16" />
+    <rect x="96" y="320" width="2" height="16" fill="#B4551F" />
+    <text x="96" y="298" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">Lambda function URL</text>
+    <text x="96" y="366" font-size="16" fill="#6B6257">four agents, one bundle</text>    <rect x="476" y="320" width="2" height="16" fill="#B4551F" />
+    <text x="476" y="298" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">Bedrock, Mantle endpoint</text>
+    <text x="476" y="366" font-size="16" fill="#6B6257">the answering model</text>    <rect x="856" y="320" width="2" height="16" fill="#B4551F" />
+    <text x="856" y="298" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">SAP AI Core</text>
+    <text x="856" y="366" font-size="16" fill="#6B6257">fallback and scoring</text>
+  </g>
+  <g id="blocker" data-pptx-bounds="96 500 1088 130">
+    <rect x="96" y="508" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="546" font-size="24" fill="#2A2622">AgentCore is written and blocked by a quota on this account.<tspan x="96" dy="34">The application deploys and waits for the quota; until then Lambda hosts the lane.</tspan></text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">Evidence: aws/GATES.md Gate 2, agentcore/app/pasok_agent/main.py.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">11</text>
+  </g>
+</svg>

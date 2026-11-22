@@ -1,0 +1,12 @@
+schema_version: 3.28.0
+
+metadata:
+  namespace: com.aigo.pasok
+  name: pasok_exception_queue
+  version: 1.0.0
+  display_name: "Pasok Replenishment Exceptions"
+  description: Surfaces the Pasok replenishment exception queue for team AIGO - SKUs the Decision Agent flagged for reorder or that SAP RPT-1.6 scored as stockout risk in the next 14 days.
+
+system_aliases:
+  PasokAgent:
+    destination: PASOK_AGENT_A2A

@@ -1,26 +1,22 @@
 {
-  "drivers_total": 9,
+  "drivers_total": 11,
   "named_in_proposal_line_13": [
     "Imlek",
     "Lebaran",
     "Nyepi",
     "Christmas",
-    "THR weeks",
-    "payday cycles",
+    "THR",
+    "Payday",
     "principal promos"
   ],
-  "in_registry": 3,
+  "in_registry": 6,
   "modelled_but_not_a_registry_row": [
-    "THR weeks",
-    "payday cycles",
     "principal promos"
   ],
-  "not_modelled": [
-    "Nyepi"
-  ],
-  "registry_rows_unchanged": 5,
+  "not_modelled": [],
+  "registry_rows_unchanged": 7,
   "calendar_artefact": "data/demand/event_calendar.csv",
-  "calendar_occurrences": 18,
+  "calendar_occurrences": 27,
   "calendar_years_by_event": {
     "Christmas": [
       2023,
@@ -29,8 +25,8 @@
     ],
     "Imlek": [
       2023,
+      2023,
       2024,
-      2025,
       2026
     ],
     "Lebaran": [
@@ -44,7 +40,22 @@
       2024,
       2025
     ],
+    "Nyepi": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "Payday": [
+      2023
+    ],
     "Ramadan": [
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "THR": [
       2023,
       2024,
       2025,
@@ -54,43 +65,67 @@
   "drift": {
     "Christmas": {
       "first_year": 2023,
-      "first_date": "2023-12-20",
+      "first_date": "2023-11-08",
       "last_year": 2025,
-      "last_date": "2025-12-20",
+      "last_date": "2025-11-08",
       "shifts_in_calendar": false,
       "cadence": "fixed 365d"
     },
     "Imlek": {
       "first_year": 2023,
-      "first_date": "2023-02-09",
+      "first_date": "2023-01-02",
       "last_year": 2026,
-      "last_date": "2026-02-09",
-      "shifts_in_calendar": false,
+      "last_date": "2026-01-06",
+      "shifts_in_calendar": true,
       "cadence": "lunar ~354d"
     },
     "Lebaran": {
       "first_year": 2023,
-      "first_date": "2023-04-21",
+      "first_date": "2023-03-10",
       "last_year": 2026,
-      "last_date": "2026-03-19",
+      "last_date": "2026-02-06",
       "shifts_in_calendar": true,
       "cadence": "lunar ~354d"
     },
     "NewYear": {
       "first_year": 2023,
-      "first_date": "2023-12-29",
+      "first_date": "2023-11-17",
       "last_year": 2025,
-      "last_date": "2025-12-29",
+      "last_date": "2025-11-17",
+      "shifts_in_calendar": false,
+      "cadence": "fixed 365d"
+    },
+    "Nyepi": {
+      "first_year": 2023,
+      "first_date": "2023-02-08",
+      "last_year": 2026,
+      "last_date": "2026-02-05",
+      "shifts_in_calendar": true,
+      "cadence": "fixed 365d"
+    },
+    "Payday": {
+      "first_year": 2023,
+      "first_date": "2023-01-25",
+      "last_year": 2023,
+      "last_date": "2023-01-25",
       "shifts_in_calendar": false,
       "cadence": "fixed 365d"
     },
     "Ramadan": {
       "first_year": 2023,
-      "first_date": "2023-03-23",
+      "first_date": "2023-02-09",
       "last_year": 2026,
-      "last_date": "2026-02-18",
+      "last_date": "2026-01-07",
       "shifts_in_calendar": true,
       "cadence": "lunar ~354d"
+    },
+    "THR": {
+      "first_year": 2023,
+      "first_date": "2023-02-21",
+      "last_year": 2026,
+      "last_date": "2026-01-20",
+      "shifts_in_calendar": true,
+      "cadence": "fixed 365d"
     }
   }
 }

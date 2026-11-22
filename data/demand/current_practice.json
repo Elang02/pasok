@@ -1,0 +1,48 @@
+{
+  "name": "current practice, as documented in published Indonesian cases",
+  "review_days": 7,
+  "order_point": "days of cover at or below the lead time plus one review week",
+  "safety_days": 0,
+  "order_up_to_days": 30,
+  "abc_differentiated": false,
+  "calendar_aware": false,
+  "shelf_life_cap": "one lot, aged stock not rotated first",
+  "deliveries_per_order": 1,
+  "notes": [
+    "No forecast and no event calendar: the lot is sized from the rate the shelf is moving at today.",
+    "No safety-stock formula: the buffer is whatever the one-month lot happens to leave behind.",
+    "Every SKU is treated the same; there is no A/B/C service level."
+  ],
+  "sources": [
+    {
+      "claim": "Order when stock is nearly empty, quantity from experience, no ABC classification, every SKU treated alike; carrying cost benchmarked at the 8.05% BI rate; lead time 3 days at that firm",
+      "case": "PT ABC, 371 FMCG SKUs, March 2021 - February 2022",
+      "ref": "Savitri, Yulianti & Pambudi (2022), Jurnal Rekayasa Sistem dan Industri 9(2), doi:10.25124/jrsi.v9i02.584",
+      "url": "https://jrsi.telkomuniversity.ac.id/index.php/JRSI/article/download/409/234"
+    },
+    {
+      "claim": "Weekly ordering cadence, orders placed at the start of each week, distribution requirements planning",
+      "case": "FMCG distribution case, Jurnal Ilmiah Teknik Industri",
+      "ref": "Luju (2020), Jurnal Ilmiah Teknik Industri, Universitas Merdeka Malang",
+      "url": "https://jurnal.unmer.ac.id/index.php/jiv/article/download/4212/2185"
+    },
+    {
+      "claim": "Inventory held 43.73 days in 2016 rising to 56.67 days in 2025 (DIO) at an Indonesian FMCG manufacturer",
+      "case": "PT Indofood CBP Sukses Makmur Tbk, 2016-2025",
+      "ref": "Feranika et al. (2026), Jurnal Manajemen Terapan dan Keuangan 15(3)",
+      "url": "https://online-journal.unja.ac.id/mankeu/article/view/60238"
+    },
+    {
+      "claim": "Out-of-stock averages about 8% across four decades of retail audits; 8.3% in physical stores in the GMA study",
+      "case": "Corsten & Gruen, on-shelf availability literature",
+      "ref": "Corsten & Gruen (2005); GMA/Gruen et al. (2002)",
+      "url": "https://www.semanticscholar.org/paper/bad6469da2fd41a7d787d4b4b4b43b996f5eb68c"
+    },
+    {
+      "claim": "Supermarket shrink 2.70% of retail sales, range 1.76%-3.10% (all causes, not expiry alone)",
+      "case": "National Supermarket Shrink Survey",
+      "ref": "wheresmyshrink.com executive summary",
+      "url": "http://wheresmyshrink.com/executivesummary.html"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">8</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">Lead time comes from goods receipts,</text>
+    <text x="96" y="222" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">not from a promise</text>
+    <rect x="96" y="262" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="262" width="96" height="3" fill="#B4551F" />
+  <g id="fill" data-pptx-bounds="96 302 560 200">
+    <text x="96" y="346" font-size="24" fill="#2A2622">network fill</text>
+    <text x="556" y="346" font-family="Georgia, 'Times New Roman', serif" font-size="28" text-anchor="end" fill="#1F1B16">90.32%</text>
+    <rect x="96" y="362" width="460" height="1" fill="#D8CDBB" />
+    <text x="96" y="402" font-size="24" fill="#2A2622">P02, the slowest principal</text>
+    <text x="556" y="402" font-family="Georgia, 'Times New Roman', serif" font-size="28" text-anchor="end" fill="#1F1B16">81.1%</text>
+  </g>
+  <g id="evidence" data-pptx-bounds="700 302 484 200">
+    <text x="700" y="346" font-size="16" fill="#2A2622">goods receipts behind the p90s</text>
+    <text x="1184" y="346" font-family="Georgia, 'Times New Roman', serif" font-size="24" text-anchor="end" fill="#1F1B16">1,956</text>
+    <rect x="700" y="362" width="484" height="1" fill="#D8CDBB" />
+    <text x="700" y="402" font-size="16" fill="#2A2622">principals below 95% fill</text>
+    <text x="1184" y="402" font-family="Georgia, 'Times New Roman', serif" font-size="24" text-anchor="end" fill="#1F1B16">9 of 12</text>
+  </g>
+  <g id="why" data-pptx-bounds="96 520 1088 110">
+    <rect x="96" y="508" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="546" font-size="24" fill="#2A2622">The Decision Agent plans against p90, so a slow supplier earns a longer cover target<tspan x="96" dy="34">instead of a complaint, and the shelf waits for the truck.</tspan></text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">P02 is the slowest principal in this catalogue, and the one whose bread perished first. Artefact: data/agents/supplier_reliability.csv.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">8</text>
+  </g>
+</svg>

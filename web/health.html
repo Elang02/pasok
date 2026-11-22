@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pasok: stock health</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/pasok.css">
+<style>
+/* page-specific rules only. theme, masthead, controls: /pasok.css */
+/* container comes from pasok.css: one width, one gutter */
+.band { margin-top: var(--space-2xl); }
+
+.band h2 { margin: 0 0 var(--space-2xs); }
+
+.band .sub { max-width: var(--measure); color: var(--color-muted);
+             font: 400 var(--text-sm) / 1.6 var(--font-body); margin: 0 0 var(--space-md); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+         gap: var(--space-md) var(--space-lg); margin: 0; }
+
+.facts dt { font: 500 var(--text-xs) / 1.3 var(--font-ui); letter-spacing: 0.07em;
+            text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-2xs); }
+
+.facts dd { margin: 0; font: 500 var(--text-lg) / 1.2 var(--font-display);
+            font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+.facts dd small { display: block; font: 400 var(--text-sm) / 1.5 var(--font-body);
+                  color: var(--color-muted); letter-spacing: 0; margin-top: var(--space-2xs); }
+
+.scroller { overflow-x: auto; }
+
+.note { color: var(--color-muted); font: 400 var(--text-sm) / 1.6 var(--font-body);
+        margin: var(--space-sm) 0 0; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="issue"><!--SNAPSHOT--></p>
+  <h1 class="name">Pasok<i>.</i></h1>
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Console</a></li>
+      <li><a href="/orders">Orders</a></li>
+      <li><a href="/receiving">Receiving</a></li>
+      <li><a href="/health" aria-current="page">Stock</a></li>
+      <li><a href="/transfers">Transfers</a></li>
+      <li><a href="/suppliers">Suppliers</a></li>
+      <li><a href="/geography">Cities</a></li>
+      <li><a href="/catalog">Catalogue</a></li>
+      <li><a href="/loop">Loop</a></li>
+      <li><a href="/panel">Agent panel</a></li>
+    </ul>
+  </nav>
+  <hr class="double-rule">
+</header>
+
+<main class="sheet">
+
+  <!-- ═══ what the stock is worth, and how long it lasts ═══ -->
+  <section class="band">
+    <h2>Stock health</h2>
+    <p class="sub">Read from the stock position the loop holds. No value on this page is typed by hand.</p>
+    <dl class="facts" id="headline"></dl>
+  </section>
+
+  <!-- ═══ the classes ═══ -->
+  <section class="band">
+    <h2>The class of each SKU</h2>
+    <p class="sub">Every SKU carries a class built from two parts. The letter says how much the SKU adds to sales, so A adds the most and C the least. Low or Med says how steady those sales are from month to month, so Low barely moves and Med moves more.</p>
+    <div class="scroller"><table class="rec" id="classes"></table></div>
+    <p class="note" id="classesnote"></p>
+  </section>
+
+  <!-- ═══ expiry ═══ -->
+  <section class="band">
+    <h2>Stock that expires before it sells</h2>
+    <p class="sub">A SKU is listed here when the stock on hand would still be sitting on the shelf after its own expiry date. The line is the shelf life the catalogue gives that SKU.</p>
+    <dl class="facts" id="expiryfacts"></dl>
+    <div class="scroller" id="expiryscroll" hidden><table class="rec" id="expiry"></table></div>
+    <p class="note" id="expirynote"></p>
+  </section>
+
+  <!-- ═══ slow movers ═══ -->
+  <section class="band">
+    <h2>Stock that sells slowly</h2>
+    <p class="sub">A SKU is listed here when the stock on hand covers more than ninety days of sales at the rate it sells.</p>
+    <dl class="facts" id="slowfacts"></dl>
+    <div class="scroller" id="slowscroll" hidden><table class="rec" id="slow"></table></div>
+    <p class="note" id="slownote"></p>
+  </section>
+
+  <!-- ═══ the largest holdings ═══ -->
+  <section class="band">
+    <h2>The SKUs holding the most value</h2>
+    <p class="sub" id="rowswhat"></p>
+    <div class="scroller"><table class="rec" id="rows"></table></div>
+    <p class="note" id="rowsnote"></p>
+  </section>
+
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const get = async (url) => (await fetch(url)).json();
+
+const esc = (s) => String(s === null || s === undefined ? "" : s)
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const nf = (v) => Math.round(Number(v || 0)).toLocaleString("en-US");
+const idr = (v) => "IDR " + nf(v);
+const dec1 = (v) => Number(v || 0).toLocaleString("en-US",
+  { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const units = (v) => nf(v) + (Number(v) === 1 ? " unit" : " units");
+const things = (v, single, many) => nf(v) + " " + (Number(v) === 1 ? single : many);
+const held = (v, verb) => nf(v) + (Number(v) === 1 ? " SKU " : " SKUs ") + verb;
+const span = (v) => dec1(v) + (Number(v) === 1 ? " day" : " days");
+
+function fact(k, v, n) {
+  return "<div><dt>" + esc(k) + "</dt><dd>" + v + "<small>" + esc(n || "") + "</small></dd></div>";
+}
+
+const words = (s) => esc(String(s || "").replace(/_/g, " "));
+
+/* ---------- A. what the stock is worth ---------- */
+function loadHeadline(d) {
+  const s = d.summary || {};
+  const out = [];
+  out.push(fact("Value of the stock", idr(s.stock_value_idr),
+    "what the stock on hand is worth today"));
+  out.push(fact("Units on hand", units(s.stock_units),
+    "spread over " + things(s.skus, "SKU", "SKUs")));
+  out.push(fact("Days of stock left", span(s.days_of_stock),
+    "how long the stock on hand lasts at the rate it sells"));
+  out.push(fact("Sold each day", idr(s.value_sold_per_day_idr),
+    "what the stock sells for every day"));
+  $("headline").innerHTML = out.join("");
+}
+
+/* ---------- B. the classes ---------- */
+function loadClasses(d) {
+  const cls = d.classes || [];
+  let h = '<thead><tr><th>Class</th><th class="num">SKUs</th>' +
+          '<th class="num">Units</th><th class="num">Value</th></tr></thead><tbody>';
+  h += cls.map((c) => "<tr>" +
+    "<td>" + esc(c.klass) + "</td>" +
+    '<td class="num">' + nf(c.skus) + "</td>" +
+    '<td class="num">' + units(c.units) + "</td>" +
+    '<td class="num">' + idr(c.value_idr) + "</td>" +
+    "</tr>").join("");
+  h += "</tbody>";
+  $("classes").innerHTML = h;
+  $("classesnote").textContent = "The classes together hold " +
+    things((d.summary || {}).skus, "SKU", "SKUs") + ".";
+}
+
+/* ---------- C. stock that expires before it sells ---------- */
+function loadExpiry(d) {
+  const e = d.expiry || {};
+  const rows = e.rows || [];
+  if (Number(e.skus) > 0) {
+    $("expiryfacts").innerHTML = [
+      fact("SKUs at risk", nf(e.skus), "stock that outlives its own expiry date"),
+      fact("Units at risk", units(e.at_risk_units), "of the stock on hand"),
+      fact("Value at risk", idr(e.at_risk_idr), "the part that would go to waste"),
+    ].join("");
+    let h = '<thead><tr><th>SKU</th><th>Category</th><th>Supplier</th>' +
+            '<th class="num">On hand</th><th class="num">Sold each day</th>' +
+            '<th class="num">Days of stock left</th><th class="num">Shelf life in months</th>' +
+            '<th class="num">Units at risk</th><th class="num">Value at risk</th></tr></thead><tbody>';
+    h += rows.map((r) => "<tr>" +
+      "<td>" + esc(r.sku) + "</td>" +
+      "<td>" + words(r.category) + "</td>" +
+      "<td>" + esc(r.principal) + "</td>" +
+      '<td class="num">' + units(r.on_hand) + "</td>" +
+      '<td class="num">' + dec1(r.sells_per_day) + "</td>" +
+      '<td class="num">' + span(r.cover_days) + "</td>" +
+      '<td class="num">' + nf(r.shelf_life_months) + "</td>" +
+      '<td class="num">' + units(r.at_risk_units) + "</td>" +
+      '<td class="num">' + idr(r.at_risk_idr) + "</td>" +
+      "</tr>").join("");
+    h += "</tbody>";
+    $("expiry").innerHTML = h;
+    $("expiryscroll").hidden = false;
+    $("expirynote").textContent = "Showing every SKU that crosses the line: " +
+      things(e.skus, "SKU", "SKUs") + ", holding " + units(e.at_risk_units) +
+      " worth " + idr(e.at_risk_idr) + " that will not sell in time.";
+    return;
+  }
+  $("expirynote").textContent = "No SKU crosses that line, so the count is " + nf(e.skus) +
+    " and the value at risk is " + idr(e.at_risk_idr) + ". The stock on hand sells through in about " +
+    span((d.summary || {}).days_of_stock) +
+    ", and shelf life is measured in months, so nothing on the shelf goes to waste.";
+}
+
+/* ---------- D. stock that sells slowly ---------- */
+function loadSlow(d) {
+  const s = d.slow || {};
+  const rows = s.rows || [];
+  if (Number(s.skus) > 0) {
+    $("slowfacts").innerHTML = [
+      fact("SKUs that sell slowly", nf(s.skus), "stock that covers more than ninety days"),
+      fact("Value held that way", idr(s.value_idr), "money sitting on the shelf"),
+      fact("Stock that does not move", nf(s.dead_skus), "no sale at all"),
+    ].join("");
+    let h = '<thead><tr><th>SKU</th><th>Category</th><th>Supplier</th>' +
+            '<th class="num">Days of stock left</th><th class="num">On hand</th>' +
+            '<th class="num">Sold each day</th><th class="num">Value</th>' +
+            "<th>Class</th></tr></thead><tbody>";
+    h += rows.map((r) => "<tr>" +
+      "<td>" + esc(r.sku) + "</td>" +
+      "<td>" + words(r.category) + "</td>" +
+      "<td>" + esc(r.principal) + "</td>" +
+      '<td class="num">' + span(r.cover_days) + "</td>" +
+      '<td class="num">' + units(r.on_hand) + "</td>" +
+      '<td class="num">' + dec1(r.sells_per_day) + "</td>" +
+      '<td class="num">' + idr(r.value_idr) + "</td>" +
+      "<td>" + esc(r.klass) + "</td>" +
+      "</tr>").join("");
+    h += "</tbody>";
+    $("slow").innerHTML = h;
+    $("slowscroll").hidden = false;
+    const dead = Number(s.dead_skus) > 0
+      ? held(s.dead_skus, "hold") + " stock that does not move at all, worth " + idr(s.dead_value_idr) + "."
+      : "Nothing sits completely still.";
+    $("slownote").textContent = "Showing every SKU that crosses the line: " +
+      things(s.skus, "SKU", "SKUs") + ", worth " + idr(s.value_idr) + ". " + dead;
+    return;
+  }
+  const dead = Number(s.dead_skus) > 0
+    ? held(s.dead_skus, "hold") + " stock that does not move at all, worth " + idr(s.dead_value_idr) + "."
+    : "No SKU holds stock that does not move at all.";
+  $("slownote").textContent = "No SKU crosses that line, so the count is " + nf(s.skus) +
+    " and the value held that way is " + idr(s.value_idr) + ". " + dead;
+}
+
+/* ---------- E. the SKUs holding the most value ---------- */
+function loadRows(d) {
+  const rows = d.rows || [];
+  $("rowswhat").textContent = "The " + things(rows.length, "SKU", "SKUs") +
+    " holding the most stock by value, largest first. Days of stock left is how long what " +
+    "we hold now covers sales at the rate the SKU sells.";
+  let h = '<thead><tr><th>SKU</th><th>Class</th>' +
+          '<th class="num">Days of stock left</th><th class="num">Value</th>' +
+          '<th class="num">Sold each day</th></tr></thead><tbody>';
+  h += rows.map((r) => "<tr>" +
+    "<td>" + esc(r.sku) + "</td>" +
+    "<td>" + esc(r.klass) + "</td>" +
+    '<td class="num">' + span(r.cover_days) + "</td>" +
+    '<td class="num">' + idr(r.value_idr) + "</td>" +
+    '<td class="num">' + dec1(r.sells_per_day) + "</td>" +
+    "</tr>").join("");
+  h += "</tbody>";
+  $("rows").innerHTML = h;
+  $("rowsnote").textContent = "Showing " + things(rows.length, "SKU", "SKUs") +
+    " of " + things((d.summary || {}).skus, "SKU", "SKUs") + ".";
+}
+
+/* ---------- boot ---------- */
+async function boot() {
+  try {
+    const d = await get("/api/stock_health?limit=40");
+    loadHeadline(d);
+    loadClasses(d);
+    loadExpiry(d);
+    loadSlow(d);
+    loadRows(d);
+  } catch (err) {
+    $("expirynote").textContent = "The stock position could not be read.";
+    $("slownote").textContent = "The stock position could not be read.";
+    $("rowsnote").textContent = "The stock position could not be read.";
+    $("classesnote").textContent = "The stock position could not be read.";
+  }
+}
+
+boot();
+</script>
+<!-- PROV:BEGIN -->
+<footer class="prov"><span class="prov-k">AWS</span> Lambda <code>{"action":"exceptions"}</code> returns the same flags, sorted by the same urgency rule<span class="prov-sep">·</span><span class="prov-k">SAP</span> SAP AI Core RPT-1.6 (<code>sap-rpt-1.6</code>) scored all 600 SKUs on three targets in one call: 293 stockout-Yes, 52 expiry-Yes (<code>data/sap/rpt_scores.csv</code>)</footer>
+<!-- PROV:END -->
+</body>
+</html>

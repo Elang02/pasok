@@ -1,0 +1,38 @@
+{
+  "network_median_fill": 0.9035,
+  "weak_principals": [
+    "P02",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P09"
+  ],
+  "proposals": 6,
+  "pairs": [
+    {
+      "from_principal": "P02",
+      "to_principal": "P01"
+    },
+    {
+      "from_principal": "P05",
+      "to_principal": "P01"
+    },
+    {
+      "from_principal": "P06",
+      "to_principal": "P01"
+    },
+    {
+      "from_principal": "P07",
+      "to_principal": "P01"
+    },
+    {
+      "from_principal": "P08",
+      "to_principal": "P03"
+    },
+    {
+      "from_principal": "P09",
+      "to_principal": "P11"
+    }
+  ]
+}

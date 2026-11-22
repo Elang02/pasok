@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pasok: agent panel</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/pasok.css">
+<style>
+/* page-specific rules only. theme, masthead, controls: /pasok.css */
+/* container comes from pasok.css: one width, one gutter */
+  .wrap { padding: var(--space-md) var(--page-gutter) var(--space-3xl); }
+
+/* scoped: a bare `nav` rule also restyled the masthead nav on this page */
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: var(--space-md) 0 var(--space-lg); }
+
+.tabs button { background: var(--color-paper-2); color: var(--color-ink); border: 1px solid var(--color-rule);
+               padding: 9px 15px; font-size: 13.5px; border-radius: var(--radius); cursor: pointer; }
+
+.tabs button.on { border-color: var(--color-accent); color: var(--color-accent); font-weight: 600; }
+
+button:disabled { opacity: .55; cursor: not-allowed; }
+
+.card { background: var(--color-paper-2); border: 1px solid var(--color-rule); border-radius: var(--radius);
+          padding: 18px 20px; margin-bottom: 16px; }
+
+.card h2 { margin: 0 0 4px; }
+
+.card .sub { color: var(--color-neutral); font-size: 12.5px; margin: 0 0 14px; }
+
+button.act { padding: 11px 17px; font: inherit; font-size: 14px; cursor: pointer;
+               border: 1px solid var(--color-accent); border-radius: var(--radius);
+               background: var(--color-accent); color: var(--color-paper); }
+
+button.ghost { background: var(--color-paper-2); color: var(--color-ink); border-color: var(--color-rule); }
+
+button.yes { background: var(--color-ok); border-color: var(--color-ok); color: var(--color-paper); }
+
+button.no  { background: var(--color-bad); border-color: var(--color-bad); color: var(--color-paper); }
+
+button:disabled { opacity: .5; cursor: default; }
+
+input[type=text] { padding: 10px 13px; font: inherit; font-size: 14.5px;
+                     border: 1px solid var(--color-rule); border-radius: var(--radius); background: var(--color-paper-2); }
+
+.tile { border: 1px solid var(--color-rule); border-radius: var(--radius); padding: 12px 14px; background: var(--color-paper); }
+
+.tile .k { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--color-neutral); }
+
+.tile .v { font-size: 21px; font-weight: 600; margin-top: 3px; }
+
+.tile .n { font-size: 12px; color: var(--color-neutral); margin-top: 2px; }
+
+td.num { font-variant-numeric: tabular-nums; }
+
+.step { display: flex; gap: 10px; align-items: baseline; padding: 7px 0;
+          border-bottom: 1px dashed var(--color-rule); font-size: 13px; }
+
+.step .who { flex: 0 0 130px; font-weight: 600; }
+
+.step .what { flex: 1; color: var(--color-neutral); }
+
+.step .ok { color: var(--color-ok); font-weight: 600; }
+
+.step .bad { color: var(--color-bad); font-weight: 600; }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <p class="issue"><!--SNAPSHOT--></p>
+  <h1 class="name">Pasok<i>.</i></h1>
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Console</a></li>
+      <li><a href="/orders">Orders</a></li>
+      <li><a href="/receiving">Receiving</a></li>
+      <li><a href="/health">Stock</a></li>
+      <li><a href="/transfers">Transfers</a></li>
+      <li><a href="/suppliers">Suppliers</a></li>
+      <li><a href="/geography">Cities</a></li>
+      <li><a href="/catalog">Catalogue</a></li>
+      <li><a href="/loop">Loop</a></li>
+      <li><a href="/panel" aria-current="page">Agent panel</a></li>
+    </ul>
+  </nav>
+  <hr class="double-rule">
+</header>
+
+<div class="wrap">
+  <nav class="tabs">
+    <button data-tab="state" class="on">Agent status</button>
+    <button data-tab="run">Run the loop</button>
+    <button data-tab="trace">Trace one SKU</button>
+    <button data-tab="queue">Approval queue</button>
+  </nav>
+
+  <!-- ================= STATE ================= -->
+  <section id="tab-state">
+    <div class="card">
+      <h2>What each agent holds right now</h2>
+      <div class="grid" id="tiles"></div>
+      <div id="events"></div>
+    </div>
+  </section>
+
+  <!-- ================= RUN ================= -->
+  <section id="tab-run" class="hidden">
+    <div class="card">
+      <h2>Run the whole loop</h2>
+      <button class="act" id="runbtn" onclick="runLoop()">Run</button>
+      <div id="runout" style="margin-top:16px"><span class="spin">Not run yet.</span></div>
+    </div>
+  </section>
+
+  <!-- ================= TRACE ================= -->
+  <section id="tab-trace" class="hidden">
+    <div class="card">
+      <h2>Trace one SKU, five steps</h2>
+      <p class="sub">Type a SKU, for example <code>SKU0041</code>.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <input id="tsku" type="text" placeholder="SKU0041" style="flex:1 1 220px">
+        <button class="act" onclick="traceSku()">Trace</button>
+      </div>
+      <div id="traceout" style="margin-top:16px"><span class="spin">Nothing yet.</span></div>
+    </div>
+  </section>
+
+  <!-- ================= QUEUE ================= -->
+  <section id="tab-queue" class="hidden">
+    <div class="card">
+      <h2>Approval queue</h2>
+      <div id="queueout"><span class="spin">Loading…</span></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const idr = (v) => "IDR " + Number(v || 0).toLocaleString("en-US");
+const esc = (s) => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+/* ---------- tabs ---------- */
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("nav button").forEach(x => x.classList.remove("on"));
+  b.classList.add("on");
+  document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
+  $("tab-" + b.dataset.tab).classList.remove("hidden");
+  if (b.dataset.tab === "state") loadState();
+  if (b.dataset.tab === "queue") loadQueue();
+});
+
+/* ---------- state ---------- */
+
+/* the escalation reason is written by the executor as a code and numbers.
+   Turn it into a sentence an operator can act on. Order matters: the money
+   phrases have to fire before the bare-number ones, or the currency marker
+   that is already in the code gets a second one and the line reads
+   "IDRIDR750". */
+function alas(s) {
+  if (!s) return "n/a";
+  let t = String(s);
+  t = t.replace(/value (\d+(?:[.,]\d+)?)M\b/g, "value IDR $1M");
+  t = t.replace(/auto limit (\d+(?:[.,]\d+)?)M\b/g, "auto limit IDR $1M");
+  t = t.replace(/supplier_switch proposed for (\w+) and this line is Rp(\d+(?:[.,]\d+)?)M?\b/g,
+               "supplier switch proposed for $1, this line is IDR $2M");
+  t = t.replace(/min order (\d+(?:[.,]\d+)?)/g, "minimum order $1");
+  t = t.replace(/qty (\d+(?:[.,]\d+)?)/g, "quantity $1");
+  t = t.replace(/_/g, " ");
+  t = t.replace(/\s+/g, " ").trim();
+  return t;
+}
+
+/* group the escalation reasons by why they happened, not by their amount.
+   Fifty-five distinct amounts is a list, not a summary. The server sends the
+   causes either grouped ("above the signing line") or raw ("value 289.4M >
+   auto limit 200M"), so both spellings are matched here. */
+function ringkas(reasons) {
+  const g = { cap: 0, supplier: 0, minimum: 0, other: 0 };
+  for (const k of Object.keys(reasons || {})) {
+    const n = reasons[k];
+    if (/auto limit|signing line/.test(k)) g.cap += n;
+    else if (/supplier_switch|supplier switch/.test(k)) g.supplier += n;
+    else if (/min order|minimum order/.test(k)) g.minimum += n;
+    else g.other += n;
+  }
+  const out = [];
+  if (g.cap) out.push(g.cap + " above the signing line");
+  if (g.supplier) out.push(g.supplier + " supplier switch proposed");
+  if (g.minimum) out.push(g.minimum + " below minimum order");
+  if (g.other) out.push(g.other + " other reasons");
+  return out.join(", ") || "none";
+}
+
+async function loadState() {
+  $("tiles").innerHTML = '<span class="spin">Loading…</span>';
+  const d = await (await fetch("/api/state")).json();
+  const t = [];
+  const tile = (k, v, n) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="n">${n || ""}</div></div>`;
+  const events = d.demand.events || [];
+  t.push(tile("Demand", d.demand.skus + " SKU", events.length + (events.length === 1 ? " event" : " events") + " in that window"));
+  t.push(tile("Stock Position", d.stock.orders_placed + " orders", d.stock.orders_skipped + " held"));
+  t.push(tile("Supplier Reliability", d.supplier.principals + " principals", "on time " + d.supplier.otif_mean + ", " + d.supplier.drift_flags + " slowing"));
+  // amplification is an object on the API; show the pair that matters
+  const amp = d.decision.amplification || {};
+  const ampTxt = amp.raw != null
+    ? amp.raw + " times normal without the order rules, " + amp.guarded + " times with"
+    : "n/a";
+  t.push(tile("Decision", d.decision.guardrail_flags_not_none + " capped", "orders swing " + ampTxt));
+  t.push(tile("Execution", d.execution.auto_issued + " placed without a person", d.execution.escalated + " waiting for a person"));
+  t.push(tile("Queue", d.queue.waiting + " waiting", "human decision"));
+  t.push(tile("Notification", d.notifications.sent + " sent", (d.notifications.held ?? 0) + " held"));
+  t.push(tile("Learn", d.learn.scored + " scored", "fill rate " + (d.learn.fill_rate ?? "n/a") + ", forecast error " + (d.learn.wape ?? "n/a")));
+  $("tiles").innerHTML = t.join("");
+
+  let ev = "";
+  if (events.length) {
+    // the artefact carries event names, a fuller row is rendered when it carries fields
+    const rows = events.every(e => e && typeof e === "object");
+    ev = '<div class="card"><h2>Events in that window</h2>';
+    ev += rows
+      ? '<table><tr><th>Event</th><th>Start</th><th>End</th><th>Factor</th></tr>' +
+        events.map(e => `<tr><td>${esc(e.name || e.event || "n/a")}</td><td>${esc(e.start || "n/a")}</td><td>${esc(e.end || "n/a")}</td><td class="num">${esc(e.multiplier ?? e.factor ?? "n/a")}</td></tr>`).join("") + "</table>"
+      : "<p>" + esc(events.join(", ")) + "</p>";
+    ev += "</div>";
+  }
+  $("events").innerHTML = ev;
+}
+
+/* ---------- run ---------- */
+async function runLoop() {
+  const b = $("runbtn"); b.disabled = true; b.textContent = "Running…";
+  $("runout").innerHTML = '<span class="spin">Running the pipeline, this takes a few minutes…</span>';
+  try {
+    const d = await (await fetch("/api/run", {method: "POST"})).json();
+    let h = "";
+    if (d.ok) {
+      h += '<div style="margin-bottom:12px"><b style="color:var(--color-ok)">CHAIN OK</b> · ' + d.seconds + ' seconds · ' +
+           d.result.orders + ' orders, ' + d.result.auto_issued + ' placed without a person, ' + d.result.escalated + ' waiting for a person</div>';
+    } else {
+      h += '<div style="margin-bottom:12px;color:var(--color-bad)"><b>FAILED at ' + esc(d.failed_at) + '</b><br>' + esc(d.stderr || "") + '</div>';
+    }
+    h += d.steps.map(s => `<div class="step"><span class="who">${esc(s.agent)}</span><span class="what">${esc(s.step)}: ${esc(s.note)}</span><span class="${s.ok ? "ok" : "bad"}">${s.ok ? "ok" : "failed"} ${s.seconds}s</span></div>`).join("");
+    $("runout").innerHTML = h;
+  } catch (e) {
+    $("runout").textContent = "Error: " + e;
+  }
+  b.disabled = false; b.textContent = "Run again";
+}
+
+/* ---------- trace ---------- */
+async function traceSku() {
+  const sku = $("tsku").value.trim() || "SKU0041";
+  $("traceout").innerHTML = '<span class="spin">Tracing ' + esc(sku) + '…</span>';
+  try {
+    const r = await fetch("/api/trace/" + encodeURIComponent(sku));
+    const d = await r.json();
+    if (!r.ok) { $("traceout").textContent = "Error: " + (d.detail || r.status); return; }
+    const p = d.perceive, f = d.forecast, de = d.decide, i = d.issue, l = d.learn;
+    const kv = (o) => Object.entries(o || {}).map(([k, v]) =>
+      `<dt>${esc(k)}</dt><dd>${esc(typeof v === "object" ? JSON.stringify(v) : v)}</dd>`).join("");
+    $("traceout").innerHTML = `
+      <div style="margin-bottom:10px"><b>${esc(d.sku)}</b> · ${esc(d.category)} · principal ${esc(d.principal_id)} · snapshot ${esc(d.snapshot)}</div>
+      <div class="card" style="margin-bottom:10px"><h2>1 · Perceive</h2><p class="sub">Stock Position agent</p><dl class="kv">${kv(p)}</dl></div>
+      <div class="card" style="margin-bottom:10px"><h2>2 · Forecast</h2><p class="sub">Demand agent</p><dl class="kv">${kv(f)}</dl></div>
+      <div class="card" style="margin-bottom:10px"><h2>3 · Decide</h2><p class="sub">Decision agent, order size and order rule</p><dl class="kv">${kv(de)}</dl></div>
+      <div class="card" style="margin-bottom:10px"><h2>4 · Issue</h2><p class="sub">Order Executor, sent, or waiting for a person</p><dl class="kv">${kv(i)}</dl></div>
+      <div class="card" style="margin-bottom:10px"><h2>5 · Learn</h2><p class="sub">Forecast against what arrived</p><dl class="kv">${kv(l)}</dl></div>`;
+  } catch (e) { $("traceout").textContent = "Error: " + e; }
+}
+
+/* ---------- queue ---------- */
+async function loadQueue() {
+  $("queueout").innerHTML = '<span class="spin">Loading…</span>';
+  let d;
+  try {
+    const r = await fetch("/api/queue", {cache: "no-store"});
+    if (!r.ok) throw new Error("the server answered " + r.status);
+    d = await r.json();
+  } catch (e) {
+    $("queueout").innerHTML = "The queue could not be read (" + e.message +
+      "). The artefacts are fine; reload the page.";
+    return;
+  }
+  if (!d.waiting) { $("queueout").innerHTML = "Queue is empty. Every order was placed without a person."; return; }
+  let h = `<p class="sub">${d.waiting} orders waiting. Reasons: ${ringkas(d.reasons)}</p>`;
+  h += '<table><tr><th>PO</th><th>SKU</th><th>Principal</th><th class="num">Value</th><th>Reason</th><th></th></tr>';
+  h += d.rows.slice(0, 40).map(r => `<tr>
+    <td>${esc(r.po_id)}</td><td>${esc(r.sku)}</td><td>${esc(r.principal_id)}</td>
+    <td class="num">${idr(r.value_idr)}</td><td>${esc(alas(r.reason || ""))}</td>
+    <td style="white-space:nowrap">
+      <button class="act yes" style="padding:5px 11px;font-size:12.5px" onclick="decide('${esc(r.po_id)}','approve',this)">Approve</button>
+      <button class="act no" style="padding:5px 11px;font-size:12.5px" onclick="decide('${esc(r.po_id)}','reject',this)">Reject</button>
+    </td></tr>`).join("");
+  h += "</table>";
+  if (d.rows.length > 40) h += `<p class="sub" style="margin-top:8px">+ ${d.rows.length - 40} more.</p>`;
+  h += `<div id="decided" style="margin-top:12px"></div>`;
+  $("queueout").innerHTML = h;
+}
+
+async function decide(po, action, btn) {
+  btn.disabled = true;
+  const r = await fetch("/api/approve", {
+    method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({po_id: po, action}),
+  });
+  const d = await r.json();
+  const el = $("decided");
+  el.insertAdjacentHTML("beforeend",
+    `<div class="step"><span class="who">${esc(po)}</span><span class="what">${action === "approve" ? "approved by a human" : "rejected by a human"} · ${esc(d.sku || "")} · ${idr(d.value_idr)}</span><span class="ok">recorded</span></div>`);
+}
+
+/* ---------- ask ---------- */
+/* ---------- boot ---------- */
+loadState();
+</script>
+<!-- PROV:BEGIN -->
+<footer class="prov"><span class="prov-k">AWS</span> Lambda <code>{"action":"exceptions"}</code> and <code>{"action":"sku"}</code> mirror the queue and the single-SKU trace<span class="prov-sep">·</span><span class="prov-k">SAP</span> RPT-1.6 scores the SKU and gpt-5.4 writes its rationale; the Joule capability that carries the approval is published to the tenant</footer>
+<!-- PROV:END -->
+</body>
+</html>

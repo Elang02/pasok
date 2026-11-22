@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">6</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">One SKU, from eight days of cover</text>
+    <text x="96" y="222" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">to a scored order</text>
+    <rect x="96" y="262" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="262" width="96" height="3" fill="#B4551F" />
+  <g id="cover-line" data-pptx-bounds="96 302 1088 120">
+    <text x="96" y="340" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">8.2 days of cover</text>
+    <text x="416" y="340" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">14-day trigger</text>
+    <text x="736" y="340" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#B4551F">17-day target</text>
+    <rect x="96" y="358" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="386" font-size="16" fill="#6B6257">where it stood</text>
+    <text x="416" y="386" font-size="16" fill="#6B6257">lead 7 + review 7</text>
+    <text x="736" y="386" font-size="16" fill="#6B6257">lead 7 + review 7 + buffer 3</text>
+  </g>
+  <g id="order" data-pptx-bounds="96 452 700 140">
+    <rect x="96" y="464" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="508" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#1F1B16">2,092 units, IDR 15.9M</text>
+    <text x="96" y="536" font-size="16" fill="#6B6257">inside an IDR 95.1M credit line · delivery at p90 of 7 days, learned</text>
+    <text x="96" y="556" font-size="16" fill="#6B6257">PO-0314, issued without a person</text>
+  </g>
+  <g id="grade" data-pptx-bounds="880 452 304 140">
+    <text x="880" y="508" font-family="Georgia, 'Times New Roman', serif" font-size="44" fill="#1F1B16">97.70%</text>
+    <text x="880" y="542" font-size="16" fill="#6B6257">fill, 48 units short</text>
+    <text x="880" y="562" font-size="16" fill="#6B6257">fed back into the next forecast</text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">SKU0286, biscuits, principal P03. Trace: demo/one_pass.md.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">6</text>
+  </g>
+</svg>

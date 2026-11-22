@@ -2,20 +2,23 @@
   "seed": 20261008,
   "n_skus": 600,
   "n_outlets": 120,
-  "n_days": 1379,
-  "sales_rows": 9898449,
+  "n_days": 1399,
+  "sales_rows": 10034120,
   "skus_per_outlet": 60,
   "date_range": [
     "2023-01-02",
-    "2026-10-11"
+    "2026-10-31"
   ],
   "hashes": {
-    "catalog.csv": "866169c9237b8c1d",
-    "events.csv": "8d5c65436ecf26e3",
+    "catalog.csv": "1233edc65247a693",
+    "catalog_view.csv": "218812e4d5354999",
+    "events.csv": "c2b96b04b5744171",
     "outlets.csv": "22cbc42c277e6fe1",
-    "principals.csv": "d2c048acbfaa599b",
-    "receiving.csv": "afe7101522713314",
-    "sales.csv": "cf65b665d81c36b0",
+    "price_anchors.csv": "a53b97905edc3f91",
+    "principals.csv": "36b37cf414ca7bf5",
+    "receiving.csv": "43b94f57653f5b4c",
+    "sales.csv": "adbf438fdcc4c8d4",
+    "sku_categories.csv": "27ee712c6b00da7a",
     "sku_city_demand.csv": "6a9db0b0cae18b68"
   }
 }

@@ -1,0 +1,30 @@
+{
+  "ramps_rows": 4800,
+  "events": 8,
+  "skus": 600,
+  "median_peak_by_event": {
+    "Christmas": 1.0,
+    "Imlek": 1.0,
+    "Lebaran": 1.0,
+    "NewYear": 1.0,
+    "Nyepi": 1.0,
+    "Payday": 1.0,
+    "Ramadan": 1.0,
+    "THR": 1.0
+  },
+  "ramped_share_by_event": {
+    "Christmas": 0.022,
+    "Imlek": 0.013,
+    "Lebaran": 0.138,
+    "NewYear": 0.0,
+    "Nyepi": 0.0,
+    "Payday": 0.0,
+    "Ramadan": 0.102,
+    "THR": 0.003
+  },
+  "ramp_class_counts": {
+    "none": 4208,
+    "step": 425,
+    "ramped": 167
+  }
+}

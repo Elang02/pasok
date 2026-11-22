@@ -1,0 +1,12 @@
+schema_version: 3.28.0
+
+metadata:
+  namespace: joule.ext
+  name: pasok_capability
+  version: 1.0.0
+  display_name: Pasok_Replenishment
+  description: Capability containing the Pasok multi-agent replenishment loop, reachable over A2A
+
+system_aliases:
+  PASOK_AGENT:
+    destination: PASOK_AGENT_A2A

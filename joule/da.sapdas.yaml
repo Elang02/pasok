@@ -1,0 +1,8 @@
+schema_version: 1.4.0
+name: pasok_exception_queue
+capabilities:
+  - type: local
+    name: pasok_exception_queue
+    folder: .
+    scenarios:
+      - folder: ./scenarios

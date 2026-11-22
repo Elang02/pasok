@@ -1,0 +1,16 @@
+[Unit]
+Description=Pasok MCP server (tools for SAP and AWS)
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/pasok
+Environment=PASOK_MCP_PORT=8086
+ExecStart=/home/ubuntu/pasok/.venv/bin/python mcp_server.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="'Segoe UI', Calibri, Arial, sans-serif">
+  <rect id="page-bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F7F3EA" />
+    <text x="1184" y="64" font-size="16" text-anchor="end" fill="#6B6257">12</text>
+    <rect x="96" y="76" width="1088" height="2" fill="#1F1B16" />
+    <text x="96" y="168" font-family="Georgia, 'Times New Roman', serif" font-size="44" letter-spacing="-0.5" fill="#1F1B16">What one snapshot moved</text>
+    <rect x="96" y="208" width="1088" height="1" fill="#D8CDBB" />
+    <rect x="96" y="208" width="96" height="3" fill="#B4551F" />
+  <g id="split" data-pptx-bounds="96 248 1088 190">
+    <text x="96" y="284" font-size="24" fill="#2A2622">IDR 40.66 bn of orders, split by who sent them</text>
+    <rect x="96" y="304" width="740" height="28" fill="#B4551F" />
+    <rect x="836" y="304" width="348" height="28" fill="#2F4858" />
+    <text x="96" y="376" font-family="Georgia, 'Times New Roman', serif" font-size="24" fill="#1F1B16">auto-issued · IDR 30.27 bn</text>
+    <text x="616" y="376" font-family="Georgia, 'Times New Roman', serif" font-size="24" fill="#1F1B16">held · IDR 10.40 bn</text>
+    <text x="96" y="404" font-size="16" fill="#6B6257">445 of 480 went out without a person</text>
+    <text x="616" y="404" font-size="16" fill="#6B6257">35 waited: 15 over a credit line, 15 near expiry, 6 mid switch</text>
+  </g>
+  <g id="redirect" data-pptx-bounds="96 470 700 110">
+    <rect x="96" y="478" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="520" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#B4551F">IDR 7.78 bn</text>
+    <text x="96" y="548" font-size="16" fill="#6B6257">redirected instead of bought: 414 surplus SKUs moved to a depot that could sell them</text>
+  </g>
+  <g id="queue" data-pptx-bounds="880 470 304 110">
+    <text x="880" y="498" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#1F1B16">0 of 18,824</text>
+    <text x="880" y="524" font-size="16" fill="#6B6257">replay orders that hit the money gate</text>
+    <text x="880" y="556" font-size="16" fill="#B4551F">fifteen did, this pass</text>
+  </g>
+  <g id="page-footnote" data-pptx-bounds="96 644 1088 36">
+    <rect x="96" y="644" width="1088" height="1" fill="#D8CDBB" />
+    <text x="96" y="672" font-size="16" fill="#6B6257">Run log, evening of 26 October; artefacts in data/orders/. The queue is real even when it is empty.</text>
+    <text x="1184" y="672" font-size="16" text-anchor="end" fill="#6B6257">12</text>
+  </g>
+</svg>

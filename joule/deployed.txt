@@ -1,0 +1,28 @@
+Joule deployment record — assistant `pasok_exception_queue`
+
+The capability is published through the Joule Studio CLI, not through Cloud
+Foundry. `cf login --sso` needs an IAS passcode that can only be produced in a
+browser, and the capability never needed CF at all: the CLI talks to the tenant
+directly and this box was already logged in (`joule status`).
+
+Command that published it, from the workspace that is now /home/ubuntu/pasok
+(recorded as it ran; the directory was renamed after the deploy):
+
+    joule deploy -c -n pasok_exception_queue joule/da.sapdas.yaml
+
+Result:
+
+    ✔ Building designtime artifact (joule)
+    ✔ Compilation (/home/ubuntu/agentic_ai_pasok/joule) completed successfully
+    ✔ Downloaded runtime artifact (com.aigo.pasok_pasok_exception_queue_1.0.0.daar)
+    ✔ Triggering deployment (pasok_exception_queue)
+    ✔ Your digital assistant (pasok_exception_queue) deployed successfully
+
+Verified afterwards with `joule get pasok_exception_queue`: namespace
+com.aigo.pasok, capability pasok_exception_queue, system alias PasokAgent.
+
+Note on the first attempt: `joule/pasok_a2a/` is a second, older capability
+(namespace joule.ext) that also compiles cleanly but is not the one the tenant
+holds. Deploying it would have created a duplicate assistant. The live one is the
+root `joule/` folder, whose da.sapdas.yaml names pasok_exception_queue and wires
+the scenarios folder.

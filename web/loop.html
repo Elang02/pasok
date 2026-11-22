@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pasok: loop map</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/pasok.css">
+<style>
+/* page-specific rules only. theme, masthead, controls: /pasok.css */
+.map {
+  margin-block: var(--space-xl) var(--space-2xl);
+  border: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper-2);
+}
+
+.map svg { display: block; width: 100%; height: auto; }
+
+.legend {
+  display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-lg);
+  margin: 0; padding: var(--space-sm) var(--space-md);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  font: 400 var(--text-xs) / 1.6 var(--font-body); color: var(--color-muted);
+}
+
+.legend i { display: inline-block; width: 22px; margin-right: var(--space-2xs);
+            vertical-align: middle; border-top: 1.5px solid #45453f; }
+.legend i.dashed { border-top-style: dashed; border-top-color: #9a9b96; }
+.legend i.learned { border-top-color: #8fa68e; }
+
+.band { margin-top: var(--space-2xl); }
+
+.band h2 { margin: 0 0 var(--space-lg); }
+
+.lede {
+  max-width: var(--measure); margin: 0;
+  font-size: var(--text-md); line-height: 1.55; color: var(--color-muted);
+}
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+         gap: var(--space-lg) var(--space-2xl); }
+
+.facts dt { font: 500 var(--text-xs) / 1.3 var(--font-body); letter-spacing: 0.07em;
+            text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-2xs); }
+
+.facts dd { margin: 0; font: 500 var(--text-lg) / 1.2 var(--font-display);
+            font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+.facts dd small { display: block; font: 400 var(--text-sm) / 1.5 var(--font-body);
+                  color: var(--color-muted); letter-spacing: 0; margin-top: var(--space-2xs); }
+
+.checks { list-style: none; margin: 0; padding: 0;
+          display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+          gap: var(--space-lg) var(--space-2xl); }
+
+.checks li { border-top: var(--rule-hair) solid var(--color-rule); padding-top: var(--space-sm); }
+
+.checks b { display: block; margin-bottom: var(--space-2xs);
+            font: 500 var(--text-base) / 1.3 var(--font-display); letter-spacing: -0.01em; }
+
+.checks span { color: var(--color-muted); font-size: var(--text-sm); line-height: 1.55; }
+
+.act { display: flex; flex-wrap: wrap; align-items: center;
+       gap: var(--space-md) var(--space-lg);
+       border-top: var(--rule-hair) solid var(--color-rule); padding-top: var(--space-lg); }
+
+.act p { margin: 0; color: var(--color-muted); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="issue"><!--SNAPSHOT--></p>
+  <h1 class="name">Pasok<i>.</i></h1>
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="/">Console</a></li>
+      <li><a href="/orders">Orders</a></li>
+      <li><a href="/receiving">Receiving</a></li>
+      <li><a href="/health">Stock</a></li>
+      <li><a href="/transfers">Transfers</a></li>
+      <li><a href="/suppliers">Suppliers</a></li>
+      <li><a href="/geography">Cities</a></li>
+      <li><a href="/catalog">Catalogue</a></li>
+      <li><a href="/loop" aria-current="page">Loop</a></li>
+      <li><a href="/panel">Agent panel</a></li>
+    </ul>
+  </nav>
+  <hr class="double-rule">
+</header>
+
+<main class="sheet">
+
+  <!-- the loop, as one picture: what it looks at, what it decides, what it sends -->
+  <figure class="map" style="margin-inline:0">
+    <svg viewBox="0 0 1080 470" role="img"
+         aria-label="Loop map: the loop reads demand, stock and supplier delivery, decides what to order, sends the order, and learns from what arrives.">
+      <!-- edges first, so nodes paint over them -->
+      <g fill="none" stroke="#45453f" stroke-width="1.5">
+        <path d="M196 118 C 300 118, 300 196, 404 196" marker-end="url(#a)"/>
+        <path d="M196 250 L 404 250" marker-end="url(#a)"/>
+        <path d="M196 382 C 300 382, 300 304, 404 304" marker-end="url(#a)"/>
+        <path d="M616 250 L 786 250" marker-end="url(#a)"/>
+        <!-- notification: executor -> notification (above) -->
+        <path d="M872 224 L 872 144" marker-end="url(#a)"/>
+        <!-- intake: executor -> ordering system (below) -->
+        <path d="M872 276 L 872 336" marker-end="url(#a)"/>
+        <!-- escalated -> human queue -->
+        <path d="M616 276 C 650 276, 650 404, 660 404" marker-end="url(#a)" stroke-dasharray="5 4"/>
+        <!-- what actually landed: intake -> learn -->
+        <path d="M786 362 C 720 362, 700 426, 616 426" marker-end="url(#a)" stroke-dasharray="5 4"/>
+        <!-- Learn feeds back into Decision -->
+        <path d="M510 400 L 510 304" marker-end="url(#aa)" stroke="#8fa68e" stroke-width="1.5"/>
+      </g>
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#9a9b96"/>
+        </marker>
+        <marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#8fa68e"/>
+        </marker>
+      </defs>
+
+      <!-- column captions -->
+      <g font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="1.4"
+         fill="#9a9b96" text-anchor="middle">
+        <text x="120" y="42">CAPTURE</text>
+        <text x="510" y="42">DECIDE</text>
+        <text x="830" y="42">EXECUTE</text>
+        <text x="510" y="462">LEARN</text>
+      </g>
+
+      <!-- ── nodes ── -->
+      <g>
+        <!-- Demand -->
+        <rect x="40" y="92" width="156" height="52" fill="#262626" stroke="#f1f1ef" stroke-width="1.5"/>
+        <text x="56" y="114" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="600" fill="#f1f1ef">Demand</text>
+        <text x="56" y="132" font-family="Bricolage Grotesque, sans-serif" font-size="11" fill="#b5b6b0">normal demand + event days</text>
+
+        <!-- Stock Position -->
+        <rect x="40" y="224" width="156" height="52" fill="#262626" stroke="#f1f1ef" stroke-width="1.5"/>
+        <text x="56" y="246" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="600" fill="#f1f1ef">Stock Position</text>
+        <text x="56" y="264" font-family="Bricolage Grotesque, sans-serif" font-size="11" fill="#b5b6b0">stock available now</text>
+
+        <!-- Supplier Reliability -->
+        <rect x="40" y="356" width="156" height="52" fill="#262626" stroke="#f1f1ef" stroke-width="1.5"/>
+        <text x="56" y="378" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="600" fill="#f1f1ef">Supplier Reliability</text>
+        <text x="56" y="396" font-family="Bricolage Grotesque, sans-serif" font-size="11" fill="#b5b6b0">delivery time, worst case</text>
+
+        <!-- Decision (the hub) -->
+        <rect x="404" y="196" width="212" height="108" fill="#2b2e28" stroke="#f1f1ef" stroke-width="2"/>
+        <text x="422" y="228" font-family="Bricolage Grotesque, sans-serif" font-size="20" font-weight="700" fill="#f1f1ef">Decision</text>
+        <text x="422" y="250" font-family="Bricolage Grotesque, sans-serif" font-size="11.5" fill="#b5b6b0">forecast + stock + supplier</text>
+        <text x="422" y="266" font-family="Bricolage Grotesque, sans-serif" font-size="11.5" fill="#b5b6b0">then three order rules</text>
+        <text x="422" y="290" font-family="IBM Plex Mono, monospace" font-size="11" fill="#8fa68e"><tspan data-fig="variance_cap_binding">83</tspan> of <tspan data-fig="orders_placed">145</tspan> at the cap</text>
+
+        <!-- Order Executor -->
+        <rect x="660" y="224" width="212" height="52" fill="#262626" stroke="#f1f1ef" stroke-width="1.5"/>
+        <text x="676" y="246" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="600" fill="#f1f1ef">Order Executor</text>
+        <text x="676" y="264" font-family="Bricolage Grotesque, sans-serif" font-size="11" fill="#b5b6b0">placed, or waiting for a person</text>
+
+        <!-- Notification + Intake -->
+        <rect x="786" y="92" width="212" height="52" fill="#262626" stroke="#45453f" stroke-width="1.5"/>
+        <text x="802" y="114" font-family="Bricolage Grotesque, sans-serif" font-size="16" font-weight="600" fill="#f1f1ef">Notification</text>
+        <text x="802" y="129" font-family="Bricolage Grotesque, sans-serif" font-size="11" fill="#b5b6b0"><tspan data-fig="auto_issued">139</tspan> placed without a person</text>
+        <text x="802" y="141" font-family="Bricolage Grotesque, sans-serif" font-size="11" fill="#b5b6b0"><tspan data-fig="escalated">6</tspan> waiting for a person</text>
+
+        <rect x="786" y="336" width="212" height="52" fill="#262626" stroke="#45453f" stroke-width="1.5"/>
+        <text x="802" y="358" font-family="Bricolage Grotesque, sans-serif" font-size="16" font-weight="600" fill="#f1f1ef">Order Intake</text>
+        <text x="802" y="376" font-family="Bricolage Grotesque, sans-serif" font-size="11" fill="#b5b6b0">the distributor's ordering system</text>
+
+        <!-- human queue -->
+        <rect x="660" y="382" width="120" height="44" fill="none" stroke="#9a9b96" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="720" y="409" font-family="Bricolage Grotesque, sans-serif" font-size="12.5" font-weight="500"
+              fill="#b5b6b0" text-anchor="middle">approval queue</text>
+
+        <!-- Learn -->
+        <rect x="404" y="400" width="212" height="52" fill="#262626" stroke="#8fa68e" stroke-width="1.5"/>
+        <text x="422" y="422" font-family="Bricolage Grotesque, sans-serif" font-size="17" font-weight="600" fill="#f1f1ef">Learn</text>
+        <text x="422" y="440" font-family="Bricolage Grotesque, sans-serif" font-size="11" fill="#b5b6b0">forecast vs what arrived</text>
+      </g>
+    </svg>
+    <figcaption class="legend">
+      <span><i></i> the usual step order</span>
+      <span><i class="dashed"></i> a person decides, or the goods arrive</span>
+      <span><i class="learned"></i> what the loop learned, back to the decision</span>
+    </figcaption>
+  </figure>
+
+  <section class="band">
+    <p class="lede">
+      Every day the loop looks at what sold, what is left in stock, and how each supplier has
+      been delivering. From that it picks the SKUs that need more, places the order, and tells
+      the principal. When the goods arrive, it compares what came with what it expected. The
+      next day starts from there.
+    </p>
+  </section>
+
+  <section class="band">
+    <h2>When it runs</h2>
+    <dl class="facts">
+      <div>
+        <dt>Schedule</dt>
+        <dd><span id="sched-label">Not read yet.</span></dd>
+      </div>
+      <div>
+        <dt>Next run</dt>
+        <dd><span id="sched-at">Not read yet.</span><small>Jakarta time</small></dd>
+      </div>
+      <div>
+        <dt>Last run</dt>
+        <dd><span id="last-run">Not read yet.</span><small>Jakarta time</small></dd>
+      </div>
+      <div>
+        <dt>Orders placed then</dt>
+        <dd><span id="last-orders">Not read yet.</span><small>in that run</small></dd>
+      </div>
+      <div>
+        <dt>Time it took</dt>
+        <dd><span id="last-seconds">Not read yet.</span><small>end to end</small></dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="band">
+    <h2>What it checks</h2>
+    <ul class="checks">
+      <li><b>A stock running out</b><span>It orders when the stock would run out before the next delivery arrives. Of <span data-fig="orders_placed">121</span> orders, <span data-fig="auto_rate">91.7%</span> went out without a person touching them.</span></li>
+      <li><b>Demand jumping</b><span>It orders more when demand is about to run above normal. The forecast misses about <span data-fig="wape_best_median">12.8%</span> of units sold, so no order is sized straight off it.</span></li>
+      <li><b>A supplier running late</b><span>It orders earlier when a supplier has been delivering late. Suppliers deliver <span data-fig="fill_rate">91.2%</span> of what we order, and the weakest are ordered from earlier.</span></li>
+      <li><b>A large order</b><span>It waits for a person when the order value is above the limit. This run placed <span data-fig="order_value">IDR 8.10M</span> of orders, and the order rule keeps them swinging <span data-fig="amplification_reduction">72.9%</span> less than ordering straight off the forecast.</span></li>
+    </ul>
+  </section>
+
+  <section class="band">
+    <div class="act">
+      <a class="btn" href="/">Open the console</a>
+      <p>Ask anything about the loop, or set it running step by step.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <span><span data-fig="n_skus">600</span> SKUs, <span data-fig="principal_count">12</span> principals, <span data-fig="orders_skipped">479</span> needing nothing this run</span>
+</footer>
+
+<script>
+(function () {
+  var set = function (id, text) {
+    var node = document.getElementById(id);
+    if (node) { node.textContent = String(text); }
+  };
+  var present = function (v) {
+    return !(v === undefined || v === null || v === "");
+  };
+  var seconds = function (v) {
+    if (!present(v)) { return "None recorded yet."; }
+    var n = Math.round(Number(v));
+    if (isNaN(n)) { return "None recorded yet."; }
+    return n + " seconds";
+  };
+  var ids = ["sched-label", "sched-at", "last-run", "last-orders", "last-seconds"];
+  fetch("/api/runs")
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var sched = d.schedule || {};
+      var last = d.last || {};
+      set("sched-label", present(sched.label) ? sched.label : "None recorded yet.");
+      set("sched-at", present(sched.at) ? sched.at : "None recorded yet.");
+      set("last-run", present(last.ran_at_wib) ? last.ran_at_wib : "None recorded yet.");
+      set("last-orders", present(last.orders_placed) ? last.orders_placed : "None recorded yet.");
+      set("last-seconds", seconds(last.seconds));
+    })
+    .catch(function () {
+      ids.forEach(function (id) { set(id, "The run log could not be read."); });
+    });
+}());
+</script>
+
+<!-- PROV:BEGIN -->
+<footer class="prov"><span class="prov-k">AWS</span> the four-agent reasoning layer is the same code the Lambda lane runs; the runtime is the host, the artefacts are the evidence<span class="prov-sep">·</span><span class="prov-k">SAP</span> SAP AI Core <code>gpt-5.4-2026-03-05</code> writes the run report at the end of a loop (<code>/api/chat</code> streams the stages, then the model's summary)</footer>
+<!-- PROV:END -->
+</body>
+</html>

@@ -1,0 +1,260 @@
+{
+  "tc1": {
+    "question": "What runs out of stock within a week?",
+    "summary": {
+      "skus_cover_le_7d": 2,
+      "of_which_die_before_next_delivery": 0,
+      "at_risk_stock_value_idr": 0.0,
+      "given_an_order_by_the_loop": 2,
+      "po_auto_issued": 2,
+      "po_escalated_to_a_human": 0,
+      "total_skus": 600
+    },
+    "top": [
+      {
+        "sku": "SKU0144",
+        "category": "kopi_teh",
+        "principal": "P11",
+        "on_hand": 1981.4,
+        "sellable": 1981.4,
+        "velocity_day": 302.71,
+        "cover_d": 6.5,
+        "lead_d": 4,
+        "event": NaN,
+        "action": "SIZE",
+        "order": 2132.0
+      },
+      {
+        "sku": "SKU0459",
+        "category": "perawatan_diri",
+        "principal": "P11",
+        "on_hand": 1574.2,
+        "sellable": 1574.2,
+        "velocity_day": 241.04,
+        "cover_d": 6.5,
+        "lead_d": 4,
+        "event": NaN,
+        "action": "SIZE",
+        "order": 1784.3
+      }
+    ]
+  },
+  "tc2": {
+    "question": "What needs more stock because a spike is coming within a month?",
+    "summary": {
+      "snapshot_date": "2026-10-31",
+      "horizon_end": "2026-11-30",
+      "event_windows_in_horizon": [],
+      "skus_with_a_spike": 29,
+      "extra_units_implied": 4972.0,
+      "extra_value_implied_idr": 38165200.0,
+      "already_covered_by_the_loop": 28
+    },
+    "by_event": [
+      {
+        "event": "Christmas",
+        "skus": 29,
+        "extra_units": 4972.0,
+        "extra_value_idr": 38165200.0,
+        "median_peak_mult": 1.012
+      }
+    ],
+    "top": [
+      {
+        "sku": "SKU0137",
+        "category": "mie_instan",
+        "principal": "P04",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.014,
+        "base_day": 1570.0,
+        "spiked_day": 1592.0,
+        "extra_units": 763.0,
+        "extra_value_idr": 1106350.0,
+        "shelf_life_months": 8
+      },
+      {
+        "sku": "SKU0247",
+        "category": "mie_instan",
+        "principal": "P04",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.014,
+        "base_day": 1485.5,
+        "spiked_day": 1506.3,
+        "extra_units": 722.0,
+        "extra_value_idr": 1119100.0,
+        "shelf_life_months": 9
+      },
+      {
+        "sku": "SKU0496",
+        "category": "cokelat",
+        "principal": "P12",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.139,
+        "base_day": 169.5,
+        "spiked_day": 193.1,
+        "extra_units": 708.0,
+        "extra_value_idr": 3823200.0,
+        "shelf_life_months": 12
+      },
+      {
+        "sku": "SKU0342",
+        "category": "mie_instan",
+        "principal": "P07",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.008,
+        "base_day": 2106.0,
+        "spiked_day": 2122.8,
+        "extra_units": 449.0,
+        "extra_value_idr": 718400.0,
+        "shelf_life_months": 8
+      },
+      {
+        "sku": "SKU0231",
+        "category": "cokelat",
+        "principal": "P04",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.079,
+        "base_day": 103.5,
+        "spiked_day": 111.7,
+        "extra_units": 252.0,
+        "extra_value_idr": 1335600.0,
+        "shelf_life_months": 12
+      },
+      {
+        "sku": "SKU0121",
+        "category": "cokelat",
+        "principal": "P12",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.071,
+        "base_day": 94.5,
+        "spiked_day": 101.2,
+        "extra_units": 214.0,
+        "extra_value_idr": 3017400.0,
+        "shelf_life_months": 18
+      },
+      {
+        "sku": "SKU0018",
+        "category": "air_mineral",
+        "principal": "P04",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.014,
+        "base_day": 423.5,
+        "spiked_day": 429.4,
+        "extra_units": 181.0,
+        "extra_value_idr": 217200.0,
+        "shelf_life_months": 7
+      },
+      {
+        "sku": "SKU0216",
+        "category": "cokelat",
+        "principal": "P07",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.046,
+        "base_day": 136.0,
+        "spiked_day": 142.3,
+        "extra_units": 162.0,
+        "extra_value_idr": 850500.0,
+        "shelf_life_months": 9
+      },
+      {
+        "sku": "SKU0240",
+        "category": "gula",
+        "principal": "P04",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.014,
+        "base_day": 287.0,
+        "spiked_day": 291.0,
+        "extra_units": 139.0,
+        "extra_value_idr": 5170800.0,
+        "shelf_life_months": 24
+      },
+      {
+        "sku": "SKU0575",
+        "category": "gula",
+        "principal": "P12",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.012,
+        "base_day": 305.5,
+        "spiked_day": 309.2,
+        "extra_units": 126.0,
+        "extra_value_idr": 4687200.0,
+        "shelf_life_months": 20
+      },
+      {
+        "sku": "SKU0487",
+        "category": "bumbu",
+        "principal": "P04",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.014,
+        "base_day": 247.0,
+        "spiked_day": 250.5,
+        "extra_units": 114.0,
+        "extra_value_idr": 1670100.0,
+        "shelf_life_months": 9
+      },
+      {
+        "sku": "SKU0554",
+        "category": "kopi_teh",
+        "principal": "P04",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.014,
+        "base_day": 213.5,
+        "spiked_day": 216.5,
+        "extra_units": 104.0,
+        "extra_value_idr": 1107600.0,
+        "shelf_life_months": 22
+      },
+      {
+        "sku": "SKU0191",
+        "category": "biskuit",
+        "principal": "P12",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.012,
+        "base_day": 247.0,
+        "spiked_day": 250.0,
+        "extra_units": 102.0,
+        "extra_value_idr": 1530000.0,
+        "shelf_life_months": 11
+      },
+      {
+        "sku": "SKU0571",
+        "category": "cokelat",
+        "principal": "P07",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.046,
+        "base_day": 83.0,
+        "spiked_day": 86.8,
+        "extra_units": 94.0,
+        "extra_value_idr": 488800.0,
+        "shelf_life_months": 9
+      },
+      {
+        "sku": "SKU0332",
+        "category": "mie_instan",
+        "principal": "P12",
+        "event": "Christmas",
+        "event_day": "2026-12-25",
+        "ramp_uplift": 1.012,
+        "base_day": 239.5,
+        "spiked_day": 242.4,
+        "extra_units": 93.0,
+        "extra_value_idr": 167400.0,
+        "shelf_life_months": 8
+      }
+    ]
+  }
+}

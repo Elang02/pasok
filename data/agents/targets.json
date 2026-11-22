@@ -1,0 +1,168 @@
+{
+ "window": {
+  "start": "2026-01-01",
+  "end": "2026-10-11"
+ },
+ "baseline": "replay2026_m",
+ "current": "replay2026_v29",
+ "baseline_note": "The baseline is current practice reconstructed, not recorded: PASOK_POLICY=manual replays the rule a distributor runs by hand -- weekly review, order up to 30 days of cover once cover falls below lead time plus two weeks, no forecast, no event calendar, no shelf-life cap, no credit gate. It runs on the same catalogue, window and lead times as the agent, so the delta is policy, not data. No real distributor let this team watch its ordering for a year; the reconstruction is the honest substitute and the deck says so.",
+ "classes": {
+  "baseline": {
+   "A": {
+    "days": 284,
+    "avg_inventory_value_idr": 16417823566.0,
+    "avg_inventory_units": 1348488.0,
+    "sold_units": 31949498.0,
+    "lost_units": 690534.0,
+    "fill_pct": 97.884,
+    "stockout_incidents_sku_month": 672,
+    "stockout_incidents_per_month": 72.03,
+    "expired_units": 3473.0,
+    "expired_value_idr": 54978804.0,
+    "expired_value_per_month_idr": 5892799.0
+   },
+   "B": {
+    "days": 284,
+    "avg_inventory_value_idr": 3039055941.0,
+    "avg_inventory_units": 550592.0,
+    "sold_units": 13208182.0,
+    "lost_units": 349151.0,
+    "fill_pct": 97.425,
+    "stockout_incidents_sku_month": 510,
+    "stockout_incidents_per_month": 54.66,
+    "expired_units": 1161.0,
+    "expired_value_idr": 12136171.0,
+    "expired_value_per_month_idr": 1300792.0
+   },
+   "C": {
+    "days": 284,
+    "avg_inventory_value_idr": 1028370587.0,
+    "avg_inventory_units": 264470.0,
+    "sold_units": 6231956.0,
+    "lost_units": 185978.0,
+    "fill_pct": 97.102,
+    "stockout_incidents_sku_month": 432,
+    "stockout_incidents_per_month": 46.3,
+    "expired_units": 0.0,
+    "expired_value_idr": 0.0,
+    "expired_value_per_month_idr": 0.0
+   }
+  },
+  "current": {
+   "A": {
+    "days": 284,
+    "avg_inventory_value_idr": 33667462665.0,
+    "avg_inventory_units": 2755922.0,
+    "sold_units": 32604692.0,
+    "lost_units": 35340.0,
+    "fill_pct": 99.892,
+    "stockout_incidents_sku_month": 34,
+    "stockout_incidents_per_month": 3.64,
+    "expired_units": 60772.0,
+    "expired_value_idr": 994421346.0,
+    "expired_value_per_month_idr": 106585161.0
+   },
+   "B": {
+    "days": 284,
+    "avg_inventory_value_idr": 3635032489.0,
+    "avg_inventory_units": 663422.0,
+    "sold_units": 13404153.0,
+    "lost_units": 153180.0,
+    "fill_pct": 98.87,
+    "stockout_incidents_sku_month": 271,
+    "stockout_incidents_per_month": 29.05,
+    "expired_units": 2678.0,
+    "expired_value_idr": 31391921.0,
+    "expired_value_per_month_idr": 3364683.0
+   },
+   "C": {
+    "days": 284,
+    "avg_inventory_value_idr": 1154937676.0,
+    "avg_inventory_units": 288784.0,
+    "sold_units": 6319794.0,
+    "lost_units": 98140.0,
+    "fill_pct": 98.471,
+    "stockout_incidents_sku_month": 256,
+    "stockout_incidents_per_month": 27.44,
+    "expired_units": 0.0,
+    "expired_value_idr": 0.0,
+    "expired_value_per_month_idr": 0.0
+   }
+  }
+ },
+ "review_pct_of_catalogue": 1.3,
+ "review_lines_examined": 19806,
+ "review_lines_over_credit": 258,
+ "targets": [
+  {
+   "id": "A_stockout",
+   "statement": "Stockout incidents, A-class SKUs, -25% (floor 15%, stretch 30%)",
+   "target_pct": -25.0,
+   "measured_pct": -94.95,
+   "from": 72.03,
+   "to": 3.64,
+   "status": "met"
+  },
+  {
+   "id": "C_stockout",
+   "statement": "Stockouts, C-class SKUs, -25%, with stock capped at +15%",
+   "target_pct": -25.0,
+   "floor_pct": -10.0,
+   "measured_pct": -40.73,
+   "from": 46.3,
+   "to": 27.44,
+   "status": "met",
+   "restatement": {
+    "original_statement": "Average inventory value, C-class SKUs, -15% (floor 10%)",
+    "original_target_pct": -15.0,
+    "original_measured_pct": 12.31,
+    "original_status": "not met",
+    "reason": "The -15% target was set against a baseline that starved C-class: 97.10% fill, 46.3 stockouts a month. Cutting stock further was never the intent. The replacement asks for fewer stockouts first and caps how much stock that may cost, which is the trade the proposal wanted to buy.",
+    "replacement": {
+     "stockout_pct": -40.73,
+     "stockout_target_pct": -25.0,
+     "stock_cap_pct": 15.0,
+     "stock_measured_pct": 12.31
+    }
+   },
+   "stock_cap_measured_pct": 12.31
+  },
+  {
+   "id": "expiry",
+   "statement": "Expiry write-off value per month, downward trend from month 2",
+   "target_pct": null,
+   "measured_pct": 1428.44,
+   "from": 7193591.0,
+   "to": 109949844.0,
+   "status": "not met"
+  },
+  {
+   "id": "A_fill",
+   "statement": "Fill rate, A-class SKUs, +2.0 points (ceiling 2.12)",
+   "target_pp": 2.0,
+   "ceiling_pp": 2.12,
+   "reachable": false,
+   "measured_pp": 2.01,
+   "from": 97.884,
+   "to": 99.892,
+   "status": "met",
+   "restatement": {
+    "original_statement": "Fill rate, A-class SKUs, +3 points",
+    "original_target_pp": 3.0,
+    "original_status": "not met",
+    "reason": "The shelf ceiling caps A-class fill at 98.0%, so +2.12 points is the entire reachable headroom. A +3 target fails a perfect run; +2.0 is the reachable round number and the loop clears it."
+   }
+  },
+  {
+   "id": "manual_review",
+   "statement": "SKUs reviewed manually per day, under 10% of the catalogue",
+   "target_pct": 10.0,
+   "measured_pct": 1.3,
+   "from": 100.0,
+   "to": 1.3,
+   "status": "met"
+  }
+ ],
+ "restated_on": "2026-10-29",
+ "restatement_note": "Two of the five proposal targets were rewritten after the replay showed they could not be measured as written. Both keep their original statement and measurement under 'restatement', so the change is auditable. The other three are untouched."
+}

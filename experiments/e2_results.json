@@ -1,0 +1,301 @@
+{
+  "seed": 20261008,
+  "E2a_event_ramp": {
+    "method": "leave-one-occurrence-out, day-of-week adjusted, dept-level dense series",
+    "n_series_aggregated": 30490,
+    "event_types": [
+      "Chanukah End",
+      "Christmas",
+      "Cinco De Mayo",
+      "ColumbusDay",
+      "Easter",
+      "Eid al-Fitr",
+      "EidAlAdha",
+      "Father's day",
+      "Halloween",
+      "IndependenceDay",
+      "LaborDay",
+      "LentStart",
+      "LentWeek2",
+      "MartinLutherKingDay",
+      "MemorialDay",
+      "Mother's day",
+      "NBAFinalsEnd",
+      "NBAFinalsStart",
+      "NewYear",
+      "OrthodoxChristmas",
+      "OrthodoxEaster",
+      "Pesach End",
+      "PresidentsDay",
+      "Purim End",
+      "Ramadan starts",
+      "StPatricksDay",
+      "SuperBowl",
+      "Thanksgiving",
+      "ValentinesDay",
+      "VeteransDay"
+    ],
+    "windows_tested": 154,
+    "overall_wape": {
+      "flat": 0.09,
+      "flat_bump": 0.1161,
+      "ramp": 0.0775
+    },
+    "improvement_pct": {
+      "ramp_vs_flat_pct": 13.89,
+      "ramp_vs_flat_bump_pct": 33.25
+    },
+    "per_event_wape": {
+      "SuperBowl": {
+        "occurrences_tested": 6,
+        "wape": {
+          "flat": 0.1294,
+          "flat_bump": 0.1872,
+          "ramp": 0.1142
+        }
+      },
+      "ValentinesDay": {
+        "occurrences_tested": 6,
+        "wape": {
+          "flat": 0.1292,
+          "flat_bump": 0.2021,
+          "ramp": 0.1224
+        }
+      },
+      "PresidentsDay": {
+        "occurrences_tested": 6,
+        "wape": {
+          "flat": 0.1276,
+          "flat_bump": 0.17,
+          "ramp": 0.1356
+        }
+      },
+      "LentStart": {
+        "occurrences_tested": 6,
+        "wape": {
+          "flat": 0.0844,
+          "flat_bump": 0.1299,
+          "ramp": 0.0899
+        }
+      },
+      "LentWeek2": {
+        "occurrences_tested": 6,
+        "wape": {
+          "flat": 0.0742,
+          "flat_bump": 0.1109,
+          "ramp": 0.0808
+        }
+      },
+      "StPatricksDay": {
+        "occurrences_tested": 6,
+        "wape": {
+          "flat": 0.0593,
+          "flat_bump": 0.0659,
+          "ramp": 0.0375
+        }
+      },
+      "Purim End": {
+        "occurrences_tested": 6,
+        "wape": {
+          "flat": 0.0724,
+          "flat_bump": 0.1006,
+          "ramp": 0.0838
+        }
+      },
+      "OrthodoxEaster": {
+        "occurrences_tested": 4,
+        "wape": {
+          "flat": 0.0692,
+          "flat_bump": 0.0714,
+          "ramp": 0.0752
+        }
+      },
+      "Pesach End": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0761,
+          "flat_bump": 0.082,
+          "ramp": 0.0816
+        }
+      },
+      "Cinco De Mayo": {
+        "occurrences_tested": 4,
+        "wape": {
+          "flat": 0.0765,
+          "flat_bump": 0.0933,
+          "ramp": 0.0599
+        }
+      },
+      "Mother's day": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0613,
+          "flat_bump": 0.0855,
+          "ramp": 0.0414
+        }
+      },
+      "MemorialDay": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0857,
+          "flat_bump": 0.0903,
+          "ramp": 0.0634
+        }
+      },
+      "NBAFinalsStart": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.1046,
+          "flat_bump": 0.1648,
+          "ramp": 0.0746
+        }
+      },
+      "NBAFinalsEnd": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0654,
+          "flat_bump": 0.1097,
+          "ramp": 0.0528
+        }
+      },
+      "Father's day": {
+        "occurrences_tested": 4,
+        "wape": {
+          "flat": 0.0741,
+          "flat_bump": 0.1255,
+          "ramp": 0.0604
+        }
+      },
+      "IndependenceDay": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0948,
+          "flat_bump": 0.1547,
+          "ramp": 0.0573
+        }
+      },
+      "Ramadan starts": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.08,
+          "flat_bump": 0.1047,
+          "ramp": 0.0988
+        }
+      },
+      "Eid al-Fitr": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0735,
+          "flat_bump": 0.0919,
+          "ramp": 0.0884
+        }
+      },
+      "LaborDay": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.076,
+          "flat_bump": 0.0768,
+          "ramp": 0.0557
+        }
+      },
+      "ColumbusDay": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0519,
+          "flat_bump": 0.0721,
+          "ramp": 0.0589
+        }
+      },
+      "Halloween": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0777,
+          "flat_bump": 0.0777,
+          "ramp": 0.0393
+        }
+      },
+      "EidAlAdha": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0762,
+          "flat_bump": 0.0819,
+          "ramp": 0.0878
+        }
+      },
+      "VeteransDay": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0414,
+          "flat_bump": 0.047,
+          "ramp": 0.0367
+        }
+      },
+      "Thanksgiving": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.1535,
+          "flat_bump": 0.1535,
+          "ramp": 0.0626
+        }
+      },
+      "Christmas": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.1596,
+          "flat_bump": 0.1596,
+          "ramp": 0.09
+        }
+      },
+      "Chanukah End": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.1094,
+          "flat_bump": 0.1184,
+          "ramp": 0.1463
+        }
+      },
+      "NewYear": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.1696,
+          "flat_bump": 0.1696,
+          "ramp": 0.0803
+        }
+      },
+      "OrthodoxChristmas": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0892,
+          "flat_bump": 0.1497,
+          "ramp": 0.0681
+        }
+      },
+      "MartinLutherKingDay": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0813,
+          "flat_bump": 0.0998,
+          "ramp": 0.0793
+        }
+      },
+      "Easter": {
+        "occurrences_tested": 5,
+        "wape": {
+          "flat": 0.0767,
+          "flat_bump": 0.0966,
+          "ramp": 0.0725
+        }
+      }
+    }
+  },
+  "E2b_novelty": {
+    "series": "dept-level dense aggregate",
+    "zone_rule": "no registered event within +-10 days",
+    "injections": 120,
+    "detected": 120,
+    "detection_rate": 1.0,
+    "fp_days_clean_last40pct": 5,
+    "clean_days_last40pct": 765,
+    "fp_days_per_100": 0.653
+  }
+}

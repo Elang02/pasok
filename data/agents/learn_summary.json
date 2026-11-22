@@ -1,12 +1,11 @@
 {
-  "n_decisions": 137,
+  "n_decisions": 470,
   "score_distribution": {
-    "SUPPLY_SHORT": 78,
-    "ON_PLAN": 39,
-    "SUPPLY_AND_LEAD": 20
+    "SUPPLY_SHORT": 336,
+    "ON_PLAN": 134
   },
-  "share_on_plan": 0.2847,
-  "observed_fill_rate_mean": 0.9126,
+  "share_on_plan": 0.2851,
+  "observed_fill_rate_mean": 0.9047,
   "principals_below_fill_95": [
     "P02",
     "P04",
@@ -18,33 +17,31 @@
     "P10",
     "P11"
   ],
-  "principals_with_lead_drift_gt_1d": [
-    "P10"
-  ],
-  "forecast_wape_best_median": 0.0852,
-  "forecast_wape_best_mean": 0.1038,
+  "principals_with_lead_drift_gt_1d": [],
+  "forecast_wape_best_median": 0.1291,
+  "forecast_wape_best_mean": 0.1337,
   "demand_surprises_outside_2sd": 0,
-  "recent_window": "2026-10-11",
+  "recent_window": "2026-10-31",
   "note": "Order sizing is event-inflated by design, so accuracy is scored on realised supply and logistics plus the Demand Agent's held-out WAPE, never on a snapshot cover comparison.",
   "learning_curve": {
     "months": 46,
-    "readings": 823200,
-    "wape_min": 0.1237,
-    "wape_max": 0.7494,
-    "wape_mean": 0.3033,
-    "wape_first": 0.1237,
-    "wape_last": 0.4374,
+    "readings": 835200,
+    "wape_min": 0.0994,
+    "wape_max": 0.4029,
+    "wape_mean": 0.1993,
+    "wape_first": 0.1063,
+    "wape_last": 0.2672,
     "best_month": {
-      "month": "2023-01",
+      "month": "2025-06",
       "skus": 600,
-      "readings": 13800,
-      "wape": 0.1237
+      "readings": 18000,
+      "wape": 0.0994
     },
     "worst_month": {
-      "month": "2025-01",
+      "month": "2023-06",
       "skus": 600,
-      "readings": 18600,
-      "wape": 0.7494
+      "readings": 18000,
+      "wape": 0.4029
     },
     "artefact": "data/agents/learn_curve.csv",
     "note": "Monthly WAPE of the loop's weekly seasonal-naive forecast read against realised sales, over the full 36-month walk. The spread is the seasonal discovery signal: the peak-demand months (Ramadan / Lebaran / year-end) carry the highest error, the quiet months the lowest."
